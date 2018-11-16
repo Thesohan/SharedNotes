@@ -11,7 +11,7 @@
     <ImageView
         android:layout_weight="5"
         android:layout_width="match_parent"
-        android:src="@drawable/umang"
+        android:background="@drawable/umang"
         android:layout_height="0dp" />
 
 
