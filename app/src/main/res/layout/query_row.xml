@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+
+    app:cardElevation="8dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+        android:id="@+id/linearLayoutQuery"
+        android:layout_margin="16dp"
+        android:orientation="vertical"
+        android:layout_marginBottom="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+        <LinearLayout
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Q :"
+                android:fontFamily="@fonart/josefin_bold"
+                android:textStyle="bold"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+
+                />
+
+            <TextView
+                android:id="@+id/questionTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:fontFamily="@fonart/josefin_bold"
+                android:text="question"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:textStyle="bold"
+
+                />
+
+        </LinearLayout>
+
+        <LinearLayout
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="Ans: "
+                android:fontFamily="@fonart/josefin_bold"
+                android:textStyle="bold"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+
+                />
+
+            <TextView
+                android:id="@+id/ansTextView"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:fontFamily="@fonart/josefin_bold"
+                android:text="....."
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+
+
+                />
+
+        </LinearLayout>
+        <Button
+            android:id="@+id/replyButton"
+            android:visibility="gone"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/com_facebook_blue"
+            android:text="Reply"
+            android:layout_margin="4dp"
+            android:layout_gravity="end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

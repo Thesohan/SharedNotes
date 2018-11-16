@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "705841696281",
+    "firebase_url": "https://umang-309f5.firebaseio.com",
+    "project_id": "umang-309f5",
+    "storage_bucket": "umang-309f5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705841696281:android:edd36ed8652c30ca",
+        "android_client_info": {
+          "package_name": "com.umangSRTC.thesohankathait.umang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705841696281-7gsbnnidhi45u4p7hbv0eh4tdl7gusn7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.umangSRTC.thesohankathait.umang",
+            "certificate_hash": "ec7e3db8a1e7cdcc77d25de1f12a2e44c99c6d1f"
+          }
+        },
+        {
+          "client_id": "705841696281-vpa27c2be229n3h4tt2ca002fnp7cf36.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.umangSRTC.thesohankathait.umang",
+            "certificate_hash": "cb2faf56dca8ccbae4c59f7c468e78f26f55e341"
+          }
+        },
+        {
+          "client_id": "705841696281-g0dgccnqvvlpi6jmou7q3thgtg9f69i0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCObfDTAyGrwpv0IFFhV7bgr-zTBz5LCzA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705841696281-g0dgccnqvvlpi6jmou7q3thgtg9f69i0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

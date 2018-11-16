@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">umang</string>
+    <string name="title_activity_functionality">Functionality</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">UMANG</string>
+    <string name="nav_header_subtitle">SRTC INFORMATION PORTAL</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="facebook_app_id">2187100611564069</string>
+    <string name="fb_login_protocol_scheme">fb2187100611564069</string>
+
+    <string name="adarsh_bhatt">Adarsh Bhatt</string>
+    <string name="university_representative">University Representative \n S.R.T.C Tehri \n Contact No. 9997909719</string>
+</resources>
