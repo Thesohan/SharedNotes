@@ -5,14 +5,14 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name="com.umangSRTC.thesohankathait.umang.java.Utill.Initialisation"
+        android:name="com.umangSRTC.thesohankathait.umang.javas.Utill.Initialisation"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.umangSRTC.thesohankathait.umang.java.Activity.Login">
+        <activity android:name="com.umangSRTC.thesohankathait.umang.javas.Activity.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.umangSRTC.thesohankathait.umang.java.Activity.Functionality"
+            android:name="com.umangSRTC.thesohankathait.umang.javas.Activity.Functionality"
             android:label="@string/title_activity_functionality"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -44,8 +44,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name="com.umangSRTC.thesohankathait.umang.java.Activity.AllNotification" />
-        <activity android:name="com.umangSRTC.thesohankathait.umang.java.Activity.Features"></activity>
+        <activity android:name="com.umangSRTC.thesohankathait.umang.javas.Activity.AllNotification" />
+        <activity android:name="com.umangSRTC.thesohankathait.umang.javas.Activity.Features"></activity>
     </application>
 
 </manifest>
