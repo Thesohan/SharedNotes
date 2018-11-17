@@ -7,7 +7,7 @@
     android:minWidth="600dp"
     android:minHeight="600dp"
     android:layout_height="match_parent"
-    tools:context=".java.Activity.AllNotification">
+    tools:context=".javas.Activity.AllNotification">
 
         <ListView
             android:id="@+id/requestPdfListView"
