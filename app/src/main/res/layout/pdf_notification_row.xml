@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    android:layout_marginBottom="24dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
     app:cardElevation="4dp"
     app:cardCornerRadius="8dp"
+    android:layout_margin="4dp"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:focusable="true"
-        android:id="@+id/allNotificationLinearLayout"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/imageandTitleLinearLayout"
+            android:focusable="true"
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -33,25 +33,22 @@
             <ImageView
 
                 android:layout_margin="4dp"
-                android:background="@drawable/notice"
-                android:id="@+id/allNoticeImageView"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
-                android:scaleType="fitXY"/>
+                android:background="@drawable/pdf"
+                android:id="@+id/pdfNoticeImageView"
+                android:layout_width="64dp"
+                android:layout_height="64dp"/>
             <TextView
-                android:padding="8sp"
-                android:layout_marginTop="8dp"
-                android:id="@+id/allNoiceTitleTextView"
+                android:layout_margin="4dp"
+                android:layout_gravity="center"
+                android:id="@+id/pdfNoiceTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Title"
-                android:textSize="20dp"
-                android:layout_gravity="center"
+                android:textSize="24dp"
                 android:background="@color/com_facebook_blue"
                 android:fontFamily="@font/josefin_bold"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                android:paddingLeft="8sp" />
+                android:textStyle="bold"/>
 
 
         </LinearLayout>
@@ -59,22 +56,45 @@
         <TextView
 
             android:layout_margin="4dp"
-            android:id="@+id/allNoticedescriptionTextView"
+            android:id="@+id/pdfNoticedescriptionTextView"
             android:layout_width="wrap_content"
             android:fontFamily="@font/josefin_bold"
-            android:textSize="16sp"
+            android:textSize="15sp"
             android:text="food Description will be here . This food is one of the best food in the market Here your are getting the facility of not only eating"
             android:layout_height="match_parent"/>
-        <TextView
+        <LinearLayout
+
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_margin="4dp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/josefin_bold"
+                android:text="School :"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/pdfschoolNameTextView"
+                android:text="School Name"
+                android:layout_weight="4"
+                android:maxLines="2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout> <TextView
             android:layout_margin="4dp"
             android:textColor="@color/com_facebook_blue"
             android:textSize="16sp"
             android:textStyle="bold"
             android:gravity="right"
             android:text="- Adarsh Bhatt"
-            android:id="@+id/senderTextView"
+            android:id="@+id/pdfsenderTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
 
     </LinearLayout>
 

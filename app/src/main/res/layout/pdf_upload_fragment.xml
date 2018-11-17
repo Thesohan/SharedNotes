@@ -29,7 +29,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <ImageView
-            android:id="@+id/uploadImageView"
+            android:id="@+id/pdfuploadImageView"
 
             android:layout_gravity="center"
             android:layout_width="96dp"
@@ -47,7 +47,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:fontFamily="@font/righteous"
-            android:id="@+id/titleEditText"
+            android:id="@+id/pdftitleEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
@@ -63,18 +63,18 @@
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:fontFamily="@font/righteous"
-            android:id="@+id/descriptionEditText"
+            android:id="@+id/pdfdescriptionEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/pdfspinner"
             android:layout_margin="24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
         <Button
             android:backgroundTint="@color/blue"
-            android:id="@+id/uploadButton"
+            android:id="@+id/pdfuploadButton"
             android:textStyle="bold"
             android:text="Upload"
             android:layout_marginBottom="16dp"

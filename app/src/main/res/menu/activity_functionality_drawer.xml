@@ -22,11 +22,6 @@
             android:id="@+id/query"
             android:icon="@drawable/ic_send_black_24dp"
             android:title="Query?"/>
-        <!--<item-->
-            <!--android:checkable="false"-->
-            <!--android:id="@+id/about"-->
-            <!--android:icon="@drawable/ic_people_black_24dp"-->
-            <!--android:title="About" />-->
         <item
             android:checkable="false"
             android:id="@+id/request"
