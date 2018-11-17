@@ -48,5 +48,8 @@ dependencies {
     //textDrawable
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
+    //flaotingaction button
+    implementation 'com.getbase:floatingactionbutton:1.10.1'
+
 }
 apply plugin: 'com.google.gms.google-services'
