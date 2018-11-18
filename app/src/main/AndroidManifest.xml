@@ -4,15 +4,18 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
-        android:name="com.umangSRTC.thesohankathait.umang.javas.Utill.Initialisation"
+        android:name="com.umangSRTC.thesohankathait.classes.Utill.Initialisation"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.umangSRTC.thesohankathait.umang.javas.Activity.Login">
+        <activity android:name="com.umangSRTC.thesohankathait.classes.Activity.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,7 +23,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.umangSRTC.thesohankathait.umang.javas.Activity.Functionality"
+            android:name="com.umangSRTC.thesohankathait.classes.Activity.Functionality"
             android:label="@string/title_activity_functionality"
             android:theme="@style/AppTheme.NoActionBar" />
 
@@ -44,8 +47,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name="com.umangSRTC.thesohankathait.umang.javas.Activity.AllNotification" />
-        <activity android:name="com.umangSRTC.thesohankathait.umang.javas.Activity.Features"></activity>
+        <activity android:name="com.umangSRTC.thesohankathait.classes.Activity.AllNotification" />
+        <activity android:name="com.umangSRTC.thesohankathait.classes.Activity.Features"></activity>
     </application>
 
 </manifest>

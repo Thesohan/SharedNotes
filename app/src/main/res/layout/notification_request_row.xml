@@ -17,11 +17,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="230dp">
+            android:layout_height="wrap_content">
 
-            <!--<ProgressBar-->
+
+        <!--<ProgressBar-->
                 <!--android:id="@+id/imageProgressBar"-->
                 <!--android:padding="95dp"-->
                 <!--android:indeterminateTint="@color/colorPrimary"-->
@@ -31,25 +33,29 @@
                 <!--android:layout_height="match_parent"/>-->
 
             <ImageView
+
                 android:background="@drawable/notice"
                 android:id="@+id/allNoticeImageView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
                 android:scaleType="fitXY"/>
             <TextView
+                android:padding="8sp"
+                android:layout_margin="4dp"
                 android:id="@+id/allNoiceTitleTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@id/allNoticeImageView"
                 android:text="Title"
                 android:textSize="20dp"
+                android:layout_gravity="center"
                 android:background="@color/com_facebook_blue"
                 android:fontFamily="@font/josefin_bold"
                 android:textColor="@color/white"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:paddingLeft="8sp" />
 
 
-        </RelativeLayout>
+        </LinearLayout>
 
         <TextView
 
