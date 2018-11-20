@@ -1,5 +1,6 @@
 package com.umangSRTC.thesohankathait.classes.Utill;
 
+import com.umangSRTC.thesohankathait.classes.model.AboutUmang_model;
 import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.classes.model.Query_model;
 
@@ -19,6 +20,12 @@ public class Equals {
                     notices.getDescription().equals(currentNotice.getDescription());
 
         }
+    }
+
+    public static boolean BothEqual(AboutUmang_model aboutUmang,AboutUmang_model currentAboutUmang){
+
+        return aboutUmang.getAbout().equals(currentAboutUmang.getAbout())&&
+                aboutUmang.getImageUrl().equals(currentAboutUmang.getImageUrl());
     }
 
     public static boolean BothEqual(Query_model currentQuery, Query_model old_query_model) {
