@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.umangSRTC.thesohankathait.classes.Fragment.Request;
+import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
 import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.umang.R;
@@ -238,6 +239,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
                     Notices currentNotice=finalDataSnapshot.getValue(Notices.class);
                     if(Equals.BothEquals(currentNotice,notices)){
                         finalDataSnapshot.getRef().removeValue();
+                        DeleteFromFirebaseStorage.deleteByDownloadUrl(context,notices.getImageUrl());
 
                         Toast.makeText(context, "Notice Removed", Toast.LENGTH_SHORT).show();
                         for(int i = 0; i<Request.noticeRequestArrayList.size(); i++){
@@ -247,6 +249,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
                             }
                         }
                         Request.requestArrayAdapter.notifyDataSetChanged();
+                        DeleteFromFirebaseStorage.deleteByDownloadUrl(context,notices.getImageUrl());
                     }
                 }
             }

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -15,6 +16,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
+import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.umang.R;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.classes.Utill.Equals;
@@ -53,7 +56,7 @@ public class Notification extends Fragment {
                 noticesViewHolder.allNoticeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showFullImage(postion, notices);
+                        showFullImage(schoolName, notices);
                     }
                 });
 
@@ -103,6 +106,7 @@ public class Notification extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (Equals.BothEquals(notices, dataSnapshot.getValue(Notices.class))) {
                     dataSnapshot.getRef().removeValue();
+                    DeleteFromFirebaseStorage.deleteByDownloadUrl(getContext(),notices.getImageUrl());
                 }
             }
 
@@ -128,9 +132,17 @@ public class Notification extends Fragment {
         });
     }
 
-    private void showFullImage(int postion, Notices notices) {
+    private void showFullImage(final String schoolName, final Notices notices) {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.full_screen_notification, null, false);
         ImageView imageView = view.findViewById(R.id.allNoticeImageView);
+        Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
+        imageDownloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DownloadTask downloadTask=new DownloadTask(getContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
+                downloadTask.DownloadData();
+            }
+        });
         Picasso.get().load(notices.getImageUrl()).into(imageView);
         AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                 .setView(view)

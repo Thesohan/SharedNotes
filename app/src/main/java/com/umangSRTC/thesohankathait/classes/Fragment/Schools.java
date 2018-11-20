@@ -171,8 +171,13 @@ public class Schools extends Fragment {
     }
 
     private boolean addSchoolIntoFirebase(String schoolName) {
-        FirebaseDatabase.getInstance().getReference("Schools").push().setValue(schoolName);
-        return true;
+        if(Admin.isSchoolCorrect(schoolName)){
+            FirebaseDatabase.getInstance().getReference("Schools").push().setValue(schoolName);
+            return true;
+        }
+        else{
+            return false;
+        }
 
     }
 

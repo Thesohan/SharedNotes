@@ -11,5 +11,15 @@ public class Admin {
             return false;
         }
     }
+    public static boolean isSchoolCorrect(String schoolName){
+        String deniedString[]={".","/","#","$","[","]"};
+        for(String denied:deniedString){
+            if(schoolName.contains(denied)){
+                return false;
+            }
+        }
+        return true;
+
+    }
 
 }

@@ -2,7 +2,7 @@ package com.umangSRTC.thesohankathait.classes.model;
 
 public class Notices {
     //for pdf imageUrl==pdfUri or downloadURL
-    private String description,title,sender,imageUrl;
+    private String description,title,sender,imageUrl,fileExtension;
 
     public Notices() {
     }
@@ -13,11 +13,21 @@ public class Notices {
         this.title = title;
         this.sender = sender;
         this.imageUrl = imageUrl;
+        this.fileExtension="JPEG";
     }
 
     public String getDescription() {
 
         return description;
+    }
+
+    public String getFileExtension() {
+        return fileExtension;
+    }
+
+
+    public void setFileExtension(String fileExtension) {
+        this.fileExtension = fileExtension;
     }
 
     public void setDescription(String description) {

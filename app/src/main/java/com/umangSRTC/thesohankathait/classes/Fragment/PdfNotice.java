@@ -33,18 +33,16 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.umangSRTC.thesohankathait.classes.Adapter.RequestPdfNoticeArrayAdapter;
-import com.umangSRTC.thesohankathait.classes.Utill.PdfDownloadTask;
+import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
+import com.umangSRTC.thesohankathait.classes.Utill.FileExtension;
+import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.classes.ViewHolders.PdfNoticesViewHolder;
 import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
 import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.umang.R;
-import com.umangSRTC.thesohankathait.classes.Adapter.RequestPdfNoticeArrayAdapter;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.classes.Utill.Equals;
 import com.umangSRTC.thesohankathait.classes.Utill.Initialisation;
-import com.umangSRTC.thesohankathait.classes.ViewHolders.PdfNoticesViewHolder;
-import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
-import com.umangSRTC.thesohankathait.classes.model.Notices;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -79,6 +77,8 @@ public class PdfNotice extends Fragment {
     private  Spinner spinner;
     private SpinnerAdapter spinnerArrayAdapter;
 
+    private String fileExtension="pdf";
+    private AlertDialog uploadDialogBuilder;
     private  ListView requestPdfListView;
     public static ArrayList<NoticeRequest> pdfNoticeRequestList;
     private FirebaseRecyclerAdapter<Notices,PdfNoticesViewHolder> firebaseRecyclerAdapter;
@@ -157,8 +157,8 @@ public class PdfNotice extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        PdfDownloadTask pdfDownloadTask=new PdfDownloadTask(getContext(),notices.getImageUrl(),notices.getTitle(),schoolName);
-                        pdfDownloadTask.DownloadData();
+                        DownloadTask downloadTask =new DownloadTask(getContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
+                        downloadTask.DownloadData();
 //
 //
                         //download pdf
@@ -209,6 +209,7 @@ public class PdfNotice extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (Equals.BothEquals(notices, dataSnapshot.getValue(Notices.class))) {
                     dataSnapshot.getRef().removeValue();
+                    DeleteFromFirebaseStorage.deleteByDownloadUrl(getContext(),notices.getImageUrl());
                 }
             }
 
@@ -310,6 +311,11 @@ public class PdfNotice extends Fragment {
                         Initialisation.schools); //selected item will look like a spinner set from XML
         ((ArrayAdapter) spinnerArrayAdapter).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerArrayAdapter);
+
+
+        uploadDialogBuilder=new AlertDialog.Builder(getContext())
+                .setView(view).show();
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -324,14 +330,13 @@ public class PdfNotice extends Fragment {
                     selectedSchool = spinner.getSelectedItem().toString();
                     showProgressDialog();
                     uploadPdf(pdfUri);
+
                 } else {
                     Toast.makeText(getContext(), "Please fill all fields first!", Toast.LENGTH_LONG).show();
                 }
             }
         });
 
-        AlertDialog builder=new AlertDialog.Builder(getContext())
-                .setView(view).show();
     }
 
     private void uploadPdf(Uri pdfUri) {
@@ -375,7 +380,7 @@ public class PdfNotice extends Fragment {
     private void uploadintoFirebase() {
         progressDialog.dismiss();
         Notices notices=new Notices(descriptionEditText.getText().toString(),titleEditText.getText().toString(),FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),pdfUrl);
-
+        notices.setFileExtension(fileExtension);
         if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
             FirebaseDatabase.getInstance().getReference("PdfCategory").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
@@ -393,6 +398,7 @@ public class PdfNotice extends Fragment {
             });
         }
 
+        uploadDialogBuilder.dismiss();
     }
 
     private boolean allSet() {
@@ -448,6 +454,7 @@ public class PdfNotice extends Fragment {
             if (data.getData() != null) {
                 //uploading the file
                 pdfUri=data.getData();
+                fileExtension=FileExtension.getMimeType(getContext(),pdfUri);
             } else {
                 Toast.makeText(getContext(), "No file chosen", Toast.LENGTH_SHORT).show();
             }
