@@ -1,11 +1,13 @@
 package com.umangSRTC.thesohankathait.classes.Utill;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.umangSRTC.thesohankathait.classes.Fragment.Schools;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,6 +42,13 @@ public class Initialisation extends Application {
                         schoolArrayList.add(dataSnapshot.getValue().toString());
                         Collections.sort(schoolArrayList);
                         Collections.sort(schools.subList(1, schools.size()));
+
+
+                        // Refresh list on addition for instant effect
+                        if(Schools.schoolsFragmentInstance!=null){
+                            Log.i("refreshlist", "onChildRemoved: "+"list refereshed");
+                            Schools.schoolsFragmentInstance.schoolsArrayAdapter.notifyDataSetChanged();
+                        }
                     }
                 }
 
@@ -52,6 +61,21 @@ public class Initialisation extends Application {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
+                // get the removed school
+                String removedSchool = dataSnapshot.getValue().toString();
+                Log.i("School removed", "onChildRemoved: "+removedSchool);
+
+                // Remove the school from the local arraylists 'School' and 'schoolArrayList' whenever the child is removed from
+                // firebase , to keep things syncronised
+                schools.remove(removedSchool);
+                schoolArrayList.remove(removedSchool);
+
+                // Notify dataset change in schools list otherwise it could get index out of bounds
+                // due to deletion without notifying deletion
+                if(Schools.schoolsFragmentInstance!=null){
+                    Log.i("refreshlist", "onChildRemoved: "+"list refereshed");
+                    Schools.schoolsFragmentInstance.schoolsArrayAdapter.notifyDataSetChanged();
+                }
 
             }
 
