@@ -36,13 +36,19 @@ public class Schools extends Fragment {
 
     private ListView schoolsListView;
     private Button addSchoolsFloatingActionButton;
-    private SchoolsArrayAdapter schoolsArrayAdapter;
+    public SchoolsArrayAdapter schoolsArrayAdapter;
     private TextView hintTextView;
+
+    public static Schools schoolsFragmentInstance;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.schools_fragment,container,false);
+
+        // requied for refreshing school list from outside
+        schoolsFragmentInstance = this;
+
 
         schoolsListView=view.findViewById(R.id.schoolsListView);
         addSchoolsFloatingActionButton=view.findViewById(R.id.addSchoolsFloatingActionButton);
