@@ -179,6 +179,9 @@ public class Functionality extends AppCompatActivity
                     case 2:
                         navigationView.setCheckedItem(R.id.schools);
                         break;
+                    case 3:
+                        navigationView.setCheckedItem(R.id.aboutUmang);
+                        break;
                 }
 
             }
@@ -300,6 +303,12 @@ public class Functionality extends AppCompatActivity
 
         } else if (id == R.id.feedback) {
             sendFeedbackViaMail();
+
+        } else if (id == R.id.aboutUmang) {
+
+            tabLayout.setScrollPosition(3,0f,false);
+            viewPager.setCurrentItem(3,true);
+
 
         } else if (id == R.id.query) {
             sendIntent("Query");

@@ -2,6 +2,7 @@ package com.umangSRTC.thesohankathait.classes.Adapter;
 
 import android.util.Log;
 
+import com.umangSRTC.thesohankathait.classes.Fragment.AboutUmang;
 import com.umangSRTC.thesohankathait.classes.Fragment.Notification;
 import com.umangSRTC.thesohankathait.classes.Fragment.Schools;
 import com.umangSRTC.thesohankathait.classes.Fragment.Upload;
@@ -30,13 +31,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
             case 2:
                 return Schools.newInstance();
+            case 3:
+                return AboutUmang.newInstance();
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     @Nullable
@@ -45,13 +48,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         switch(position){
             case 0:
-                return "Notification";
+                return "Notices";
 
             case 1:
                 return "Upload";
 
             case 2:
                 return "Schools";
+            case 3:
+                return "About";
 
         }
         return null;

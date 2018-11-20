@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/aboutUmangRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </androidx.recyclerview.widget.RecyclerView>
+    <Button
+        android:id="@+id/addAboutButton"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom|right"
+        android:background="@drawable/ic_add_circle_black_24dp"
+        android:backgroundTint="@color/com_facebook_blue"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
