@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +37,7 @@ public class Schools extends Fragment {
     private ListView schoolsListView;
     private Button addSchoolsFloatingActionButton;
     private SchoolsArrayAdapter schoolsArrayAdapter;
+    private TextView hintTextView;
 
     @Nullable
     @Override
@@ -43,6 +46,12 @@ public class Schools extends Fragment {
 
         schoolsListView=view.findViewById(R.id.schoolsListView);
         addSchoolsFloatingActionButton=view.findViewById(R.id.addSchoolsFloatingActionButton);
+        hintTextView=view.findViewById(R.id.hintTextview);
+
+        //fon movable textview
+        hintTextView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
+        hintTextView.setSingleLine(true);
+        hintTextView.setSelected(true);
 
         if(!Admin.CheckAdmin(User.getCurrentUser().email))
             addSchoolsFloatingActionButton.setVisibility(View.GONE);
