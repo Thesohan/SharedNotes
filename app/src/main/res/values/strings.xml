@@ -11,5 +11,10 @@
     <string name="fb_login_protocol_scheme">fb2187100611564069</string>
 
     <string name="adarsh_bhatt">Adarsh Bhatt</string>
+    <string name="notificationChannelId">com.umangSRTC.thesohankathait.umang.notification.channel</string>
     <string name="university_representative">University Representative \n S.R.T.C Tehri \n Contact No. 9997909719</string>
+    <string name="schools_name_must_not_contains">Schools name must not contains:\".\", \"/\", \"#\", \"$\", \"[\", \"]\"</string>
+    <string name="school_name">School Name :</string>
+    <string name="enter_school_name">Enter School Name</string>
+    <string name="channelName">notification</string>
 </resources>

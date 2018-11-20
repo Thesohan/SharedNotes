@@ -22,8 +22,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.Utill.Equals;
-import com.umangSRTC.thesohankathait.classes.Utill.PdfDownloadTask;
+import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.umang.R;
 import com.umangSRTC.thesohankathait.classes.Fragment.PdfNotice;
 import com.umangSRTC.thesohankathait.classes.Utill.Initialisation;
@@ -95,9 +96,9 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
                 @Override
                 public void onClick(View v) {
 
-                   PdfDownloadTask pdfDownloadTask=new PdfDownloadTask(context,notices.getImageUrl(),
-                            notices.getTitle(),pdfNoticeRequestsArrayList.get(position).getSchoolName());
-                    pdfDownloadTask.DownloadData();
+                   DownloadTask downloadTask =new DownloadTask(context,notices.getImageUrl(),
+                            notices.getTitle(),pdfNoticeRequestsArrayList.get(position).getSchoolName(),notices.getFileExtension());
+                    downloadTask.DownloadData();
                 }
             });
 
@@ -235,6 +236,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
                         for(int i = 0; i<PdfNotice.pdfNoticeRequestList.size(); i++){
                             if(Equals.BothEquals(PdfNotice.pdfNoticeRequestList.get(i).getNotices(),notices)){
                                 PdfNotice.pdfNoticeRequestList.remove(i);
+                                DeleteFromFirebaseStorage.deleteByDownloadUrl(context,notices.getImageUrl());
                                 break;
                             }
                         }

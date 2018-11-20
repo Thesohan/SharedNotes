@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -25,11 +26,13 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.umangSRTC.thesohankathait.classes.Activity.Functionality;
+import com.umangSRTC.thesohankathait.classes.Utill.CompressImages;
 import com.umangSRTC.thesohankathait.classes.Utill.Initialisation;
 import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.umang.R;
 
+import java.io.IOException;
 import java.util.UUID;
 
 import androidx.annotation.NonNull;
@@ -133,37 +136,45 @@ public class Upload extends Fragment {
     }
     private void uploadImage(Uri imageUri) {
         UUID uuid=UUID.randomUUID();
-        FirebaseStorage.getInstance().getReference().child(uuid.toString()).putFile(imageUri).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                progressDialog.setMessage("please wait..."+((100*taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount())+"%");
+        CompressImages compressImages=new CompressImages(context,imageUri);
+        try {
+            byte[] data=compressImages.compress();
+            FirebaseStorage.getInstance().getReference().child(uuid.toString()).putBytes(data).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                    progressDialog.setMessage("please wait..."+((100*taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount())+"%");
 
-            }
-        }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if(task.isSuccessful()){
-                    task.getResult().getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if(task.isSuccessful()) {
-                                Toast.makeText(getContext(), "file uploaded", Toast.LENGTH_SHORT).show();
-                                imageURl =task.getResult().toString();
-                                uploadintoFirebase();
+                }
+            }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                    if(task.isSuccessful()){
+                        task.getResult().getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Uri> task) {
+                                if(task.isSuccessful()) {
+                                    Toast.makeText(getContext(), "file uploaded", Toast.LENGTH_SHORT).show();
+                                    imageURl =task.getResult().toString();
+                                    uploadintoFirebase();
 
+                                }
+                                else{
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getContext(), ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                }
                             }
-                            else{
-                                progressDialog.dismiss();
-                                Toast.makeText(getContext(), ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
+                        });
+                    }
+                    else{
+                        Toast.makeText(getContext(), ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                    }
                 }
-                else{
-                    Toast.makeText(getContext(), ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+            });
+        } catch (IOException e) {
+            Toast.makeText(getContext(), ""+e.toString(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+
     }
 
     private void uploadintoFirebase() {

@@ -7,11 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -21,6 +23,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
+import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
+import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.umang.R;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.classes.ViewHolders.NoticesViewHolder;
@@ -36,6 +40,7 @@ public class AllNotification extends AppCompatActivity {
         setContentView(R.layout.activity_all_notification);
         Intent intent=getIntent();
         String schoolName=intent.getStringExtra("SCHOOL");
+
 
         recyclerView=findViewById(R.id.allNotificationRecyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -56,7 +61,7 @@ public class AllNotification extends AppCompatActivity {
                 noticesViewHolder.allNoticeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showFullImage(postion,notices);
+                        showFullImage(schoolName,notices);
                     }
                 });
                 if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
@@ -104,6 +109,7 @@ public class AllNotification extends AppCompatActivity {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     if(BothEquals(notices,dataSnapshot.getValue(Notices.class))){
                         dataSnapshot.getRef().removeValue();
+                        DeleteFromFirebaseStorage.deleteByDownloadUrl(AllNotification.this, notices.getImageUrl());
                 }
             }
 
@@ -138,10 +144,20 @@ public class AllNotification extends AppCompatActivity {
                 notices.getDescription().equals(currentNotice.getDescription());
     }
 
-    private void showFullImage(int postion,Notices notices) {
+    private void showFullImage(final String schoolName, final Notices notices) {
         View view=LayoutInflater.from(this).inflate(R.layout.full_screen_notification,null,false);
         ImageView imageView=view.findViewById(R.id.allNoticeImageView);
         Picasso.get().load(notices.getImageUrl()).into(imageView);
+        Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
+        imageDownloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DownloadTask downloadTask=new DownloadTask(getApplicationContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
+                downloadTask.DownloadData();
+            }
+        });
+
+
         AlertDialog alertDialog= new AlertDialog.Builder(this)
                 .setView(view)
                 .show();

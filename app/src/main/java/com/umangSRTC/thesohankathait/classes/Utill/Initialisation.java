@@ -26,6 +26,7 @@ public class Initialisation extends Application {
         schoolArrayList=new ArrayList<>();
         getSchools();
 
+
     }
 
     private void getSchools() {

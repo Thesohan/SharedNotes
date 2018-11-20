@@ -20,10 +20,10 @@ import com.facebook.login.LoginManager;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.umangSRTC.thesohankathait.classes.Services.RequestService;
 import com.umangSRTC.thesohankathait.umang.R;
 import com.umangSRTC.thesohankathait.classes.Adapter.ViewPagerAdapter;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
-import com.umangSRTC.thesohankathait.classes.Utill.PdfDownloadTask;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
@@ -38,7 +38,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import static com.umangSRTC.thesohankathait.classes.Utill.PdfDownloadTask.downloadReference;
+import static com.umangSRTC.thesohankathait.classes.Utill.DownloadTask.downloadReference;
 
 public class Functionality extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -94,6 +94,16 @@ public class Functionality extends AppCompatActivity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_functionality);
+
+
+        //starting services for admin
+
+
+        if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+            Intent serviceIntent=new Intent(Functionality.this,RequestService.class);
+            startService(serviceIntent);
+        }
+
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
