@@ -382,6 +382,7 @@ public class Functionality extends AppCompatActivity
                         LoginManager.getInstance().logOut();
 
                         finish();
+
                         dialog.dismiss();
                     }
                 })
