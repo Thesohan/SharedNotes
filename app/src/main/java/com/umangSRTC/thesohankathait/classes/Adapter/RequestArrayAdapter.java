@@ -73,7 +73,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
                 @Override
                 public void onClick(View v) {
 //                    Toast.makeText(context, "edit ", Toast.LENGTH_SHORT).show();
-                    showEditBoxForNotice(noticeRequestsArrayList.get(position).getSchoolName(),notices);
+                    showEditBoxForNotice(noticeRequestsArrayList.get(position).getSchoolName(),notices,"edit");
                 }
             });
 
@@ -81,7 +81,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
                 @Override
                 public void onClick(View v) {
 
-                    adminIsSureforDeny(noticeRequestsArrayList.get(position).getSchoolName(),notices);
+                    adminIsSureforDeny(noticeRequestsArrayList.get(position).getSchoolName(),notices,"deny");
 
                 }
             });
@@ -90,7 +90,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
                 @Override
                 public void onClick(View v) {
 //                    Toast.makeText(context, "allow", Toast.LENGTH_SHORT).show();
-                    adminIsSureforAllow(noticeRequestsArrayList.get(position).getSchoolName(),notices);
+                    adminIsSureforAllow(noticeRequestsArrayList.get(position).getSchoolName(),notices,"allow");
                 }
             });
 
@@ -110,7 +110,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
     }
 //*********************** for edit a notice************************
 
-    private void showEditBoxForNotice(final String schoolName, final Notices notices) {
+    private void showEditBoxForNotice(final String schoolName, final Notices notices, final String action) {
 
             View view=LayoutInflater.from(context).inflate(R.layout.edit_notice,null,false);
             final EditText titleEditText=view.findViewById(R.id.editTitleEditText);
@@ -135,7 +135,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(!schoolNameSpinner.getSelectedItem().equals("Select Schools")) {
-                            deleteNoticeFromFireBase(schoolName, notices);//deleting notice from request reference
+                            deleteNoticeFromFireBase(schoolName, notices,action);//deleting notice from request reference
                             //here we are creating a new notice instance since we will delete the old notice, so we can't assign the new values to old notice
                             Notices newNotice=new Notices(descriptionEditText.getText().toString(),titleEditText.getText().toString(),
                                     notices.getSender(),notices.getImageUrl());
@@ -156,7 +156,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
     // //********************for allow a notice******************
 
 
-    private void adminIsSureforAllow(final String schoolName, final Notices notices) {
+    private void adminIsSureforAllow(final String schoolName, final Notices notices, final String action) {
 
         AlertDialog builder=new AlertDialog.Builder(context)
                 .setIcon(R.drawable.ic_warning_black_24dp)
@@ -165,7 +165,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteNoticeFromFireBase(schoolName,notices); //deleting notice from request reference
+                        deleteNoticeFromFireBase(schoolName,notices,action); //deleting notice from request reference
                         alloWNotice(schoolName,notices);   //adding notice into category.
                         dialog.dismiss();
 
@@ -209,7 +209,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
         //********************for deny a notice******************
 
 
-    private void adminIsSureforDeny(final String schoolName, final Notices notices) {
+    private void adminIsSureforDeny(final String schoolName, final Notices notices, final String action) {
 
         AlertDialog builder=new AlertDialog.Builder(context)
                 .setIcon(R.drawable.ic_warning_black_24dp)
@@ -218,7 +218,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteNoticeFromFireBase(schoolName,notices);
+                        deleteNoticeFromFireBase(schoolName,notices,action);
                         dialog.dismiss();
 
                     }
@@ -230,7 +230,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
     }
 
 
-    private void deleteNoticeFromFireBase(String schoolName, final Notices notices) {
+    private void deleteNoticeFromFireBase(String schoolName, final Notices notices, final String action) {
 
         FirebaseDatabase.getInstance().getReference("Requests").child(schoolName).addValueEventListener(new ValueEventListener() {
             @Override
@@ -239,15 +239,20 @@ public class RequestArrayAdapter extends ArrayAdapter{
                     Notices currentNotice=finalDataSnapshot.getValue(Notices.class);
                     if(Equals.BothEquals(currentNotice,notices)){
                         finalDataSnapshot.getRef().removeValue();
-                        DeleteFromFirebaseStorage.deleteByDownloadUrl(context,notices.getImageUrl());
 
-                        Toast.makeText(context, "Notice Removed", Toast.LENGTH_SHORT).show();
+                        //since if action is edit/allow we need the file from firebase storage
+                        if(action.equals("deny")) {
+                            DeleteFromFirebaseStorage.deleteByDownloadUrl(context, notices.getImageUrl());
+                            Toast.makeText(context, "Notice Removed", Toast.LENGTH_SHORT).show();
+                        }
+
                         for(int i = 0; i<Request.noticeRequestArrayList.size(); i++){
                             if(Equals.BothEquals(Request.noticeRequestArrayList.get(i).getNotices(),notices)){
                                 Request.noticeRequestArrayList.remove(i);
                                 break;
                             }
                         }
+
                         Request.requestArrayAdapter.notifyDataSetChanged();
                         DeleteFromFirebaseStorage.deleteByDownloadUrl(context,notices.getImageUrl());
                     }
