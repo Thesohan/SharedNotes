@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,6 +37,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class Query extends Fragment {
     private RecyclerView queryRecyclerView;
+    private ProgressBar queryProgressbar;
     private FirebaseRecyclerAdapter<Query_model,QueryViewHolder> firebaseRecyclerAdapter;
     private FloatingActionButton askQueryFloatingActionButton;
     @Nullable
@@ -45,6 +47,8 @@ public class Query extends Fragment {
         queryRecyclerView=view.findViewById(R.id.queryRecyclerView);
         askQueryFloatingActionButton=view.findViewById(R.id.askQueryFloatingActionButton);
 
+        queryProgressbar=view.findViewById(R.id.queryProgressbar);
+
         askQueryFloatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,7 +57,11 @@ public class Query extends Fragment {
             }
         });
 
-        queryRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+        linearLayoutManager.setReverseLayout(true);//it will set the recycler view to show the elements in bottom up manner.
+        linearLayoutManager.setStackFromEnd(true);//it will show the last element first.
+        queryRecyclerView.setLayoutManager(linearLayoutManager);
         queryRecyclerView.setHasFixedSize(true);
 
         fetchQueryFromFirebase();
@@ -74,6 +82,10 @@ public class Query extends Fragment {
         firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Query_model, QueryViewHolder>(Query_model.class,R.layout.query_row,QueryViewHolder.class,FirebaseDatabase.getInstance().getReference("Query")) {
             @Override
             protected void populateViewHolder(QueryViewHolder queryViewHolder, final Query_model query_model, int i) {
+
+
+                queryProgressbar.setVisibility(View.GONE);
+
                 if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
                     queryViewHolder.replyButton.setVisibility(View.VISIBLE);
 

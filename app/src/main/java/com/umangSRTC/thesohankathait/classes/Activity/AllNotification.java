@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -37,6 +38,7 @@ public class AllNotification extends AppCompatActivity {
 
     private  RecyclerView recyclerView;
     private FirebaseRecyclerAdapter<Notices,NoticesViewHolder> firebaseRecyclerAdapter;
+    private ProgressBar allNotificationProgressbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,8 +47,12 @@ public class AllNotification extends AppCompatActivity {
         String schoolName=intent.getStringExtra("SCHOOL");
 
 
+        allNotificationProgressbar=findViewById(R.id.allNotificationProgressbar);
         recyclerView=findViewById(R.id.allNotificationRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        linearLayoutManager.setReverseLayout(true);//it will set the recycler view to show the elements in bottom up manner.
+        linearLayoutManager.setStackFromEnd(true);//it will show the last element first.
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
         fetchDataFromFirebase(schoolName);
 
@@ -61,9 +67,11 @@ public class AllNotification extends AppCompatActivity {
         firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Notices, NoticesViewHolder>(Notices.class,R.layout.all_notification_row,NoticesViewHolder.class,FirebaseDatabase.getInstance().getReference("Category").child(schoolName)) {
             @Override
             protected void populateViewHolder(final NoticesViewHolder noticesViewHolder, final Notices notices, final int postion) {
+
+                allNotificationProgressbar.setVisibility(View.GONE);
                 noticesViewHolder.allNoticeTitleTextView.setText(notices.getTitle());
                 noticesViewHolder.allNoticeDescriptionTextView.setText(notices.getDescription());
-               Glide.with(getApplicationContext()).load(notices.getImageUrl()).into(noticesViewHolder.allNoticeImageView);
+                Glide.with(getApplicationContext()).load(notices.getImageUrl()).into(noticesViewHolder.allNoticeImageView);
                 noticesViewHolder.allNoticeSenderTextview.setText(notices.getSender());
 
                 noticesViewHolder.allNoticeImageView.setOnClickListener(new View.OnClickListener() {

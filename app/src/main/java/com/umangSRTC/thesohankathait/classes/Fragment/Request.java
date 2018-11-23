@@ -41,7 +41,6 @@ public class Request extends Fragment {
         requestListView = view.findViewById(R.id.requestListView);
         requestArrayAdapter = new RequestArrayAdapter(context, noticeRequestArrayList);
         requestListView.setAdapter(requestArrayAdapter);
-
         fetchRequestedNotice();
         requestListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

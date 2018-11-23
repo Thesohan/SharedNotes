@@ -200,6 +200,9 @@ public class Upload extends Fragment {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getContext(), "notice send", Toast.LENGTH_SHORT).show();
+
+                    //IF we call this method outside than it can be executed before the data got uploaded.
+                    goToFirstPage();
                 }
             });
         }
@@ -208,11 +211,11 @@ public class Upload extends Fragment {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getContext(), "Your NoticeRequest is send to admin, thankyou!", Toast.LENGTH_SHORT).show();
+                    goToFirstPage();
                 }
             });
         }
 
-        goToFirstPage();
     }
 
     private void goToFirstPage() {

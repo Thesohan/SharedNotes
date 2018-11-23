@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -56,10 +57,12 @@ public class AboutUmang extends Fragment {
     private String imageUrl;
     private ProgressDialog progressDialog;
     private AlertDialog builder;
+    private ProgressBar aboutUmangProgressbar;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.about_umang_fragment,container,false);
+        aboutUmangProgressbar=view.findViewById(R.id.aboutUmangProgressbar);
         aboutUmnagRecyclerView=view.findViewById(R.id.aboutUmangRecyclerView);
         addAboutButton=view.findViewById(R.id.addAboutButton);
         if(!Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
@@ -94,6 +97,7 @@ public class AboutUmang extends Fragment {
             @Override
             protected void populateViewHolder(AboutUmangViewHolder aboutUmangViewHolder, final AboutUmang_model aboutUmang_model, int i) {
 
+                aboutUmangProgressbar.setVisibility(View.GONE);
                 Glide.with(getContext())
                         .load(aboutUmang_model.getImageUrl())
                         .into(aboutUmangViewHolder.aboutUmangImageView);

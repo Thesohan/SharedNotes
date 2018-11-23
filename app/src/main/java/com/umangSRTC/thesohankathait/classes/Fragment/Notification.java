@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -35,6 +36,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class Notification extends Fragment {
     private RecyclerView recyclerView;
+    private ProgressBar allNotificationProgressbar;
     private FirebaseRecyclerAdapter<Notices,NoticesViewHolder> firebaseRecyclerAdapter;
 
     @Nullable
@@ -42,7 +44,11 @@ public class Notification extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.activity_all_notification,container,false);
         recyclerView=view.findViewById(R.id.allNotificationRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        allNotificationProgressbar=view.findViewById(R.id.allNotificationProgressbar);
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+        linearLayoutManager.setReverseLayout(true);//it will set the recycler view to show the elements in bottom up manner.
+        linearLayoutManager.setStackFromEnd(true);//it will show the last element first.
+        recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
         fetchDataFromFirebase("Notification");
 
@@ -58,6 +64,8 @@ public class Notification extends Fragment {
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Notices, NoticesViewHolder>(Notices.class, R.layout.all_notification_row, NoticesViewHolder.class, FirebaseDatabase.getInstance().getReference("Category").child(schoolName)) {
             @Override
             protected void populateViewHolder(NoticesViewHolder noticesViewHolder, final Notices notices, final int postion) {
+
+                allNotificationProgressbar.setVisibility(View.GONE);
                 noticesViewHolder.allNoticeTitleTextView.setText(notices.getTitle());
                 noticesViewHolder.allNoticeDescriptionTextView.setText(notices.getDescription());
                 Glide.with(getContext()).load(notices.getImageUrl()).into(noticesViewHolder.allNoticeImageView);

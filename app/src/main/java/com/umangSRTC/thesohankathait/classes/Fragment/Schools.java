@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,6 +39,7 @@ public class Schools extends Fragment {
     private Button addSchoolsFloatingActionButton;
     public SchoolsArrayAdapter schoolsArrayAdapter;
     private TextView hintTextView;
+    public static ProgressBar schoolProgressbar;
 
     public static Schools schoolsFragmentInstance;
 
@@ -46,6 +48,7 @@ public class Schools extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.schools_fragment,container,false);
 
+        schoolProgressbar=view.findViewById(R.id.schoolProgressbar);
         // requied for refreshing school list from outside
         schoolsFragmentInstance = this;
 
@@ -59,7 +62,8 @@ public class Schools extends Fragment {
         hintTextView.setSingleLine(true);
         hintTextView.setSelected(true);
 
-        if(!Admin.CheckAdmin(User.getCurrentUser().email))
+        //it is null somtimes
+        if(User.getCurrentUser()!=null && !Admin.CheckAdmin(User.getCurrentUser().email))
             addSchoolsFloatingActionButton.setVisibility(View.GONE);
 //        for(int i=1;i<Initialisation.schools.size();i++){
 //            schoolArrayList.add(Initialisation.schools.get(i));

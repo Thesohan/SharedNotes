@@ -54,7 +54,7 @@ public class DownloadTask {
 
         if (CheckNetwork.isNetworkAvailable(context) && url!=null) {
 
-            Toast.makeText(context, "Downloadinig started...", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, "Downloading started...", Toast.LENGTH_LONG).show();
 
 //            new CountDownTimer(5000, 1000) {
 //                @Override
@@ -102,25 +102,5 @@ public class DownloadTask {
             }
         }
     }
-
-    public String getMimeType(Uri uri) {
-        String extension;
-
-        //Check uri format to avoid null
-        if (uri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
-            //If scheme is a content
-            final MimeTypeMap mime = MimeTypeMap.getSingleton();
-            extension = mime.getExtensionFromMimeType(context.getContentResolver().getType(uri));
-        } else {
-            //If scheme is a File
-            //This will replace white spaces with %20 and also other special characters. This will avoid returning null values on file name with spaces and special characters.
-            extension = MimeTypeMap.getFileExtensionFromUrl(Uri.fromFile(new File(uri.getPath())).toString());
-
-        }
-
-        Log.d("extension****",extension);
-        return extension;
-    }
-
 
 }

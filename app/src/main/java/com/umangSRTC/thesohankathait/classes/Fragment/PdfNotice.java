@@ -3,6 +3,7 @@ package com.umangSRTC.thesohankathait.classes.Fragment;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ProxyInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
@@ -88,6 +90,7 @@ public class PdfNotice extends Fragment {
     private FirebaseRecyclerAdapter<Notices,PdfNoticesViewHolder> firebaseRecyclerAdapter;
     public static RequestPdfNoticeArrayAdapter requestPdfNoticeArrayAdapter;
 
+    private ProgressBar pdfProgressbar,pdfRequestProgressbar;
 
     private InterstitialAd mInterstitialAd;  //ads
 
@@ -95,6 +98,8 @@ public class PdfNotice extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pdf_notice, container, false);
+        pdfProgressbar=view.findViewById(R.id.pdfProgressbar);
+
 
 
       //initialising
@@ -108,7 +113,10 @@ public class PdfNotice extends Fragment {
 
 
         pdfRecyclerView = view.findViewById(R.id.pdfRecyclerView);
-        pdfRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+        linearLayoutManager.setReverseLayout(true);//it will set the recycler view to show the elements in bottom up manner.
+        linearLayoutManager.setStackFromEnd(true);//it will show the last element first.
+        pdfRecyclerView.setLayoutManager(linearLayoutManager);
         pdfRecyclerView.setHasFixedSize(true);
 
         addPdfImageButton = view.findViewById(R.id.addPdfFloatingActionButton);
@@ -157,6 +165,7 @@ public class PdfNotice extends Fragment {
             @Override
             protected void populateViewHolder(PdfNoticesViewHolder pdfNoticesViewHolder, final Notices notices, int i) {
 
+                pdfProgressbar.setVisibility(View.GONE);
                 pdfNoticesViewHolder.pdfNoticeTitleTextView.setText(notices.getTitle());
                 pdfNoticesViewHolder.pdfNoticeDescriptionTextView.setText(notices.getDescription());
                 Glide.with(getContext()).load(R.drawable.pdf).into(pdfNoticesViewHolder.pdfNoticeImageView);
@@ -266,6 +275,9 @@ public class PdfNotice extends Fragment {
         View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_pdf_notice_request, null, false);
         ArrayList<NoticeRequest> pdfNoticeRequests=new ArrayList<>();
         requestPdfListView = view.findViewById(R.id.requestPdfListView);
+        pdfRequestProgressbar=view.findViewById(R.id.pdfNoticeProgressbar);
+
+
         pdfNoticeRequestList=new ArrayList<>();
         requestPdfNoticeArrayAdapter=new RequestPdfNoticeArrayAdapter(getContext(),pdfNoticeRequestList);
         requestPdfListView.setAdapter(requestPdfNoticeArrayAdapter);
@@ -292,6 +304,7 @@ public class PdfNotice extends Fragment {
                     NoticeRequest noticeRequest = new NoticeRequest(dataSnapshot.getKey(), notices);
                     pdfNoticeRequestList.add(noticeRequest);
                     requestPdfNoticeArrayAdapter.notifyDataSetChanged();
+                    pdfRequestProgressbar.setVisibility(View.GONE);
 
                 }
             }

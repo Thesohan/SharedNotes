@@ -2,6 +2,7 @@ package com.umangSRTC.thesohankathait.classes.Utill;
 
 import android.app.Application;
 import android.util.Log;
+import android.view.View;
 
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -85,6 +86,9 @@ public class Initialisation extends Application {
                             Log.i("refreshlist", "onChildRemoved: "+"list refereshed");
                             Schools.schoolsFragmentInstance.schoolsArrayAdapter.notifyDataSetChanged();
                         }
+
+                        if(Schools.schoolProgressbar!=null)
+                            Schools.schoolProgressbar.setVisibility(View.GONE);
                     }
                 }
 
