@@ -18,10 +18,14 @@ import androidx.annotation.Nullable;
 public class Initialisation extends Application {
     public static ArrayList<String> schools;
     public static ArrayList<String> schoolArrayList;
+    public static ArrayList<String> adminList;
 
     @Override
     public void onCreate() {
         super.onCreate();
+
+        adminList=new ArrayList<>();
+        fetchAdminListFromFirebase();
 
         schools=new ArrayList<>();
         schools.add("Select Schools");
@@ -29,6 +33,38 @@ public class Initialisation extends Application {
         getSchools();
 
 
+    }
+
+    private void fetchAdminListFromFirebase() {
+
+        FirebaseDatabase.getInstance().getReference("AdminEmail").addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                if (!adminList.contains(dataSnapshot.getValue().toString())) {
+                    adminList.add(dataSnapshot.getValue().toString());
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void getSchools() {

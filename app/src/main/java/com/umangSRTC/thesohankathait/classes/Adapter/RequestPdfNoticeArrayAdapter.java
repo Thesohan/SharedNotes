@@ -15,13 +15,14 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
+
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.Utill.Equals;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
@@ -65,13 +66,13 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
             pdftitleTextView.setText(notices.getTitle());
             pdfdescriptionTextView.setText(notices.getDescription());
             pdfschoolNameTextView.setText(pdfNoticeRequestsArrayList.get(position).getSchoolName());
-            Picasso.get().load(R.drawable.pdf).into(pdfnoticeImageView);
+            Glide.with(context).load(R.drawable.pdf).into(pdfnoticeImageView);
 
             editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 //                    Toast.makeText(context, "edit ", Toast.LENGTH_SHORT).show();
-                    showEditBoxForNotice(pdfNoticeRequestsArrayList.get(position).getSchoolName(),notices);
+                    showEditBoxForNotice(pdfNoticeRequestsArrayList.get(position).getSchoolName(),notices,"edit");
                 }
             });
 
@@ -79,7 +80,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
                 @Override
                 public void onClick(View v) {
 
-                    adminIsSureforDeny(pdfNoticeRequestsArrayList.get(position).getSchoolName(),notices);
+                    adminIsSureforDeny(pdfNoticeRequestsArrayList.get(position).getSchoolName(),notices,"deny");
 
                 }
             });
@@ -88,7 +89,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
                 @Override
                 public void onClick(View v) {
 //                    Toast.makeText(context, "allow", Toast.LENGTH_SHORT).show();
-                    adminIsSureforAllow(pdfNoticeRequestsArrayList.get(position).getSchoolName(),notices);
+                    adminIsSureforAllow(pdfNoticeRequestsArrayList.get(position).getSchoolName(),notices,"allow");
                 }
             });
 
@@ -106,7 +107,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
         }
 //*********************** for edit a notice************************
 
-    private void showEditBoxForNotice(final String schoolName, final Notices notices) {
+    private void showEditBoxForNotice(final String schoolName, final Notices notices, final String action) {
 
             View view=LayoutInflater.from(context).inflate(R.layout.edit_notice,null,false);
             final EditText titleEditText=view.findViewById(R.id.editTitleEditText);
@@ -131,7 +132,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if(!schoolNameSpinner.getSelectedItem().equals("Select Schools")) {
-                            deleteNoticeFromFireBase(schoolName, notices); //deleting notice from request reference
+                            deleteNoticeFromFireBase(schoolName, notices,action); //deleting notice from request reference
                             Notices newNotice=new Notices(descriptionEditText.getText().toString(),titleEditText.getText().toString(),
                                     notices.getSender(),notices.getImageUrl());
                             alloWNotice(schoolNameSpinner.getSelectedItem().toString(),newNotice);   //adding notice into category.
@@ -151,7 +152,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
     // //********************for allow a notice******************
 
 
-    private void adminIsSureforAllow(final String schoolName, final Notices notices) {
+    private void adminIsSureforAllow(final String schoolName, final Notices notices,final String action) {
 
         AlertDialog builder=new AlertDialog.Builder(context)
                 .setIcon(R.drawable.ic_warning_black_24dp)
@@ -160,7 +161,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteNoticeFromFireBase(schoolName,notices); //deleting notice from request reference
+                        deleteNoticeFromFireBase(schoolName,notices,action); //deleting notice from request reference
                         alloWNotice(schoolName,notices);   //adding notice into category.
                         dialog.dismiss();
 
@@ -178,10 +179,10 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
-                        Toast.makeText(context, "You allowed ths notice", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "You allowed this notice", Toast.LENGTH_SHORT).show();
                     }
                     else{
-                        Toast.makeText(context, "something went wrong!!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "something went wrong!!"+task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -203,7 +204,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
         //********************for deny a notice******************
 
 
-    private void adminIsSureforDeny(final String schoolName, final Notices notices) {
+    private void adminIsSureforDeny(final String schoolName, final Notices notices, final String action) {
 
         AlertDialog builder=new AlertDialog.Builder(context)
                 .setIcon(R.drawable.ic_warning_black_24dp)
@@ -212,7 +213,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        deleteNoticeFromFireBase(schoolName,notices);
+                        deleteNoticeFromFireBase(schoolName,notices,action);
                         dialog.dismiss();
 
                     }
@@ -224,7 +225,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
     }
 
 
-    private void deleteNoticeFromFireBase(String schoolName, final Notices notices) {
+    private void deleteNoticeFromFireBase(String schoolName, final Notices notices, final String action) {
 
         FirebaseDatabase.getInstance().getReference("PdfRequests").child(schoolName).addValueEventListener(new ValueEventListener() {
             @Override
@@ -236,7 +237,9 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
                         for(int i = 0; i<PdfNotice.pdfNoticeRequestList.size(); i++){
                             if(Equals.BothEquals(PdfNotice.pdfNoticeRequestList.get(i).getNotices(),notices)){
                                 PdfNotice.pdfNoticeRequestList.remove(i);
-                                DeleteFromFirebaseStorage.deleteByDownloadUrl(context,notices.getImageUrl());
+                                if(action.equals("deny")) {
+                                    DeleteFromFirebaseStorage.deleteByDownloadUrl(context, notices.getImageUrl());
+                                }
                                 break;
                             }
                         }
@@ -252,8 +255,5 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
         });
 
     }
-
-
-
 
 }

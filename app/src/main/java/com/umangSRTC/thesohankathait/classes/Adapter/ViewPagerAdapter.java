@@ -31,15 +31,13 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
             case 2:
                 return Schools.newInstance();
-            case 3:
-                return AboutUmang.newInstance();
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        return 4;
+        return 3;
     }
 
     @Nullable
@@ -55,8 +53,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
             case 2:
                 return "Schools";
-            case 3:
-                return "About";
 
         }
         return null;

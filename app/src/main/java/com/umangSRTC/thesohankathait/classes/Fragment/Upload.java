@@ -13,8 +13,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -24,7 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
+import com.umangSRTC.thesohankathait.classes.Activity.Features;
 import com.umangSRTC.thesohankathait.classes.Activity.Functionality;
 import com.umangSRTC.thesohankathait.classes.Utill.CompressImages;
 import com.umangSRTC.thesohankathait.classes.Utill.Initialisation;
@@ -51,6 +53,7 @@ public class Upload extends Fragment {
     private String imageURl;
     private String selectedSchool=null;
     private ArrayAdapter<String>  spinnerArrayAdapter;
+    private TextView aboutUmangTextview;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -62,6 +65,17 @@ public class Upload extends Fragment {
         descriptionEditText=view.findViewById(R.id.descriptionEditText);
         uploadButton=view.findViewById(R.id.uploadButton);
         spinner=view.findViewById(R.id.spinner);
+        aboutUmangTextview=view.findViewById(R.id.aboutUmangTextView);
+        aboutUmangTextview.setVisibility(View.VISIBLE);
+
+        aboutUmangTextview.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent requestIntent = new Intent(getContext(), Features.class);
+                requestIntent.putExtra("FRAGMENT_NAME","AboutUmang");
+                startActivity(requestIntent);
+            }
+        });
 
 
        // Collections.sort(Initialisation.schools.subList(1,Initialisation.schools.size()));
@@ -111,7 +125,7 @@ public class Upload extends Fragment {
             super.onActivityResult(requestCode, resultCode, data);
             if(requestCode==1&&resultCode==getActivity().RESULT_OK&&data!=null){
                 imageUri=data.getData();
-                Picasso.get().load(imageUri).into(imageView);
+                Glide.with(context).load(imageUri).into(imageView);
             }
         }
 
@@ -202,8 +216,10 @@ public class Upload extends Fragment {
     }
 
     private void goToFirstPage() {
+
     Intent intent=new Intent(context,Functionality.class);
     startActivity(intent);
+    getActivity().finish();
     }
 
 

@@ -7,9 +7,9 @@ android {
         applicationId "com.umangSRTC.thesohankathait.umang"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 5
-       // multiDexEnabled true
-        versionName "1.5"
+        versionCode 9
+        multiDexEnabled true
+        versionName "1.9"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -44,7 +44,7 @@ dependencies {
     //For firebase RecyclerView Adapter
     implementation 'com.firebaseui:firebase-ui-database:1.2.0'
     //picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
+   // implementation 'com.squareup.picasso:picasso:2.71828'
 
     //cloud messaging
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
@@ -60,6 +60,15 @@ dependencies {
         // Add the In-App Messaging dependency:
 //    implementation 'com.google.firebase:firebase-inappmessaging-display:17.0.4'
     //implementation 'com.android.support:multidex:1.0.3'
+
+    //glide recommended by google for loading images
+    implementation 'com.github.bumptech.glide:glide:4.7.1'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
+
+    //addmob
+
+    implementation 'com.google.android.gms:play-services-ads:17.1.1'
+
 
 }
 com.google.gms.googleservices.GoogleServicesPlugin.config.disableVersionCheck = true

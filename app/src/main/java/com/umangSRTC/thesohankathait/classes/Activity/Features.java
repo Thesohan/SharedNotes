@@ -42,6 +42,9 @@ public class Features extends AppCompatActivity {
                 String schoolName=getIntent().getStringExtra("SCHOOL_NAME");
                 addDifferentFragment(PdfNotice.newInstance(schoolName));
                 break;
+            case "AboutUmang":
+                addDifferentFragment(AboutUmang.newInstance());
+                break;
         }
 
     }

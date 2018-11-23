@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -25,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.classes.Utill.CompressImages;
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
@@ -33,7 +33,6 @@ import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.classes.Utill.Equals;
 import com.umangSRTC.thesohankathait.classes.ViewHolders.AboutUmangViewHolder;
 import com.umangSRTC.thesohankathait.classes.model.AboutUmang_model;
-import com.umangSRTC.thesohankathait.classes.model.Query_model;
 import com.umangSRTC.thesohankathait.umang.R;
 
 import java.io.IOException;
@@ -95,7 +94,10 @@ public class AboutUmang extends Fragment {
             @Override
             protected void populateViewHolder(AboutUmangViewHolder aboutUmangViewHolder, final AboutUmang_model aboutUmang_model, int i) {
 
-                Picasso.get().load(aboutUmang_model.getImageUrl()).into(aboutUmangViewHolder.aboutUmangImageView);
+                Glide.with(getContext())
+                        .load(aboutUmang_model.getImageUrl())
+                        .into(aboutUmangViewHolder.aboutUmangImageView);
+               // Picasso.get().load(aboutUmang_model.getImageUrl()).into(aboutUmangViewHolder.aboutUmangImageView);
                 aboutUmangViewHolder.aboutUmangTextView.setText(aboutUmang_model.getAbout());
 
                 //show the full image on click
@@ -190,7 +192,7 @@ public class AboutUmang extends Fragment {
                 downloadTask.DownloadData();
             }
         });
-        Picasso.get().load(aboutUmangModel.getImageUrl()).into(imageView);
+        Glide.with(getContext()).load(aboutUmangModel.getImageUrl()).into(imageView);
         android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(getContext())
                 .setView(view)
                 .show();
@@ -241,7 +243,7 @@ public class AboutUmang extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1&&resultCode==getActivity().RESULT_OK&&data!=null){
             imageUri=data.getData();
-            Picasso.get().load(imageUri).into(uploadAboutImageView);
+            Glide.with(getContext()).load(imageUri).into(uploadAboutImageView);
         }
     }
 

@@ -3,19 +3,22 @@ package com.umangSRTC.thesohankathait.classes.Fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.umang.R;
@@ -42,6 +45,13 @@ public class Notification extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setHasFixedSize(true);
         fetchDataFromFirebase("Notification");
+
+
+        //for displaying ads
+        AdView mAdView = view.findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
         return view;
     }
     private void fetchDataFromFirebase(final String schoolName) {
@@ -50,7 +60,7 @@ public class Notification extends Fragment {
             protected void populateViewHolder(NoticesViewHolder noticesViewHolder, final Notices notices, final int postion) {
                 noticesViewHolder.allNoticeTitleTextView.setText(notices.getTitle());
                 noticesViewHolder.allNoticeDescriptionTextView.setText(notices.getDescription());
-                Picasso.get().load(notices.getImageUrl()).into(noticesViewHolder.allNoticeImageView);
+                Glide.with(getContext()).load(notices.getImageUrl()).into(noticesViewHolder.allNoticeImageView);
                 noticesViewHolder.allNoticeSenderTextview.setText(notices.getSender());
 
                 noticesViewHolder.allNoticeImageView.setOnClickListener(new View.OnClickListener() {
@@ -86,6 +96,7 @@ public class Notification extends Fragment {
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+//                        Log.d("imageurlbeforedelete",notices.getImageUrl());
 
                         deleteNotificaitonFromFirebase(schoolName, notices);
                     }
@@ -106,7 +117,9 @@ public class Notification extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (Equals.BothEquals(notices, dataSnapshot.getValue(Notices.class))) {
                     dataSnapshot.getRef().removeValue();
-                    DeleteFromFirebaseStorage.deleteByDownloadUrl(getContext(),notices.getImageUrl());
+  //                  Log.d("justve",notices.getImageUrl());
+                    if(notices.getImageUrl()!=null)
+                        DeleteFromFirebaseStorage.deleteByDownloadUrl(getContext(),notices.getImageUrl());
                 }
             }
 
@@ -143,7 +156,7 @@ public class Notification extends Fragment {
                 downloadTask.DownloadData();
             }
         });
-        Picasso.get().load(notices.getImageUrl()).into(imageView);
+        Glide.with(getContext()).load(notices.getImageUrl()).into(imageView);
         AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                 .setView(view)
                 .show();

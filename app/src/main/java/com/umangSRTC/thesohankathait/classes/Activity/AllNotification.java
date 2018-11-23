@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,15 +15,19 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.squareup.picasso.Picasso;
+
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
+import com.umangSRTC.thesohankathait.classes.Utill.Equals;
 import com.umangSRTC.thesohankathait.umang.R;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.classes.ViewHolders.NoticesViewHolder;
@@ -47,6 +50,11 @@ public class AllNotification extends AppCompatActivity {
         recyclerView.setHasFixedSize(true);
         fetchDataFromFirebase(schoolName);
 
+        //for displaying ads
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
     }
 
     private void fetchDataFromFirebase(final String schoolName) {
@@ -55,7 +63,7 @@ public class AllNotification extends AppCompatActivity {
             protected void populateViewHolder(final NoticesViewHolder noticesViewHolder, final Notices notices, final int postion) {
                 noticesViewHolder.allNoticeTitleTextView.setText(notices.getTitle());
                 noticesViewHolder.allNoticeDescriptionTextView.setText(notices.getDescription());
-                Picasso.get().load(notices.getImageUrl()).into(noticesViewHolder.allNoticeImageView);
+               Glide.with(getApplicationContext()).load(notices.getImageUrl()).into(noticesViewHolder.allNoticeImageView);
                 noticesViewHolder.allNoticeSenderTextview.setText(notices.getSender());
 
                 noticesViewHolder.allNoticeImageView.setOnClickListener(new View.OnClickListener() {
@@ -107,7 +115,7 @@ public class AllNotification extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference("Category").child(schoolName).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    if(BothEquals(notices,dataSnapshot.getValue(Notices.class))){
+                    if(Equals.BothEquals(notices,dataSnapshot.getValue(Notices.class))){
                         dataSnapshot.getRef().removeValue();
                         DeleteFromFirebaseStorage.deleteByDownloadUrl(AllNotification.this, notices.getImageUrl());
                 }
@@ -135,19 +143,11 @@ public class AllNotification extends AppCompatActivity {
         });
     }
 
-    private boolean BothEquals(Notices notices, Notices currentNotice) {
-
-
-        return notices.getTitle().equals(currentNotice.getTitle()) &&
-                notices.getSender().equals(currentNotice.getSender())&&
-                notices.getImageUrl().equals(currentNotice.getImageUrl())&&
-                notices.getDescription().equals(currentNotice.getDescription());
-    }
 
     private void showFullImage(final String schoolName, final Notices notices) {
         View view=LayoutInflater.from(this).inflate(R.layout.full_screen_notification,null,false);
         ImageView imageView=view.findViewById(R.id.allNoticeImageView);
-        Picasso.get().load(notices.getImageUrl()).into(imageView);
+        Glide.with(getApplicationContext()).load(notices.getImageUrl()).into(imageView);
         Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
         imageDownloadButton.setOnClickListener(new View.OnClickListener() {
             @Override

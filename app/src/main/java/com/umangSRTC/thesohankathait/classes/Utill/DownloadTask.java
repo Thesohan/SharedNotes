@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -28,8 +29,24 @@ public class DownloadTask {
         this.school = school;
         this.fileExtension=fileExtension;
         downloadManager=(DownloadManager) context.getSystemService(Context.DOWNLOAD_SERVICE);
+        context.registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
 
     }
+    //when download is complete this on Receive method is called
+    private BroadcastReceiver onDownloadComplete = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            //Fetching the download id received with the broadcast
+            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+            //Checking if the received broadcast is for our enqueued download by matching download id
+            if (downloadReference == id) {
+                Toast.makeText(context, "Download Completed", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
+
+
     //Download Data from URL using Android Download Manager
     //DownloadData() function will be used to download data from internet.
 

@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,11 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -31,7 +36,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.UploadTask;
-import com.squareup.picasso.Picasso;
 import com.umangSRTC.thesohankathait.classes.Adapter.RequestPdfNoticeArrayAdapter;
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.Utill.FileExtension;
@@ -83,9 +87,25 @@ public class PdfNotice extends Fragment {
     public static ArrayList<NoticeRequest> pdfNoticeRequestList;
     private FirebaseRecyclerAdapter<Notices,PdfNoticesViewHolder> firebaseRecyclerAdapter;
     public static RequestPdfNoticeArrayAdapter requestPdfNoticeArrayAdapter;
+
+
+    private InterstitialAd mInterstitialAd;  //ads
+
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pdf_notice, container, false);
+
+
+      //initialising
+            MobileAds.initialize(getContext(),"ca-app-pub-3940256099942544~3347511713");
+            mInterstitialAd = new InterstitialAd(getContext());
+            mInterstitialAd.setAdUnitId(getString(R.string.industrial_ad_id));//modify the ad id from string resources
+            //loading  an ad
+           mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
+
 
         pdfRecyclerView = view.findViewById(R.id.pdfRecyclerView);
         pdfRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -139,7 +159,7 @@ public class PdfNotice extends Fragment {
 
                 pdfNoticesViewHolder.pdfNoticeTitleTextView.setText(notices.getTitle());
                 pdfNoticesViewHolder.pdfNoticeDescriptionTextView.setText(notices.getDescription());
-                Picasso.get().load(R.drawable.pdf).into(pdfNoticesViewHolder.pdfNoticeImageView);
+                Glide.with(getContext()).load(R.drawable.pdf).into(pdfNoticesViewHolder.pdfNoticeImageView);
                 pdfNoticesViewHolder.pdfNoticeSenderTextview.setText(notices.getSender());
                 pdfNoticesViewHolder.pdfSchoolNameTextView.setText(schoolName);
 
@@ -159,7 +179,14 @@ public class PdfNotice extends Fragment {
 
                         DownloadTask downloadTask =new DownloadTask(getContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
                         downloadTask.DownloadData();
-//
+
+
+                        //if ad is loaded than show it if user download a pdf
+                        if (mInterstitialAd.isLoaded()) {
+                            mInterstitialAd.show();
+                        } else {
+                            Log.d("TAG", "The interstitial wasn't loaded yet.");
+                        }
 //
                         //download pdf
                     }

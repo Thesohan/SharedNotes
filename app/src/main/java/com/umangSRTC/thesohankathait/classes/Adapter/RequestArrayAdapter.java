@@ -14,13 +14,13 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
 import com.umangSRTC.thesohankathait.classes.Fragment.Request;
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
@@ -60,7 +60,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
             titleTextView.setText(notices.getTitle());
             descriptionTextView.setText(notices.getDescription());
             schoolNameTextView.setText(noticeRequestsArrayList.get(position).getSchoolName());
-            Picasso.get().load(notices.getImageUrl()).into(noticeImageView);
+            Glide.with(getContext()).load(notices.getImageUrl()).into(noticeImageView);
 
             noticeImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -103,7 +103,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
 
         View view = LayoutInflater.from(context).inflate(R.layout.full_screen_notification, null, false);
         ImageView imageView = view.findViewById(R.id.allNoticeImageView);
-        Picasso.get().load(imageUrl);
+        Glide.with(getContext()).load(imageUrl);
         android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(context)
                 .setView(view)
                 .show();
@@ -254,7 +254,6 @@ public class RequestArrayAdapter extends ArrayAdapter{
                         }
 
                         Request.requestArrayAdapter.notifyDataSetChanged();
-                        DeleteFromFirebaseStorage.deleteByDownloadUrl(context,notices.getImageUrl());
                     }
                 }
             }

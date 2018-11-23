@@ -122,6 +122,16 @@
             </LinearLayout>
 
         </LinearLayout>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/aboutUmangTextView"
+            android:clickable="true"
+            android:fontFamily="@font/josefin_bold"
+            android:layout_margin="16dp"
+            android:textColor="@color/red"
+            android:text="@string/about_umang_click_here"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
     </LinearLayout>

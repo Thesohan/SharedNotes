@@ -10,7 +10,6 @@
 
     <LinearLayout
         android:id="@+id/linearLayoutQuery"
-        android:layout_margin="16dp"
         android:orientation="vertical"
         android:layout_marginBottom="8dp"
         android:layout_width="match_parent"
@@ -26,14 +25,13 @@
 
 
             <TextView
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:text="Q :"
                 android:fontFamily="@fonart/josefin_bold"
                 android:textStyle="bold"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-
+                android:textColor="@color/black"
                 />
 
             <TextView
@@ -43,9 +41,8 @@
                 android:layout_weight="6"
                 android:fontFamily="@fonart/josefin_bold"
                 android:text="question"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
                 android:textStyle="bold"
-
+                android:textColor="@color/black"
                 />
 
         </LinearLayout>
@@ -58,14 +55,13 @@
 
 
             <TextView
-                android:layout_weight="2"
+                android:layout_weight="1"
                 android:layout_width="0dp"
+                android:textColor="@color/black"
                 android:layout_height="wrap_content"
                 android:text="Ans: "
                 android:fontFamily="@fonart/josefin_bold"
                 android:textStyle="bold"
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-
                 />
 
             <TextView
@@ -75,8 +71,7 @@
                 android:layout_weight="6"
                 android:fontFamily="@fonart/josefin_bold"
                 android:text="....."
-                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-
+                android:textColor="@color/blue"
 
                 />
 

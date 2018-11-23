@@ -1,6 +1,7 @@
 package com.umangSRTC.thesohankathait.classes.Utill;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -23,7 +24,8 @@ public class DeleteFromFirebaseStorage {
                     if (task.isSuccessful()) {
                         Toast.makeText(context, "deleted", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(context, "Error while deleting ", Toast.LENGTH_SHORT).show();
+                        Log.d("exception",task.getException().toString());
+                        Toast.makeText(context, "Error while deleting "+task.getException(), Toast.LENGTH_SHORT).show();
                     }
                 }
             });

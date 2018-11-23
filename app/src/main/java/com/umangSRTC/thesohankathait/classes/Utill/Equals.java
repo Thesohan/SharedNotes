@@ -18,7 +18,6 @@ public class Equals {
             return notices.getTitle().equals(currentNotice.getTitle()) &&
                     notices.getSender().equals(currentNotice.getSender()) &&
                     notices.getDescription().equals(currentNotice.getDescription());
-
         }
     }
 

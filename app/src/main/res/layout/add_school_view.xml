@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView app:cardElevation="4dp"
-    app:cardCornerRadius="4dp"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <LinearLayout
-
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
         <TextView
             android:layout_margin="4dp"
@@ -41,5 +34,3 @@
             android:layout_height="wrap_content" />
 
     </LinearLayout>
-
-</androidx.cardview.widget.CardView>

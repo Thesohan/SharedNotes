@@ -27,22 +27,4 @@ public class QueryViewHolder extends RecyclerView.ViewHolder{
     }
 
 
-//    @Override
-//    public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-//        contextMenu.setHeaderTitle("Select For Action");
-//
-//        contextMenu.add(Menu.NONE,Common.R_ID_EDIT, getAdapterPosition(), "Edit");
-//        contextMenu.add(Menu.NONE, Common.R_ID_DELETE,getAdapterPosition(),"Delete");
-//
-//    }
-//@Override
-//public void onCreateContextMenu(ContextMenu contextMenu, View view, ContextMenu.ContextMenuInfo contextMenuInfo) {
-//
-//    contextMenu.setHeaderTitle("Select an action!");
-//    //first argument of the add method is a group, second argument is an id, third order in which you want item to show , foruth title.
-//    contextMenu.add(Menu.NONE,Common.R_ID_EDIT, getAdapterPosition(), "Edit");
-//    contextMenu.add(Menu.NONE, Common.R_ID_DELETE,getAdapterPosition(),"Delete");
-//
-//}
-
 }

@@ -10,8 +10,6 @@ import android.widget.Toast;
 import com.google.firebase.database.collection.LLRBNode;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 import com.umangSRTC.thesohankathait.umang.R;
 
 import java.util.Random;
@@ -86,20 +84,5 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 
-    Target target=new Target() {
-        @Override
-        public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
 
-        }
-
-        @Override
-        public void onBitmapFailed(Exception e, Drawable errorDrawable) {
-
-        }
-
-        @Override
-        public void onPrepareLoad(Drawable placeHolderDrawable) {
-
-        }
-    };
 }

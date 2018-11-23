@@ -103,7 +103,7 @@ public class Schools extends Fragment {
     private void deleteWarning(final String school, final int position) {
 
         AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
-        builder.setMessage("Do you really want to delete "+school+"?")
+        builder.setMessage("Do you really want to delete "+school+"?\n All data present in this school will be deleted and you can't restore them back.")
                 .setIcon(R.drawable.ic_warning_black_24dp)
                 .setTitle("Delete")
                 .setPositiveButton("Continue Anyway", new DialogInterface.OnClickListener() {
@@ -141,6 +141,8 @@ public class Schools extends Fragment {
         });
         deleteFromValue(school,"Category");
         deleteFromValue(school,"Requests");
+        deleteFromValue(school,"PdfRequests");
+        deleteFromValue(school,"PdfCategory");
 
     }
 

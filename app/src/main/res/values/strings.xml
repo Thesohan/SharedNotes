@@ -17,4 +17,14 @@
     <string name="school_name">School Name :</string>
     <string name="enter_school_name">Enter School Name</string>
     <string name="channelName">notification</string>
+    <string name="about_umang_click_here">About Umang: Click Here</string>
+
+
+    <!--ad id-->
+    <!--used in menifest-->
+    <string name="app_admob_id">ca-app-pub-3834478485267663~8401878288</string>
+    <!--used in notice fragment-->
+    <string name="industrial_ad_id">ca-app-pub-3834478485267663/6199220920</string>
+    <!--used in all notification-->
+    <string name="banner_ad_id">ca-app-pub-3834478485267663/3448934508</string>
 </resources>

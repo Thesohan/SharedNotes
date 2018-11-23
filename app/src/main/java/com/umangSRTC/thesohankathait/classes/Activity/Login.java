@@ -52,17 +52,17 @@ public class Login extends AppCompatActivity {
 
 
     //facebook sign in
-    private  CallbackManager callbackManager;
+    private CallbackManager callbackManager;
     public static LoginButton facebookloginButton;
 
 
     //google sign in
     public GoogleSignInClient googleSignInClient;
     private Button googleSignInButton;
-    private static final int SIGNUP_REQUESTCODE=1;
+    private static final int SIGNUP_REQUESTCODE = 1;
     private FirebaseAuth mAuth;
     private SharedPreferences sharedPreferences;
-    private  SharedPreferences.Editor editor;
+    private SharedPreferences.Editor editor;
     private ProgressDialog progressDialog;
 
     @Override
@@ -76,12 +76,11 @@ public class Login extends AppCompatActivity {
 //                    warningAndExit();
 
 
-
 //creating notification channel for higher version of andorid
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // Create channel to show notifications.
-            String channelId  =getString(R.string.notificationChannelId);//for creating notification channel
+            String channelId = getString(R.string.notificationChannelId);//for creating notification channel
             String channelName = getString(R.string.channelName);
             NotificationManager notificationManager =
                     getSystemService(NotificationManager.class);
@@ -294,111 +293,111 @@ public class Login extends AppCompatActivity {
     }
 
     private void updateUI(FirebaseUser user) {
-        if(user!=null) {
+        if (user != null) {
             editor.putString("NAME", mAuth.getCurrentUser().getDisplayName());
             editor.putString("EMAIL", mAuth.getCurrentUser().getEmail());
             editor.apply();
             User.setUser(mAuth.getCurrentUser().getDisplayName(), mAuth.getCurrentUser().getEmail());
             storeUserInFirebase();
-            if(progressDialog!=null)
+            if (progressDialog != null)
                 progressDialog.dismiss();
             moveToFunctionalityActivity();
+            finish();
         }
     }
 
 
-    public void signIn(){
+    public void signIn() {
 
-                if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-                    User.setUser(sharedPreferences.getString("NAME",null),sharedPreferences.getString("EMAIL",null));
-                    Log.i("name",User.currentUser.getName());
-                    progressDialog.dismiss();
-                    moveToFunctionalityActivity();
-                }
-                else {
-                    Intent signInIntent = googleSignInClient.getSignInIntent();
-                    startActivityForResult(signInIntent, SIGNUP_REQUESTCODE);
-                }
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            User.setUser(sharedPreferences.getString("NAME", null), sharedPreferences.getString("EMAIL", null));
+            Log.i("name", User.currentUser.getName());
+            progressDialog.dismiss();
+            moveToFunctionalityActivity();
+        } else {
+            Intent signInIntent = googleSignInClient.getSignInIntent();
+            startActivityForResult(signInIntent, SIGNUP_REQUESTCODE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        progressDialog.dismiss();
+        if (requestCode == SIGNUP_REQUESTCODE && resultCode == RESULT_OK && data != null) {
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            try {
+                // Google Sign In was successful, authenticate with Firebase
+                GoogleSignInAccount account = task.getResult(ApiException.class);
+                firebaseAuthWithGoogle(account);
+            } catch (ApiException e) {
+                // Google Sign In failed, update UI appropriately
+                Toast.makeText(this, "googel sign in failed", Toast.LENGTH_SHORT).show();
+                // ...
             }
-            @Override
-            protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-                super.onActivityResult(requestCode, resultCode, data);
-                progressDialog.dismiss();
-                if(requestCode==SIGNUP_REQUESTCODE && resultCode==RESULT_OK && data!=null){
-                    Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-                    try {
-                        // Google Sign In was successful, authenticate with Firebase
-                        GoogleSignInAccount account = task.getResult(ApiException.class);
-                        firebaseAuthWithGoogle(account);
-                    } catch (ApiException e) {
-                        // Google Sign In failed, update UI appropriately
-                        Toast.makeText(this, "googel sign in failed", Toast.LENGTH_SHORT).show();
-                        // ...
-                    }
-                }
-                else{
+        } else {
 
-                        callbackManager.onActivityResult(requestCode, resultCode, data);
-                    }
-                }
+            callbackManager.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
-            private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
+    private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
 
-                progressDialog.show();
-                AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
-                mAuth.signInWithCredential(credential)
-                        .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("signInWithCredential", "signInWithCredential:success");
-                                    //saving user info in shared preferences
-                                    FirebaseUser user=mAuth.getCurrentUser();
-                                   updateUI(user);
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("signInFailed", "signInWithCredential:failure", task.getException());
-                                    updateUI(null);
-                                }
-
-                            }
-                        });
-            }
-
-            private void storeUserInFirebase() {
-                DatabaseReference databaseReference=FirebaseDatabase.getInstance().getReference("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
-
-                databaseReference.setValue(User.getCurrentUser()).addOnSuccessListener(new OnSuccessListener<Void>() {
+        progressDialog.show();
+        AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-//                Toast.makeText(getApplicationContext(), "user Saved", Toast.LENGTH_SHORT).show();
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("signInWithCredential", "signInWithCredential:success");
+                            //saving user info in shared preferences
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            updateUI(user);
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("signInFailed", "signInWithCredential:failure", task.getException());
+                            updateUI(null);
+                        }
+
                     }
                 });
+    }
 
-            }
+    private void storeUserInFirebase() {
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("User").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
-
+        databaseReference.setValue(User.getCurrentUser()).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
-            protected void onStart() {
-                super.onStart();
-                if(CheckNetwork.isNetworkAvailable(this)) {
-                    if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-                        User.setUser(sharedPreferences.getString("NAME", null), sharedPreferences.getString("EMAIL", null));
-                        Log.i("name", User.currentUser.getName());
-                        progressDialog.dismiss();
-                        // Toast.makeText(this, "move to next activity", Toast.LENGTH_SHORT).show();
-                        moveToFunctionalityActivity();
-                    }
-                }
-                else{
-                    warningAndExit();
-                }
-
-
+            public void onSuccess(Void aVoid) {
+//                Toast.makeText(getApplicationContext(), "user Saved", Toast.LENGTH_SHORT).show();
             }
+        });
+
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (CheckNetwork.isNetworkAvailable(this)) {
+            if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+                User.setUser(sharedPreferences.getString("NAME", null), sharedPreferences.getString("EMAIL", null));
+                Log.i("name", User.currentUser.getName());
+                progressDialog.dismiss();
+                // Toast.makeText(this, "move to next activity", Toast.LENGTH_SHORT).show();
+                moveToFunctionalityActivity();
+            }
+        } else {
+            warningAndExit();
+        }
+
+
+    }
+
     private void warningAndExit() {
-        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Please make sure you have a working internet connection")
                 .setIcon(R.drawable.ic_warning_black_24dp)
                 .setTitle("Network Check")
@@ -421,32 +420,35 @@ public class Login extends AppCompatActivity {
 
     private void moveToFunctionalityActivity() {
 
-        final ProgressDialog progressDialog=new ProgressDialog(this);
-        progressDialog.setMessage("Fetching Data");
-        progressDialog.setProgress(0);
-        progressDialog.setMax(100);
-        progressDialog.setCancelable(false);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        progressDialog.show();
-        new CountDownTimer(3000, 1) {
-            @Override
-            public void onTick(long millisUntilFinished) {
 
-//                Toast.makeText(Login.this, ""+millisUntilFinished, Toast.LENGTH_SHORT).show();
-                progressDialog.setProgress((int) ((3000-millisUntilFinished)*100)/3000);
-            }
-
-            @Override
-            public void onFinish() {
-                progressDialog.dismiss();
-
-                Intent intent=new Intent(Login.this,Functionality.class);
-                startActivity(intent);
-                finish();
-
-            }
-        }.start();
+        Intent intent = new Intent(Login.this, Functionality.class);
+        startActivity(intent);
+        finish();
+//        final ProgressDialog progressDialog=new ProgressDialog(this);
+//        progressDialog.setMessage("Fetching Data");
+//        progressDialog.setProgress(0);
+//        progressDialog.setMax(100);
+//        progressDialog.setCancelable(false);
+//        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+//        progressDialog.show();
+//        new CountDownTimer(3000, 1) {
+//            @Override
+//            public void onTick(long millisUntilFinished) {
+//
+////                Toast.makeText(Login.this, ""+millisUntilFinished, Toast.LENGTH_SHORT).show();
+//                progressDialog.setProgress((int) ((3000-millisUntilFinished)*100)/3000);
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//                progressDialog.dismiss();
+//
+//                finish();
+//
+//            }
+//        }.start();
+//
+//    }
 
     }
-
 }

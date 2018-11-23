@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 
 import com.facebook.login.LoginManager;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -95,14 +96,17 @@ public class Functionality extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_functionality);
 
+        //initialising app mob
+        MobileAds.initialize(this,getString(R.string.app_admob_id));
+
 
         //starting services for admin
 
 
-        if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-            Intent serviceIntent=new Intent(Functionality.this,RequestService.class);
-            startService(serviceIntent);
-        }
+//        if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+//            Intent serviceIntent=new Intent(Functionality.this,RequestService.class);
+//            startService(serviceIntent);
+//        }
 
 
 
@@ -179,9 +183,7 @@ public class Functionality extends AppCompatActivity
                     case 2:
                         navigationView.setCheckedItem(R.id.schools);
                         break;
-                    case 3:
-                        navigationView.setCheckedItem(R.id.aboutUmang);
-                        break;
+
                 }
 
             }
@@ -196,23 +198,10 @@ public class Functionality extends AppCompatActivity
         if(!hasAllPermissions())
             askForPermissions();
 
-        registerReceiver(onDownloadComplete,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
 
     }
 
-    //when download is complete this on Receive method is called
-    private BroadcastReceiver onDownloadComplete = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //Fetching the download id received with the broadcast
-            long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
-            //Checking if the received broadcast is for our enqueued download by matching download id
-            if (downloadReference == id) {
-                Toast.makeText(context, "Download Completed", Toast.LENGTH_SHORT).show();
-            }
-        }
-    };
 
 
 
@@ -305,10 +294,7 @@ public class Functionality extends AppCompatActivity
             sendFeedbackViaMail();
 
         } else if (id == R.id.aboutUmang) {
-
-            tabLayout.setScrollPosition(3,0f,false);
-            viewPager.setCurrentItem(3,true);
-
+            sendIntent("AboutUmang");
 
         } else if (id == R.id.query) {
             sendIntent("Query");
@@ -381,7 +367,11 @@ public class Functionality extends AppCompatActivity
 
                         LoginManager.getInstance().logOut();
 
-                        finish();
+                        finish();//finishing this activity and moving to next activity i.e. login activity
+
+                        //again asking for use to login
+                        Intent intent=new Intent(Functionality.this,Login.class);
+                        startActivity(intent);
 
                         dialog.dismiss();
                     }
