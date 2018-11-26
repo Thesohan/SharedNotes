@@ -194,23 +194,13 @@ public class PdfNotice extends Fragment {
                         if (mInterstitialAd.isLoaded()) {
                             mInterstitialAd.show();
                         } else {
-                            Log.d("TAG", "The interstitial wasn't loaded yet.");
+                           // Log.d("TAG", "The interstitial wasn't loaded yet.");
                         }
 //
                         //download pdf
                     }
                 });
 
-                if (Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-                    pdfNoticesViewHolder.pdfNotificationlinearLayout.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
-//                            deleteNotificationWarning(schoolName, notices);
-                            return true;
-                        }
-                    });
-
-                }
             }
         };
         pdfRecyclerView.setAdapter(firebaseRecyclerAdapter);

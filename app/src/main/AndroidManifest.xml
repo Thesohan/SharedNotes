@@ -94,7 +94,7 @@
             android:resource="@color/com_facebook_blue" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
-            android:value="100" />
+            android:value="@string/notificationChannelId" />
 
         //addmob app id
         <meta-data

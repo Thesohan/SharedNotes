@@ -1,6 +1,8 @@
 package com.umangSRTC.thesohankathait.classes.model;
 
-public class Notices {
+import java.io.Serializable;
+
+public class Notices implements Serializable {
     //for pdf imageUrl==pdfUri or downloadURL
     private String description,title,sender,imageUrl,fileExtension;
 

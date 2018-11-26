@@ -69,7 +69,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         //building a notification with the remote message
         Notification notification = new NotificationCompat.Builder(this,getString(R.string.notificationChannelId))
-                .setSmallIcon(R.drawable.ic_launcher)
+                .setSmallIcon(R.drawable.notificatioin_icon)
                 .setContentTitle(remoteMessage.getData().get("title"))
                 .setContentText(remoteMessage.getData().get("body"))
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -79,7 +79,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         //displaying notification
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
 
-        int randomNotificationId=new Random().nextInt(10000)+1;
+        int randomNotificationId=new Random().nextInt(100)+1;
         notificationManager.notify(randomNotificationId, notification);
 
     }

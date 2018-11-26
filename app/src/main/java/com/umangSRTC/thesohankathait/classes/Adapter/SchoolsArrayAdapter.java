@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.umangSRTC.thesohankathait.classes.Activity.Features;
+import com.umangSRTC.thesohankathait.classes.Fragment.Schools;
 import com.umangSRTC.thesohankathait.umang.R;
 
 import java.util.ArrayList;
@@ -30,13 +31,15 @@ public class SchoolsArrayAdapter extends ArrayAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater= (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
         View view=layoutInflater.inflate(R.layout.schools_custom_row_layout,parent,false);
+
+        Schools.schoolProgressbar.setVisibility(View.GONE);
         schoolNameTextView=view.findViewById(R.id.schoolNamesTextView);
         schoolImageView=view.findViewById(R.id.schoolsImages);
         pdfNoticeImageView=view.findViewById(R.id.noticeWithPdf);
         pdfNoticeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "pdfClicked", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(context, "pdfClicked", Toast.LENGTH_SHORT).show();
                 Intent pdfFragmentIntent=new Intent(context,Features.class);
                 pdfFragmentIntent.putExtra("FRAGMENT_NAME","PdfNotice");
                 pdfFragmentIntent.putExtra("SCHOOL_NAME",schoolArrayList.get(position));

@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Environment;
 import android.view.LayoutInflater;
 
 import com.facebook.login.LoginManager;
@@ -35,9 +36,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
 
 import static com.umangSRTC.thesohankathait.classes.Utill.DownloadTask.downloadReference;
 
@@ -254,7 +258,11 @@ public class Functionality extends AppCompatActivity
                 .setNegativeButton("No",null)
                 .show();
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mydownloads, menu);
+        return true;
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -263,9 +271,23 @@ public class Functionality extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_setting) {
-//            return true;
-//        }
+        if (id == R.id.mydownloads) {
+            //Toast.makeText(this, "pass", Toast.LENGTH_SHORT).show();
+            Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory() + "/Download/");
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(selectedUri, "resource/folder");
+            if (intent.resolveActivityInfo(getPackageManager(), 0) != null)
+            {
+                startActivity(intent);
+            }
+            else
+            {
+                Toast.makeText(this, "Please download a file manager first!", Toast.LENGTH_SHORT).show();
+                // if you reach this place, it means there is no any file
+                // explorer app installed on your device
+            }
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

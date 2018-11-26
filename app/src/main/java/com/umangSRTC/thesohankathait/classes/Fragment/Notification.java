@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -38,6 +40,7 @@ public class Notification extends Fragment {
     private RecyclerView recyclerView;
     private ProgressBar allNotificationProgressbar;
     private FirebaseRecyclerAdapter<Notices,NoticesViewHolder> firebaseRecyclerAdapter;
+    private InterstitialAd mInterstitialAd;  //ads
 
     @Nullable
     @Override
@@ -57,6 +60,14 @@ public class Notification extends Fragment {
         AdView mAdView = view.findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        //initialising
+        MobileAds.initialize(getContext(),"ca-app-pub-3940256099942544~3347511713");
+        mInterstitialAd = new InterstitialAd(getContext());
+        mInterstitialAd.setAdUnitId(getString(R.string.industrial_ad_id));//modify the ad id from string resources
+        //loading  an ad
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
 
         return view;
     }
@@ -162,6 +173,14 @@ public class Notification extends Fragment {
             public void onClick(View v) {
                 DownloadTask downloadTask=new DownloadTask(getContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
                 downloadTask.DownloadData();
+
+                //if ad is loaded than show it if user download a pdf
+                if (mInterstitialAd.isLoaded()) {
+                    mInterstitialAd.show();
+                } else {
+                    // Log.d("TAG", "The interstitial wasn't loaded yet.");
+                }
+
             }
         });
         Glide.with(getContext()).load(notices.getImageUrl()).into(imageView);

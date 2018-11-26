@@ -7,9 +7,9 @@ android {
         applicationId "com.umangSRTC.thesohankathait.umang"
         minSdkVersion 15
         targetSdkVersion 28
-        versionCode 9
+        versionCode 10
         multiDexEnabled true
-        versionName "1.9"
+        versionName "2.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -69,6 +69,9 @@ dependencies {
 
     implementation 'com.google.android.gms:play-services-ads:17.1.1'
 
+    //Serialze/deserialze
+
+    implementation 'org.apache.commons:commons-lang3:3.5'
 
 
 

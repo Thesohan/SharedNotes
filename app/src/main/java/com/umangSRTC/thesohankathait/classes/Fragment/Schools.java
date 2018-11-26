@@ -75,7 +75,7 @@ public class Schools extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getContext(), "itemClicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "itemClicked", Toast.LENGTH_SHORT).show();
 
                 Intent allNotificationActivityIntent=new Intent(getContext(),AllNotification.class);
                 allNotificationActivityIntent.putExtra("SCHOOL",Initialisation.schoolArrayList.get(position));
