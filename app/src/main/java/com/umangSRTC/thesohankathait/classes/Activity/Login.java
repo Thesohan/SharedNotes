@@ -48,6 +48,8 @@ import com.umangSRTC.thesohankathait.umang.R;
 import com.umangSRTC.thesohankathait.classes.Utill.CheckNetwork;
 import com.umangSRTC.thesohankathait.classes.model.User;
 
+import java.util.Random;
+
 public class Login extends AppCompatActivity {
 
 
@@ -86,6 +88,9 @@ public class Login extends AppCompatActivity {
                     getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(new NotificationChannel(channelId,
                     channelName, NotificationManager.IMPORTANCE_LOW));
+
+
+
         }
         //*****************************all about google sign in**********************
 
@@ -268,7 +273,7 @@ public class Login extends AppCompatActivity {
     }
 
     private void handleFacebookAccessToken(AccessToken token) {
-        Log.d("new2", "handleFacebookAccessToken:" + token);
+       // Log.d("new2", "handleFacebookAccessToken:" + token);
 
         AuthCredential credential = FacebookAuthProvider.getCredential(token.getToken());
         mAuth.signInWithCredential(credential)
@@ -351,13 +356,13 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
-                            Log.d("signInWithCredential", "signInWithCredential:success");
+                         //   Log.d("signInWithCredential", "signInWithCredential:success");
                             //saving user info in shared preferences
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("signInFailed", "signInWithCredential:failure", task.getException());
+                          //  Log.w("signInFailed", "signInWithCredential:failure", task.getException());
                             updateUI(null);
                         }
 
@@ -381,18 +386,17 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (CheckNetwork.isNetworkAvailable(this)) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 User.setUser(sharedPreferences.getString("NAME", null), sharedPreferences.getString("EMAIL", null));
-                Log.i("name", User.currentUser.getName());
+              //  Log.i("name", User.currentUser.getName());
                 progressDialog.dismiss();
                 // Toast.makeText(this, "move to next activity", Toast.LENGTH_SHORT).show();
                 moveToFunctionalityActivity();
             }
-        } else {
-            warningAndExit();
-        }
+            else if(!CheckNetwork.isNetworkAvailable(this)){
+                warningAndExit();
 
+            }
 
     }
 

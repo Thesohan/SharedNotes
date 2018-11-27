@@ -2,8 +2,8 @@ package com.umangSRTC.thesohankathait.classes.Adapter;
 
 import android.util.Log;
 
-import com.umangSRTC.thesohankathait.classes.Fragment.AboutUmang;
 import com.umangSRTC.thesohankathait.classes.Fragment.Notification;
+import com.umangSRTC.thesohankathait.classes.Fragment.Saved;
 import com.umangSRTC.thesohankathait.classes.Fragment.Schools;
 import com.umangSRTC.thesohankathait.classes.Fragment.Upload;
 
@@ -24,20 +24,22 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         Log.d("position",""+position);
         switch(position) {
             case 0:
-                return Notification.newInstance();
+            return Schools.newInstance();
 
             case 1:
-                return Upload.newInstance();
+                return Notification.newInstance();
 
             case 2:
-                return Schools.newInstance();
+                return Upload.newInstance();
+            case 3:
+                return Saved.newInstance();
         }
         return null;
     }
 
     @Override
     public int getCount() {
-        return 3;
+        return 4;
     }
 
     @Nullable
@@ -46,13 +48,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
         switch(position){
             case 0:
-                return "Notices";
+                return "Schools";
 
             case 1:
-                return "Upload";
+                return "Notices";
 
             case 2:
-                return "Schools";
+                return "Upload";
+            case 3:
+                return "Saved";
 
         }
         return null;

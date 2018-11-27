@@ -1,17 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:layout_width="wrap_content"
-    app:cardElevation="4dp"
-    app:cardCornerRadius="8dp"
-    android:minHeight="500dp"
-    android:minWidth="500dp"
-    android:layout_height="wrap_content">
-    <ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
+
+    <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_marginTop="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:id="@+id/button_close"
+                android:layout_width="?attr/actionBarSize"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:tint="@android:color/white"
+                android:src="@drawable/ic_close_black_24dp"/>
+
+            <TextView
+                android:id="@+id/dialogTitleTextView"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:gravity="center_vertical"
+                android:text="Dialog title"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/save_button"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:text="SAVE"
+                android:textColor="@android:color/white" />
+
+        </LinearLayout>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nested_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:scrollingCache="true">
 
 
         <LinearLayout
@@ -19,12 +65,56 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <ImageView
-                android:src="@drawable/notice"
-                android:id="@+id/allNoticeImageView"
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
-                />
+                android:layout_height="wrap_content">
+
+            <ProgressBar
+                android:id="@+id/fullScreenProgressbar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true" />
+
+            <ImageView
+                android:id="@+id/fullScreenNoticeImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"/>
+            </RelativeLayout>
+            <TextView
+                android:id="@+id/schoolNamesTextView"
+                android:layout_marginLeft="4dp"
+                android:text="SchoolName"
+                android:textStyle="bold"
+                android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/fullDescription"
+                android:layout_margin="4dp"
+                android:fontFamily="@font/righteous"
+                android:text="Description goes here"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textColor="@color/com_facebook_blue"
+                android:layout_margin="4dp"
+                android:id="@+id/linkTextView"
+                android:text="www.google.com"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:id="@+id/senderNameTextView"
+                android:layout_margin="4dp"
+                android:gravity="right"
+                android:textColor="@color/fadedBlack"
+                android:fontFamily="@font/nabila"
+                android:text="Description goes here"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
             <Button
                 android:id="@+id/imageDownloadButton"
                 android:fontFamily="@font/josefin_bold"
@@ -36,6 +126,7 @@
 
         </LinearLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
-</androidx.cardview.widget.CardView>
+</LinearLayout>
+

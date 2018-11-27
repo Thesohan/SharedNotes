@@ -1,5 +1,6 @@
 package com.umangSRTC.thesohankathait.classes.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.umangSRTC.thesohankathait.classes.Fragment.Request;
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
+import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
 import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.umang.R;
@@ -65,7 +67,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
             noticeImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showFullImage(notices.getImageUrl());
+                    showFullImage(noticeRequestsArrayList.get(position).getSchoolName(),notices);
                 }
             });
 
@@ -99,11 +101,23 @@ public class RequestArrayAdapter extends ArrayAdapter{
             return view;
         }
 
-    private void showFullImage(String imageUrl) {
+    @SuppressLint("CheckResult")
+    private void showFullImage(final String schoolName, final Notices notices) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.full_screen_notification, null, false);
         ImageView imageView = view.findViewById(R.id.allNoticeImageView);
-        Glide.with(getContext()).load(imageUrl);
+
+        Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
+        imageDownloadButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DownloadTask downloadTask=new DownloadTask(getContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
+                downloadTask.DownloadData();
+            }
+        });
+
+        Glide.with(context).load(notices.getImageUrl());
+
         android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(context)
                 .setView(view)
                 .show();
@@ -115,6 +129,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
             View view=LayoutInflater.from(context).inflate(R.layout.edit_notice,null,false);
             final EditText titleEditText=view.findViewById(R.id.editTitleEditText);
             final EditText descriptionEditText=view.findViewById(R.id.editDescriptionEditText);
+            final EditText linkEditText=view.findViewById(R.id.editLinkEditText);
            final Spinner schoolNameSpinner=view.findViewById(R.id.editSchoolSpinner);
        SpinnerAdapter spinnerArrayAdapter = new ArrayAdapter<String>
                 (context, android.R.layout.simple_spinner_item,
@@ -123,7 +138,10 @@ public class RequestArrayAdapter extends ArrayAdapter{
         schoolNameSpinner.setAdapter(spinnerArrayAdapter);
 
         titleEditText.setText(notices.getTitle());
-            descriptionEditText.setText(notices.getDescription());
+        descriptionEditText.setText(notices.getDescription());
+        if(notices.getLink()!=null){
+            linkEditText.setText(notices.getLink());
+        }
 
             AlertDialog builder=new AlertDialog.Builder(context)
                 .setIcon(R.drawable.ic_warning_black_24dp)

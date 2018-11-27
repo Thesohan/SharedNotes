@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -36,7 +37,7 @@ import androidx.fragment.app.Fragment;
 public class Schools extends Fragment {
 
     private ListView schoolsListView;
-    private Button addSchoolsFloatingActionButton;
+    private ImageButton addSchoolsFloatingActionButton;
     public SchoolsArrayAdapter schoolsArrayAdapter;
     private TextView hintTextView;
     public static ProgressBar schoolProgressbar;
@@ -75,7 +76,7 @@ public class Schools extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Toast.makeText(getContext(), "itemClicked", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "itemClicked", Toast.LENGTH_SHORT).show();
 
                 Intent allNotificationActivityIntent=new Intent(getContext(),AllNotification.class);
                 allNotificationActivityIntent.putExtra("SCHOOL",Initialisation.schoolArrayList.get(position));

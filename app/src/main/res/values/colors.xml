@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6396d9</color>
-    <color name="colorPrimaryDark">#304bc4</color>
-    <color name="colorAccent">#1612e7</color>
+    <color name="colorPrimary">@color/com_facebook_blue</color>
+    <color name="colorPrimaryDark">#283f87</color>
+    <color name="colorAccent">#0f0c94</color>
     <color name="white">#ffffff</color>
     <color name="black">#151010</color>
     <color name="red">#a90101</color>
+    <color name="fadedBlack">#8c8787</color>
+
 
     <color name="yellow">#d18ea302</color>
     <color name="green">#157c18</color>

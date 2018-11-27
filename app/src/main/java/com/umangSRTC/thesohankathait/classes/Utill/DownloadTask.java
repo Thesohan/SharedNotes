@@ -6,6 +6,7 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -39,9 +40,13 @@ public class DownloadTask {
         public void onReceive(Context context, Intent intent) {
             //Fetching the download id received with the broadcast
             long id = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
+
             //Checking if the received broadcast is for our enqueued download by matching download id
-            if (downloadReference == id) {
+            if (downloadReference == id && validDownload(downloadReference)) {
                 Toast.makeText(context, "Download Completed", Toast.LENGTH_SHORT).show();
+            }
+            else{
+                Toast.makeText(context, "Download failed!", Toast.LENGTH_SHORT).show();
             }
         }
     };
@@ -55,19 +60,6 @@ public class DownloadTask {
         if (CheckNetwork.isNetworkAvailable(context) && url!=null) {
 
             Toast.makeText(context, "Downloading started...", Toast.LENGTH_LONG).show();
-
-//            new CountDownTimer(5000, 1000) {
-//                @Override
-//                public void onTick(long millisUntilFinished) {
-//
-//                }
-//
-//                @Override
-//                public void onFinish() {
-//
-//                    Toast.makeText(context, "File Location will be:\n Downloads/umang/"+school+"/"+title, Toast.LENGTH_SHORT).show();
-//                }
-//            }.start();
 
             //since download manager takes a uri not a url
             Uri uri = Uri.parse(url);
@@ -101,6 +93,28 @@ public class DownloadTask {
                 Toast.makeText(context, "Please check your internet Connection and try again", Toast.LENGTH_LONG).show();
             }
         }
+    }
+
+
+    private boolean validDownload(long downloadId) {
+
+  //      Log.d("downloadstatusid","Checking download status for id: " + downloadId);
+
+        //Verify if download is a success
+        Cursor cursor= downloadManager.query(new DownloadManager.Query().setFilterById(downloadId));
+
+        if(cursor.moveToFirst()){
+            int status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+
+            if(status == DownloadManager.STATUS_SUCCESSFUL){
+                return true; //Download is valid, celebrate
+            }else{
+                int reason = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
+//                Log.d("correctornot", "Download not correct, status [" + status + "] reason [" + reason + "]");
+                return false;
+            }
+        }
+        return false;
     }
 
 }

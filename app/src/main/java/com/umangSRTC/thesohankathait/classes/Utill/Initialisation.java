@@ -1,6 +1,7 @@
 package com.umangSRTC.thesohankathait.classes.Utill;
 
 import android.app.Application;
+import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
 
@@ -8,31 +9,65 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.umangSRTC.thesohankathait.classes.Fragment.Schools;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 public class Initialisation extends Application {
-    public static ArrayList<String> schools;
+    public static ArrayList<String> schools;//this list is for spinner since we have to add first element as "select schools
     public static ArrayList<String> schoolArrayList;
     public static ArrayList<String> adminList;
+
+    
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
+
+        sharedPreferences=getSharedPreferences("ADMIN",MODE_PRIVATE);
+        editor=sharedPreferences.edit();
+
+
         adminList=new ArrayList<>();
+
+
         fetchAdminListFromFirebase();
 
         schools=new ArrayList<>();
         schools.add("Select Schools");
         schoolArrayList=new ArrayList<>();
+        getSavedSchoolFromSharedPreferences();
         getSchools();
 
+
+    }
+
+    private void getSavedSchoolFromSharedPreferences() {
+
+        Set<String> stringSet=new HashSet<>();
+        stringSet=sharedPreferences.getStringSet("SCHOOLLIST",null);
+        if(stringSet!=null) {
+            for (String school : stringSet) {
+                    schools.add(school);
+                    schoolArrayList.add(school);
+
+            }
+            Collections.sort(schoolArrayList);
+            Collections.sort(schools.subList(1, schools.size()));
+
+        }
 
     }
 
@@ -117,6 +152,9 @@ public class Initialisation extends Application {
                     Schools.schoolsFragmentInstance.schoolsArrayAdapter.notifyDataSetChanged();
                 }
 
+                //since we have to update sharedPrefeances
+                updateSchoolListInSharedPreferance();
+
             }
 
             @Override
@@ -129,5 +167,32 @@ public class Initialisation extends Application {
 
             }
         });
+
+        FirebaseDatabase.getInstance().getReference("Schools").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                updateSchoolListInSharedPreferance();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    private void updateSchoolListInSharedPreferance() {
+
+
+        Set<String> stringSet=new HashSet<>();
+        for(String school:schoolArrayList){
+            stringSet.add(school);
+        }
+
+        editor.putStringSet("SCHOOLLIST",stringSet);
+        editor.commit();
+
     }
 }

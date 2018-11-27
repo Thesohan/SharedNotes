@@ -1,6 +1,7 @@
 package com.umangSRTC.thesohankathait.classes.ViewHolders;
 
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -14,18 +15,20 @@ public class NoticesViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView allNoticeImageView;
     public TextView allNoticeTitleTextView;
-    public TextView allNoticeDescriptionTextView;
+//    public TextView allNoticeDescriptionTextView;
     public TextView allNoticeSenderTextview;
     public LinearLayout allNotificationlinearLayout;
+//    public Button saveButton;
 //    public ProgressBar imageProgressBar;
 
     public NoticesViewHolder(@NonNull View itemView) {
         super(itemView);
-        allNoticeDescriptionTextView=itemView.findViewById(R.id.allNoticedescriptionTextView);
+//        allNoticeDescriptionTextView=itemView.findViewById(R.id.allNoticedescriptionTextView);
         allNoticeImageView=itemView.findViewById(R.id.allNoticeImageView);
         allNoticeTitleTextView=itemView.findViewById(R.id.allNoiceTitleTextView);
 //        imageProgressBar=itemView.findViewById(R.id.imageProgressBar);
         allNoticeSenderTextview=itemView.findViewById(R.id.senderTextView);
+//        saveButton=itemView.findViewById(R.id.saveButton);
 
         allNotificationlinearLayout=itemView.findViewById(R.id.allNotificationLinearLayout);
 //        itemView.setOnCreateContextMenuListener(this);

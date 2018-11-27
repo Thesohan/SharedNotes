@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
+import android.os.Environment;
 import android.view.LayoutInflater;
 
 import com.facebook.login.LoginManager;
@@ -35,9 +36,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.io.File;
 
 import static com.umangSRTC.thesohankathait.classes.Utill.DownloadTask.downloadReference;
 
@@ -111,7 +115,9 @@ public class Functionality extends AppCompatActivity
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
         setSupportActionBar(toolbar);
+
 //        getActionBar().setTitle("Umang");
         getSupportActionBar().setTitle("Umang");  // provide compatibility to all the versions
   //      getActionBar().setIcon(R.drawable.ic_launcher);
@@ -152,15 +158,16 @@ public class Functionality extends AppCompatActivity
 
         //And then we set the viewPager on the tabLayout
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setBackgroundColor(this.getResources().getColor(R.color.colorPrimary));
-        tabLayout.setSelectedTabIndicatorColor(this.getResources().getColor(R.color.colorAccent));
+
+        tabLayout.setBackgroundColor(this.getResources().getColor(R.color.com_facebook_blue));
+        tabLayout.setSelectedTabIndicatorColor(this.getResources().getColor(R.color.white));
 
         //This below one is used to set the custom textview on tabLayout items.
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             //noinspection ConstantConditions
             TextView tv=(TextView)LayoutInflater.from(this).inflate(R.layout.custom_tab,null);
 //            tv.setTypeface(Typeface);null
-            tv.setTextColor(this.getResources().getColor(R.color.colorAccent));
+            tv.setTextColor(this.getResources().getColor(R.color.white));
             tabLayout.getTabAt(i).setCustomView(tv);
 
         }
@@ -175,14 +182,16 @@ public class Functionality extends AppCompatActivity
 //                  Toast.makeText(Functionality.this, ""+position, Toast.LENGTH_SHORT).show();
                 switch (position){
                     case 0:
-                        navigationView.setCheckedItem(R.id.srtcNotification);
-                        break;
-                    case 1:
-                        navigationView.setCheckedItem(R.id.upload);
-                        break;
-                    case 2:
                         navigationView.setCheckedItem(R.id.schools);
                         break;
+                    case 1:
+                        navigationView.setCheckedItem(R.id.srtcNotification);
+                        break;
+                    case 2:
+                        navigationView.setCheckedItem(R.id.upload);
+                        break;
+                    case 3:
+                        navigationView.setCheckedItem(R.id.saved);
 
                 }
 
@@ -208,7 +217,7 @@ public class Functionality extends AppCompatActivity
 
     private void askForPermissions()
     {
-        String permissions[]={Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.ACCESS_NETWORK_STATE};
+        String permissions[]={Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE,Manifest.permission.ACCESS_NETWORK_STATE};
         if(Build.VERSION.SDK_INT>=23)
             requestPermissions(permissions,1);
     }
@@ -219,7 +228,8 @@ public class Functionality extends AppCompatActivity
         if(Build.VERSION.SDK_INT>=23)
             return ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED
                     &&ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.READ_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED
-                    &&ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_NETWORK_STATE)==PackageManager.PERMISSION_GRANTED;
+                    &&ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.ACCESS_NETWORK_STATE)==PackageManager.PERMISSION_GRANTED
+                    &&ActivityCompat.checkSelfPermission(getApplicationContext(),Manifest.permission.CAMERA)==PackageManager.PERMISSION_GRANTED;
 
         return true;
     }
@@ -231,7 +241,12 @@ public class Functionality extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else if(getSupportFragmentManager().getBackStackEntryCount()!=0) {
+                getSupportFragmentManager().popBackStack();
+        }
+
+        else {
             exitAlert();
           //  super.onBackPressed();
         }
@@ -254,7 +269,11 @@ public class Functionality extends AppCompatActivity
                 .setNegativeButton("No",null)
                 .show();
     }
-
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.mydownloads, menu);
+        return true;
+    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -263,9 +282,23 @@ public class Functionality extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-//        if (id == R.id.action_setting) {
-//            return true;
-//        }
+        if (id == R.id.mydownloads) {
+            //Toast.makeText(this, "pass", Toast.LENGTH_SHORT).show();
+            Uri selectedUri = Uri.parse(Environment.getExternalStorageDirectory() + "/Download/");
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(selectedUri, "resource/folder");
+            if (intent.resolveActivityInfo(getPackageManager(), 0) != null)
+            {
+                startActivity(intent);
+            }
+            else
+            {
+                Toast.makeText(this, "Please download a file manager first!", Toast.LENGTH_SHORT).show();
+                // if you reach this place, it means there is no any file
+                // explorer app installed on your device
+            }
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }
@@ -278,17 +311,21 @@ public class Functionality extends AppCompatActivity
 
         if (id == R.id.srtcNotification) {
             // Handle the srtcNotification
-            tabLayout.setScrollPosition(0,0f,false);
-            viewPager.setCurrentItem(0,true);
-        } else if (id == R.id.schools) {
-            tabLayout.setScrollPosition(2,0f,false);
-            viewPager.setCurrentItem(2,true);
-
-        } else if (id == R.id.upload) {
             tabLayout.setScrollPosition(1,0f,false);
             viewPager.setCurrentItem(1,true);
+        } else if (id == R.id.schools) {
+            tabLayout.setScrollPosition(0,0f,false);
+            viewPager.setCurrentItem(0,true);
+
+        } else if (id == R.id.upload) {
+            tabLayout.setScrollPosition(2,0f,false);
+            viewPager.setCurrentItem(2,true);
+        } else if (id == R.id.saved) {
+            tabLayout.setScrollPosition(3,0f,false);
+            viewPager.setCurrentItem(3,true);
+
         }  else if (id == R.id.share) {
-            shareMyApp("https://play.google.com/store/apps/details?id=com.umangSRTC.thesohankathait.umang");
+            shareMyApp("This is an awesome app for SRTC student, download the app now: https://play.google.com/store/apps/details?id=com.umangSRTC.thesohankathait.umang");
 
         } else if (id == R.id.feedback) {
             sendFeedbackViaMail();

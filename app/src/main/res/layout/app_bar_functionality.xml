@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".classes.Activity.Functionality">
+    android:layout_height="match_parent">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -17,6 +16,18 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout"
+            app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.Medium"
+            app:tabGravity="center"
+            app:tabMode="scrollable"
+            android:scrollbarAlwaysDrawHorizontalTrack="true"
+            app:tabIconTint="@color/com_facebook_blue"
+            android:background="@color/com_facebook_blue"
+            android:backgroundTint="@color/com_facebook_blue"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

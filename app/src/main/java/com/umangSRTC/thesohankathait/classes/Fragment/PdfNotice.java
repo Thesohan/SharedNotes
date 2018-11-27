@@ -43,6 +43,7 @@ import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.Utill.FileExtension;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.classes.ViewHolders.PdfNoticesViewHolder;
+import com.umangSRTC.thesohankathait.classes.database.DbHelper;
 import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
 import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.umang.R;
@@ -169,7 +170,11 @@ public class PdfNotice extends Fragment {
                 pdfNoticesViewHolder.pdfNoticeTitleTextView.setText(notices.getTitle());
                 pdfNoticesViewHolder.pdfNoticeDescriptionTextView.setText(notices.getDescription());
                 Glide.with(getContext()).load(R.drawable.pdf).into(pdfNoticesViewHolder.pdfNoticeImageView);
-                pdfNoticesViewHolder.pdfNoticeSenderTextview.setText(notices.getSender());
+
+
+                String sender="- "+notices.getSender();
+                pdfNoticesViewHolder.pdfNoticeSenderTextview.setText(sender);
+
                 pdfNoticesViewHolder.pdfSchoolNameTextView.setText(schoolName);
 
                 if(!Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail()))
@@ -194,23 +199,14 @@ public class PdfNotice extends Fragment {
                         if (mInterstitialAd.isLoaded()) {
                             mInterstitialAd.show();
                         } else {
-                            Log.d("TAG", "The interstitial wasn't loaded yet.");
+                           // Log.d("TAG", "The interstitial wasn't loaded yet.");
                         }
 //
                         //download pdf
                     }
                 });
 
-                if (Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-                    pdfNoticesViewHolder.pdfNotificationlinearLayout.setOnLongClickListener(new View.OnLongClickListener() {
-                        @Override
-                        public boolean onLongClick(View v) {
-//                            deleteNotificationWarning(schoolName, notices);
-                            return true;
-                        }
-                    });
 
-                }
             }
         };
         pdfRecyclerView.setAdapter(firebaseRecyclerAdapter);
