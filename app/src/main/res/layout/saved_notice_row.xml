@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout android:focusable="true"
+    android:id="@+id/allNotificationLinearLayout"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        android:layout_margin="4dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+            <ImageView
+                android:background="@drawable/notice"
+                android:id="@+id/allNoticeImageView"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:scaleType="fitXY"/>
+    </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_weight="1"
+            android:padding="8sp"
+            android:layout_marginTop="8dp"
+            android:id="@+id/allNoiceTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+            android:fontFamily="@font/josefin_bold"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:paddingLeft="8sp" />
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/allNoticedescriptionTextView"
+        android:layout_width="wrap_content"
+        android:textColor="@color/black"
+        android:text="food Description will be here . This food is one of the best food in the market Here your are getting the facility of not only eating"
+        android:layout_height="wrap_content"/>
+    <TextView
+        android:id="@+id/savedLinkTextView"
+        android:layout_margin="4dp"
+        android:text="link"
+        android:textColor="@color/com_facebook_blue"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <TextView
+            android:textColor="@color/black"
+            android:fontFamily="@font/righteous"
+            android:text="School :"
+            android:layout_margin="4dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_margin="4dp"
+            android:textColor="@color/black"
+            android:text="school"
+            android:id="@+id/savedSchoolNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_margin="4dp"
+        android:textColor="@color/fadedBlack"
+        android:textStyle="bold"
+        android:gravity="right"
+        android:fontFamily="@font/nabila"
+        android:text="- Adarsh Bhatt"
+        android:id="@+id/senderTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -44,7 +45,7 @@ import androidx.fragment.app.Fragment;
 public class Upload extends Fragment {
 
     private ImageView imageView;
-    private EditText titleEditText,descriptionEditText;
+    private EditText titleEditText,descriptionEditText,linkEditText=null;
     private Button uploadButton;
     private Spinner spinner;
     private Context context;
@@ -54,17 +55,21 @@ public class Upload extends Fragment {
     private String selectedSchool=null;
     private ArrayAdapter<String>  spinnerArrayAdapter;
     private TextView aboutUmangTextview;
+//    private ImageButton cameraImageButton;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.upload_fragment,container,false);
 
         context=getContext();
+//        cameraImageButton=view.findViewById(R.id.cameraImageButton);
         imageView=view.findViewById(R.id.uploadImageView);
         titleEditText=view.findViewById(R.id.titleEditText);
         descriptionEditText=view.findViewById(R.id.descriptionEditText);
         uploadButton=view.findViewById(R.id.uploadButton);
         spinner=view.findViewById(R.id.spinner);
+        linkEditText=view.findViewById(R.id.linkEditText);
+
         aboutUmangTextview=view.findViewById(R.id.aboutUmangTextView);
         aboutUmangTextview.setVisibility(View.VISIBLE);
 
@@ -111,6 +116,18 @@ public class Upload extends Fragment {
                 }
             }
         });
+
+//        cameraImageButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+//                    startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+//                }
+//            }
+//        });
+
         return view;
     }
 
@@ -194,6 +211,11 @@ public class Upload extends Fragment {
     private void uploadintoFirebase() {
         progressDialog.dismiss();
         Notices notices=new Notices(descriptionEditText.getText().toString(),titleEditText.getText().toString(),FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),imageURl);
+
+        //if user enter any link than set that link into notice
+        if(!linkEditText.getText().toString().trim().equals("")){
+            notices.setLink(linkEditText.getText().toString());
+        }
 
         if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
             FirebaseDatabase.getInstance().getReference("Category").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {

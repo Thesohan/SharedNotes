@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    app:cardElevation="4dp"
+    app:cardCornerRadius="8dp"
+    android:minHeight="500dp"
+    android:minWidth="500dp"
+    android:layout_height="wrap_content">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:src="@drawable/notice"
+                android:id="@+id/allNoticeImageView"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                />
+            <Button
+                android:id="@+id/imageDownloadButton"
+                android:fontFamily="@font/josefin_bold"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/com_facebook_blue"
+                android:text="Download"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</androidx.cardview.widget.CardView>

@@ -3,10 +3,13 @@ package com.umangSRTC.thesohankathait.classes.Activity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,6 +31,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 
+import com.umangSRTC.thesohankathait.classes.Fragment.FullScreenDialogFragment;
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.classes.Utill.Equals;
@@ -83,9 +87,11 @@ public class AllNotification extends AppCompatActivity {
 
                 allNotificationProgressbar.setVisibility(View.GONE);
                 noticesViewHolder.allNoticeTitleTextView.setText(notices.getTitle());
-                noticesViewHolder.allNoticeDescriptionTextView.setText(notices.getDescription());
+//                noticesViewHolder.allNoticeDescriptionTextView.setText(notices.getDescription());
                 Glide.with(getApplicationContext()).load(notices.getImageUrl()).into(noticesViewHolder.allNoticeImageView);
-                noticesViewHolder.allNoticeSenderTextview.setText(notices.getSender());
+
+                String sender="- "+notices.getSender();
+                noticesViewHolder.allNoticeSenderTextview.setText(sender);
 
                 noticesViewHolder.allNoticeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -102,9 +108,33 @@ public class AllNotification extends AppCompatActivity {
                         }
                     });
                 }
+
+                noticesViewHolder.allNoticeTitleTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showFullNotices(schoolName,notices);
+                    }
+                });
+
+
+
             }
         };
         recyclerView.setAdapter(firebaseRecyclerAdapter);
+
+
+    }
+
+    private void showFullNotices(String schoolName, Notices notices) {
+
+
+
+        //show full dialog fragment
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FullScreenDialogFragment fullScreenDialogFragment = FullScreenDialogFragment.newInstance(schoolName,notices);
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(android.R.id.content, fullScreenDialogFragment).addToBackStack("faf").commit();
+
     }
 
     private void deleteNotificationWarning(final String schoolName, final Notices notices) {
@@ -166,7 +196,7 @@ public class AllNotification extends AppCompatActivity {
 
 
     private void showFullImage(final String schoolName, final Notices notices) {
-        View view=LayoutInflater.from(this).inflate(R.layout.full_screen_notification,null,false);
+        View view=LayoutInflater.from(this).inflate(R.layout.full_image,null,false);
         ImageView imageView=view.findViewById(R.id.allNoticeImageView);
         Glide.with(getApplicationContext()).load(notices.getImageUrl()).into(imageView);
         Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
@@ -194,7 +224,12 @@ public class AllNotification extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        finish();
+        if(getSupportFragmentManager().getBackStackEntryCount()!=0) {
+            getSupportFragmentManager().popBackStack();
+        }
+        else{
+            finish();
 
+        }
     }
 }

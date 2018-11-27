@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Notices implements Serializable {
     //for pdf imageUrl==pdfUri or downloadURL
-    private String description,title,sender,imageUrl,fileExtension;
+    private String description,title,sender,imageUrl,fileExtension,link;
 
     public Notices() {
     }
@@ -16,6 +16,15 @@ public class Notices implements Serializable {
         this.sender = sender;
         this.imageUrl = imageUrl;
         this.fileExtension="JPEG";
+        this.link=null;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 
     public String getDescription() {

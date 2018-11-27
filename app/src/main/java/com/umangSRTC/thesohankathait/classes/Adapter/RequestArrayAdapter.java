@@ -129,6 +129,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
             View view=LayoutInflater.from(context).inflate(R.layout.edit_notice,null,false);
             final EditText titleEditText=view.findViewById(R.id.editTitleEditText);
             final EditText descriptionEditText=view.findViewById(R.id.editDescriptionEditText);
+            final EditText linkEditText=view.findViewById(R.id.editLinkEditText);
            final Spinner schoolNameSpinner=view.findViewById(R.id.editSchoolSpinner);
        SpinnerAdapter spinnerArrayAdapter = new ArrayAdapter<String>
                 (context, android.R.layout.simple_spinner_item,
@@ -137,7 +138,10 @@ public class RequestArrayAdapter extends ArrayAdapter{
         schoolNameSpinner.setAdapter(spinnerArrayAdapter);
 
         titleEditText.setText(notices.getTitle());
-            descriptionEditText.setText(notices.getDescription());
+        descriptionEditText.setText(notices.getDescription());
+        if(notices.getLink()!=null){
+            linkEditText.setText(notices.getLink());
+        }
 
             AlertDialog builder=new AlertDialog.Builder(context)
                 .setIcon(R.drawable.ic_warning_black_24dp)

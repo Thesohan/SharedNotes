@@ -44,7 +44,7 @@ dependencies {
     //For firebase RecyclerView Adapter
     implementation 'com.firebaseui:firebase-ui-database:1.2.0'
     //picasso
-   // implementation 'com.squareup.picasso:picasso:2.71828'
+    // implementation 'com.squareup.picasso:picasso:2.71828'
 
     //cloud messaging
     implementation 'com.google.firebase:firebase-messaging:17.3.4'
@@ -52,12 +52,12 @@ dependencies {
     implementation 'com.amulyakhare:com.amulyakhare.textdrawable:1.0.1'
 
     //flaotingaction button
-   // implementation 'com.getbase:floatingactionbutton:1.10.1'
+    // implementation 'com.getbase:floatingactionbutton:1.10.1'
 
     // firebase cloud messanging
 //    implementation 'com.google.firebase:firebase-messaging:17.3.4'
 
-        // Add the In-App Messaging dependency:
+    // Add the In-App Messaging dependency:
 //    implementation 'com.google.firebase:firebase-inappmessaging-display:17.0.4'
     //implementation 'com.android.support:multidex:1.0.3'
 
@@ -73,6 +73,8 @@ dependencies {
 
     implementation 'org.apache.commons:commons-lang3:3.5'
 
+    //material design components
+    implementation 'com.google.android.material:material:1.0.0'
 
 
 }

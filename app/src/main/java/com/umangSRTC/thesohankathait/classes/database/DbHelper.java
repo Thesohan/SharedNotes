@@ -6,13 +6,20 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.umangSRTC.thesohankathait.classes.Fragment.Request;
+import com.umangSRTC.thesohankathait.classes.Fragment.Saved;
+import com.umangSRTC.thesohankathait.classes.Utill.Equals;
+import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
 import com.umangSRTC.thesohankathait.classes.model.Notices;
 
 import org.apache.commons.lang3.SerializationUtils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 
 //This class makes it easy for ContentProvider implementations to defer opening and upgrading the database until first use, to avoid blocking application startup with long-running database upgrades.
@@ -24,8 +31,7 @@ public class DbHelper extends SQLiteOpenHelper {
 
     //syntax of sql to create a table
     private static final String CREATE = "create table " + DbContract.TABLE_NAME +
-            "(id integer primary key autoincrement," + DbContract.NOTICE + " BLOB," + DbContract
-            .SCHOOL_NAME+ " text," + DbContract.NOTICE_TYPE + " text);";
+            "(id integer primary key autoincrement," + DbContract.NOTICE + " BLOB,"+DbContract.UUID+" text);";
 
     // if table is exist than drop this table(syntax)
     private static final String DROP_TABLE = "drop table if exists " + DbContract.TABLE_NAME;
@@ -58,83 +64,159 @@ public class DbHelper extends SQLiteOpenHelper {
     }
 
     // custom method to save list of content in database
-    public void saveNoticeList(List<Notices> NoticeList, String schoolName, String noticeType) {
 
-        DbHelper dbHelper = new DbHelper(context); //creating DbHelper object
+    public void saveNotice(NoticeRequest noticeRequest){
 
-        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();//creating database
+        SQLiteDatabase sqLiteDatabase=getWritableDatabase();
 
-        // Fetching the already existing list
-        List<Notices> existingNoticeList = dbHelper.readNoticeList(schoolName,noticeType);
-
-        //creating a ContentValues object, it will contain values in a set
-        ContentValues contentValues = new ContentValues();
-
-        for (int i = 0; i < NoticeList.size(); i++) {
-
-            // Don't add the object to database if it already exists..
-            if(existingNoticeList.contains(NoticeList.get(i)))
-            {
-                continue;
+        //checking weather incoming notice reqeust is already save in database or not
+        ArrayList<NoticeRequest> existingNoticeList=new ArrayList<>();
+        existingNoticeList=readNoticeList();
+        boolean exists=false;
+        for(int i=0;i<existingNoticeList.size();i++){
+            if(Equals.BothEquals(existingNoticeList.get(i).getNotices(),noticeRequest.getNotices())){
+                exists=true;
+                break;
             }
-
-            //serializing the object, since we can't store objects in sqlite
-            byte[] data = SerializationUtils.serialize( NoticeList.get(i));
-
-            //adding values in databse
-
-            contentValues.put(DbContract.NOTICE, data);
-            contentValues.put(DbContract.SCHOOL_NAME, schoolName);
-            contentValues.put(DbContract.NOTICE_TYPE,noticeType);
-            sqLiteDatabase.insert(DbContract.TABLE_NAME, null, contentValues);
-
         }
-        Log.i("savedtodb:",NoticeList.toString());
+        if(!exists){
+            byte[] data=SerializationUtils.serialize(noticeRequest);
+            String uuid=UUID.randomUUID().toString();
+            ContentValues contentValues=new ContentValues();
+            contentValues.put(DbContract.NOTICE,data);
+            contentValues.put(DbContract.UUID,uuid);
+            sqLiteDatabase.insert(DbContract.TABLE_NAME,null,contentValues);
+            Toast.makeText(context, "Notice saved", Toast.LENGTH_SHORT).show();
+        }
+        else{
+            Toast.makeText(context, "This notice is already saved", Toast.LENGTH_SHORT).show();
+        }
     }
 
-    public List<Notices> readNoticeList(String schoolName, String noticeType) {
+//    public void saveNoticeList(List<Notices> NoticeList, String schoolName, String noticeType) {
+//
+//        DbHelper dbHelper = new DbHelper(context); //creating DbHelper object
+//
+//        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();//creating database
+//
+//        // Fetching the already existing list
+//        List<Notices> existingNoticeList = dbHelper.readNoticeList(schoolName,noticeType);
+//
+//        //creating a ContentValues object, it will contain values in a set
+//        ContentValues contentValues = new ContentValues();
+//
+//        for (int i = 0; i < NoticeList.size(); i++) {
+//
+//            // Don't add the object to database if it already exists..
+//            if(existingNoticeList.contains(NoticeList.get(i)))
+//            {
+//                continue;
+//            }
+//
+//            //serializing the object, since we can't store objects in sqlite
+//            byte[] data = SerializationUtils.serialize( NoticeList.get(i));
+//
+//            //adding values in databse
+//
+//            contentValues.put(DbContract.NOTICE, data);
+//            contentValues.put(DbContract.SCHOOL_NAME, schoolName);
+//            contentValues.put(DbContract.NOTICE_TYPE,noticeType);
+//            sqLiteDatabase.insert(DbContract.TABLE_NAME, null, contentValues);
+//
+//        }
+//        Log.i("savedtodb:",NoticeList.toString());
+//    }
 
-        List<Notices> noticeList = new ArrayList<>();
+//    public List<Notices> readNoticeList(String schoolName, String noticeType) {
+//
+//        List<Notices> noticeList = new ArrayList<>();
+//
+//        DbHelper dbHelper = new DbHelper(context);
+//        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+//
+//        // ALWAYS MAKE SURE (, ' and spaces) DON'T mentally harass you for hours. :(
+//
+//        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + DbContract.TABLE_NAME + " WHERE "
+//                + DbContract.SCHOOL_NAME + "= '" + schoolName + "' AND "
+//                + DbContract.NOTICE_TYPE + "= '" + noticeType+"'", null);
+//
+//        if (cursor.getCount() > 0) {
+//
+//            while (cursor.moveToNext()) {
+//                int contentIndex = cursor.getColumnIndex(DbContract.NOTICE);
+//                byte[] data = cursor.getBlob(contentIndex);
+//                Notices notices = SerializationUtils.deserialize(data);
+//                noticeList.add(notices);
+//            }
+//            //closing the database
+//            cursor.close();
+//            dbHelper.close();
+//        }
+//
+//        return noticeList;
+//    }
 
-        DbHelper dbHelper = new DbHelper(context);
-        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+    //since we need the school name hence we are fetching notice as a request.
 
-        // ALWAYS MAKE SURE (, ' and spaces) DON'T mentally harass you for hours. :(
+    public ArrayList<NoticeRequest> readNoticeList(){
+        ArrayList<NoticeRequest> noticeList=new ArrayList<>();
 
-        Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM " + DbContract.TABLE_NAME + " WHERE "
-                + DbContract.SCHOOL_NAME + "= '" + schoolName + "' AND "
-                + DbContract.NOTICE_TYPE + "= '" + noticeType+"'", null);
+        SQLiteDatabase sqLiteDatabase=getWritableDatabase();
+        Cursor cursor=sqLiteDatabase.rawQuery("SELECT * FROM "+DbContract.TABLE_NAME,null);
 
-        if (cursor.getCount() > 0) {
-
-            while (cursor.moveToNext()) {
-                int contentIndex = cursor.getColumnIndex(DbContract.NOTICE);
-                byte[] data = cursor.getBlob(contentIndex);
-                Notices notices = SerializationUtils.deserialize(data);
+        if(cursor.getCount()>0){
+            while(cursor.moveToNext()){
+                int noticeIndex=cursor.getColumnIndex(DbContract.NOTICE);
+                byte[] data=cursor.getBlob(noticeIndex);
+                NoticeRequest notices=SerializationUtils.deserialize(data);
                 noticeList.add(notices);
             }
-            //closing the database
-            cursor.close();
-            dbHelper.close();
         }
+        cursor.close();
 
         return noticeList;
     }
 
-    public void deleteNoticeList(String schoolName,String noticeType)
-    {
-        DbHelper dbHelper=new DbHelper(context);
-        SQLiteDatabase sqLiteDatabase=dbHelper.getWritableDatabase();
 
-        int rowsDeleted= 0;
-        rowsDeleted = sqLiteDatabase.delete(DbContract.TABLE_NAME,DbContract.SCHOOL_NAME
-                +"=? and "+DbContract.NOTICE_TYPE+"=?",new String[]{schoolName,noticeType});
-        Log.i("valuedeleted",Integer.toString(rowsDeleted));
+    public void deleteNotice(NoticeRequest noticeRequest){
+        SQLiteDatabase sqLiteDatabase=getWritableDatabase();
+        ArrayList<NoticeRequest> existingNotice=new ArrayList<>();
 
+        Cursor cursor=sqLiteDatabase.rawQuery("SELECT * FROM "+DbContract.TABLE_NAME,null);
+
+        //since i was not able to delete the data via bolb field index, so i created uuid
+        if(cursor.getCount()>0){
+            while(cursor.moveToNext()){
+                int noticeIndex=cursor.getColumnIndex(DbContract.NOTICE);
+                byte[] data=cursor.getBlob(noticeIndex);
+                NoticeRequest notice=SerializationUtils.deserialize(data);
+                //if this data is same than we can go for uuid index.
+                if(Equals.BothEquals(notice.getNotices(),noticeRequest.getNotices())){
+                   int uuidIndex=cursor.getColumnIndex(DbContract.UUID);
+                    String uuid=cursor.getString(uuidIndex);
+                    int a= sqLiteDatabase.delete(DbContract.TABLE_NAME,DbContract.UUID+"=?",new String[]{uuid});
+                    Toast.makeText(context, "deleted"+a, Toast.LENGTH_SHORT).show();
+                }
+                 }
+        }
+        cursor.close();
         sqLiteDatabase.close();
-        dbHelper.close();
-        Log.i("Deleted","Old list cleared");
     }
+
+//    public void deleteNoticeList(String schoolName,String noticeType)
+//    {
+//        DbHelper dbHelper=new DbHelper(context);
+//        SQLiteDatabase sqLiteDatabase=dbHelper.getWritableDatabase();
+//
+//        int rowsDeleted= 0;
+//        rowsDeleted = sqLiteDatabase.delete(DbContract.TABLE_NAME,DbContract.SCHOOL_NAME
+//                +"=? and "+DbContract.NOTICE_TYPE+"=?",new String[]{schoolName,noticeType});
+//        Log.i("valuedeleted",Integer.toString(rowsDeleted));
+//
+//        sqLiteDatabase.close();
+//        dbHelper.close();
+//        Log.i("Deleted","Old list cleared");
+//    }
 
 
 }

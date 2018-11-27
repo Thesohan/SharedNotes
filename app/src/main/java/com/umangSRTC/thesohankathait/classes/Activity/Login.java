@@ -386,7 +386,6 @@ public class Login extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        if (CheckNetwork.isNetworkAvailable(this)) {
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 User.setUser(sharedPreferences.getString("NAME", null), sharedPreferences.getString("EMAIL", null));
               //  Log.i("name", User.currentUser.getName());
@@ -394,10 +393,10 @@ public class Login extends AppCompatActivity {
                 // Toast.makeText(this, "move to next activity", Toast.LENGTH_SHORT).show();
                 moveToFunctionalityActivity();
             }
-        } else {
-            warningAndExit();
-        }
+            else if(!CheckNetwork.isNetworkAvailable(this)){
+                warningAndExit();
 
+            }
 
     }
 

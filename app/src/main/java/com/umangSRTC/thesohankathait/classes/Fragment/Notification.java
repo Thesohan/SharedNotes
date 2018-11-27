@@ -24,6 +24,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
+import com.umangSRTC.thesohankathait.classes.database.DbHelper;
+import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
 import com.umangSRTC.thesohankathait.umang.R;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.classes.Utill.Equals;
@@ -32,7 +34,10 @@ import com.umangSRTC.thesohankathait.classes.model.Notices;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -78,14 +83,23 @@ public class Notification extends Fragment {
 
                 allNotificationProgressbar.setVisibility(View.GONE);
                 noticesViewHolder.allNoticeTitleTextView.setText(notices.getTitle());
-                noticesViewHolder.allNoticeDescriptionTextView.setText(notices.getDescription());
+//                noticesViewHolder.allNoticeDescriptionTextView.setText(notices.getDescription());
                 Glide.with(getContext()).load(notices.getImageUrl()).into(noticesViewHolder.allNoticeImageView);
-                noticesViewHolder.allNoticeSenderTextview.setText(notices.getSender());
+
+                String sender="- "+notices.getSender();
+                noticesViewHolder.allNoticeSenderTextview.setText(sender);
 
                 noticesViewHolder.allNoticeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         showFullImage(schoolName, notices);
+                    }
+                });
+
+                noticesViewHolder.allNoticeTitleTextView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        showFullNotices(schoolName,notices);
                     }
                 });
 
@@ -98,9 +112,31 @@ public class Notification extends Fragment {
                         }
                     });
                 }
+//               noticesViewHolder.saveButton.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        DbHelper dbHelper=new DbHelper(getContext());
+//                        NoticeRequest noticeRequest=new NoticeRequest(schoolName,notices);
+//                        dbHelper.saveNotice(noticeRequest);
+//                        dbHelper.close();
+//                        // Toast.makeText(getContext(), "Notice saved", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
             }
         };
         recyclerView.setAdapter(firebaseRecyclerAdapter);
+
+    }
+
+    private void showFullNotices(String schoolName, Notices notices) {
+
+
+        //show full dialog fragment
+
+        FragmentManager fragmentManager = getFragmentManager();
+        FullScreenDialogFragment fullScreenDialogFragment = FullScreenDialogFragment.newInstance(schoolName,notices);
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(android.R.id.content, fullScreenDialogFragment).addToBackStack("faf").commit();
 
     }
 
@@ -164,8 +200,9 @@ public class Notification extends Fragment {
         });
     }
 
-    private void showFullImage(final String schoolName, final Notices notices) {
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.full_screen_notification, null, false);
+    private void    showFullImage(final String schoolName, final Notices notices) {
+
+     View view = LayoutInflater.from(getContext()).inflate(R.layout.full_image, null, false);
         ImageView imageView = view.findViewById(R.id.allNoticeImageView);
         Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
         imageDownloadButton.setOnClickListener(new View.OnClickListener() {

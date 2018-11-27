@@ -1,6 +1,8 @@
 package com.umangSRTC.thesohankathait.classes.model;
 
-public class NoticeRequest {
+import java.io.Serializable;
+
+public class NoticeRequest implements Serializable {
     private String schoolName;
     private Notices notices;
 

@@ -57,14 +57,15 @@
         </LinearLayout>
 
         </RelativeLayout>
-        <Button
-            android:layout_width="48dp"
+        <androidx.appcompat.widget.AppCompatImageButton
+            android:layout_width="64dp"
             android:layout_margin="24dp"
+
             android:id="@+id/addSchoolsFloatingActionButton"
             android:backgroundTint="@color/com_facebook_blue"
             android:background="@drawable/ic_add_circle_black_24dp"
             android:layout_gravity="bottom|right"
-            android:layout_height="48dp" />
+            android:layout_height="64dp" />
     </androidx.cardview.widget.CardView>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

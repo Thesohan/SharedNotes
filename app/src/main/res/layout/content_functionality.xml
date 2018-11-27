@@ -16,16 +16,6 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_height="match_parent">
 
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabLayout"
-                app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-                app:tabGravity="center"
-                app:tabIconTint="@color/colorAccent"
-                android:background="@color/white"
-                app:tabTextColor="@color/black"
-                android:backgroundTint="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="?actionBarSize"/>
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/subscriptionViewPager"

@@ -11,26 +11,26 @@ import com.umangSRTC.thesohankathait.umang.R;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class NoticesViewHolder extends RecyclerView.ViewHolder {
+public class SavedNoticeViewHolder extends RecyclerView.ViewHolder {
 
     public ImageView allNoticeImageView;
     public TextView allNoticeTitleTextView;
-//    public TextView allNoticeDescriptionTextView;
+    public TextView allNoticeDescriptionTextView;
     public TextView allNoticeSenderTextview;
     public LinearLayout allNotificationlinearLayout;
-//    public Button saveButton;
-//    public ProgressBar imageProgressBar;
+    public TextView schoolNameTextView,linkTextView;
 
-    public NoticesViewHolder(@NonNull View itemView) {
+
+    public SavedNoticeViewHolder(@NonNull View itemView) {
         super(itemView);
-//        allNoticeDescriptionTextView=itemView.findViewById(R.id.allNoticedescriptionTextView);
+        allNoticeDescriptionTextView=itemView.findViewById(R.id.allNoticedescriptionTextView);
         allNoticeImageView=itemView.findViewById(R.id.allNoticeImageView);
         allNoticeTitleTextView=itemView.findViewById(R.id.allNoiceTitleTextView);
 //        imageProgressBar=itemView.findViewById(R.id.imageProgressBar);
         allNoticeSenderTextview=itemView.findViewById(R.id.senderTextView);
-//        saveButton=itemView.findViewById(R.id.saveButton);
-
+        schoolNameTextView=itemView.findViewById(R.id.savedSchoolNameTextView);
         allNotificationlinearLayout=itemView.findViewById(R.id.allNotificationLinearLayout);
+        linkTextView=itemView.findViewById(R.id.savedLinkTextView);
 //        itemView.setOnCreateContextMenuListener(this);
     }
 
