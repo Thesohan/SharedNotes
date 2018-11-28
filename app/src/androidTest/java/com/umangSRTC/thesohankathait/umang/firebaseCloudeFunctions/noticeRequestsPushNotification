@@ -40,5 +40,5 @@ console.log('Push notification event triggered for notice requests');
         timeToLive: 60 * 60 * 24 //24 hours
     };
     //subscribe the token when onToken method called in myFirebaseMessaging class
-return admin.messaging().sendToTopic("Tokens", payload, options);
+return admin.messaging().sendToTopic("AdminToken", payload, options);
 });

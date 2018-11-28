@@ -73,14 +73,14 @@
         -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/ic_launcher" />
+            android:resource="@drawable/notification_icon" />
         <!--
              Set color used with incoming notification messages. This is used when no color is set for the incoming
              notification message. See README(https://goo.gl/6BKBk7) for more.
         -->
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/com_facebook_blue" />
+            android:resource="@drawable/notification_icon" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/notificationChannelId" />
@@ -89,10 +89,6 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/app_admob_id" />
 
-        <service
-            android:name="com.umangSRTC.thesohankathait.classes.Services.RequestService"
-            android:enabled="true"
-            android:exported="true" />
 
     </application>
     <uses-feature android:name="android.hardware.camera"

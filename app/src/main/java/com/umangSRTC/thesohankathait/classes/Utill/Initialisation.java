@@ -43,15 +43,30 @@ public class Initialisation extends Application {
         adminList=new ArrayList<>();
 
 
-        fetchAdminListFromFirebase();
-
         schools=new ArrayList<>();
         schools.add("Select Schools");
         schoolArrayList=new ArrayList<>();
+
         getSavedSchoolFromSharedPreferences();
+        getSavedAdminFromSharedPreferences();
+
+        fetchAdminListFromFirebase();
+
         getSchools();
 
 
+    }
+
+    private void getSavedAdminFromSharedPreferences() {
+
+        Set<String> stringSet=new HashSet<>();
+        stringSet=sharedPreferences.getStringSet("ADMINLIST",null);
+        if(stringSet!=null) {
+            for (String admin : stringSet) {
+                adminList.add(admin);
+
+            }
+        }
     }
 
     private void getSavedSchoolFromSharedPreferences() {
@@ -101,6 +116,31 @@ public class Initialisation extends Application {
 
             }
         });
+        FirebaseDatabase.getInstance().getReference("AdminEmail").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                updateAdminlListInSharedPreferance();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void updateAdminlListInSharedPreferance() {
+
+        Set<String> stringSet=new HashSet<>();
+        for(String admin:adminList){
+            stringSet.add(admin);
+        }
+
+        editor.putStringSet("ADMINLIST",stringSet);
+        editor.commit();
+
+
     }
 
     private void getSchools() {

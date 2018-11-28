@@ -22,6 +22,7 @@ import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.umangSRTC.thesohankathait.umang.R;
 import com.umangSRTC.thesohankathait.classes.Adapter.ViewPagerAdapter;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
@@ -104,7 +105,11 @@ public class Functionality extends AppCompatActivity
         //initialising app mob
         MobileAds.initialize(this,getString(R.string.app_admob_id));
 
-
+        //subscribing to tokens
+        FirebaseMessaging.getInstance().subscribeToTopic("Tokens");
+        if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+            FirebaseMessaging.getInstance().subscribeToTopic("AdminToken");
+        }
         //starting services for admin
 
 

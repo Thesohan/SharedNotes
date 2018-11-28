@@ -66,10 +66,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         FirebaseDatabase.getInstance().getReference("Tokens").push().setValue(token);
         Log.d("tokenupdated",token);
-        FirebaseMessaging.getInstance().subscribeToTopic("Tokens");
-        if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-            FirebaseMessaging.getInstance().subscribeToTopic("AdminToken");
-        }
+
     }
 
     @Override
