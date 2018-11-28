@@ -45,7 +45,7 @@ public class Notification extends Fragment {
     private RecyclerView recyclerView;
     private ProgressBar allNotificationProgressbar;
     private FirebaseRecyclerAdapter<Notices,NoticesViewHolder> firebaseRecyclerAdapter;
-    private InterstitialAd mInterstitialAd;  //ads
+   // private InterstitialAd mInterstitialAd;  //ads
 
     @Nullable
     @Override
@@ -67,11 +67,11 @@ public class Notification extends Fragment {
         mAdView.loadAd(adRequest);
 
         //initialising
-        MobileAds.initialize(getContext(),"ca-app-pub-3940256099942544~3347511713");
-        mInterstitialAd = new InterstitialAd(getContext());
-        mInterstitialAd.setAdUnitId(getString(R.string.industrial_ad_id));//modify the ad id from string resources
-        //loading  an ad
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//        MobileAds.initialize(getContext(),"ca-app-pub-3940256099942544~3347511713");
+//        mInterstitialAd = new InterstitialAd(getContext());
+//        mInterstitialAd.setAdUnitId(getString(R.string.industrial_ad_id));//modify the ad id from string resources
+//        //loading  an ad
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
         return view;
@@ -92,7 +92,7 @@ public class Notification extends Fragment {
                 noticesViewHolder.allNoticeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showFullImage(schoolName, notices);
+                        showFullNotices(schoolName,notices);
                     }
                 });
 
@@ -199,33 +199,33 @@ public class Notification extends Fragment {
             }
         });
     }
-
-    private void    showFullImage(final String schoolName, final Notices notices) {
-
-     View view = LayoutInflater.from(getContext()).inflate(R.layout.full_image, null, false);
-        ImageView imageView = view.findViewById(R.id.allNoticeImageView);
-        Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
-        imageDownloadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DownloadTask downloadTask=new DownloadTask(getContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
-                downloadTask.DownloadData();
-
-                //if ad is loaded than show it if user download a pdf
-                if (mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                } else {
-                    // Log.d("TAG", "The interstitial wasn't loaded yet.");
-                }
-
-            }
-        });
-        Glide.with(getContext()).load(notices.getImageUrl()).into(imageView);
-        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
-                .setView(view)
-                .show();
-
-    }
+//
+//    private void    showFullImage(final String schoolName, final Notices notices) {
+//
+//     View view = LayoutInflater.from(getContext()).inflate(R.layout.full_image, null, false);
+//        ImageView imageView = view.findViewById(R.id.allNoticeImageView);
+//        Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
+//        imageDownloadButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DownloadTask downloadTask=new DownloadTask(getContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
+//                downloadTask.DownloadData();
+//
+//                //if ad is loaded than show it if user download a pdf
+//                if (mInterstitialAd.isLoaded()) {
+//                    mInterstitialAd.show();
+//                } else {
+//                    // Log.d("TAG", "The interstitial wasn't loaded yet.");
+//                }
+//
+//            }
+//        });
+//        Glide.with(getContext()).load(notices.getImageUrl()).into(imageView);
+//        AlertDialog alertDialog = new AlertDialog.Builder(getContext())
+//                .setView(view)
+//                .show();
+//
+//    }
 
     public static Notification newInstance() {
 

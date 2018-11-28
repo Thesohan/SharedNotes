@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.classes.database.DbHelper;
 import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
@@ -35,9 +39,20 @@ public class FullScreenDialogFragment extends DialogFragment {
     private ImageButton closeButton;
     private ProgressBar progressBar;
 
+    private InterstitialAd mInterstitialAd;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.full_screen_notification, container, false);
+
+//        initialising
+        MobileAds.initialize(getContext(),"ca-app-pub-3940256099942544~3347511713");
+        mInterstitialAd = new InterstitialAd(getContext());
+        mInterstitialAd.setAdUnitId(getString(R.string.industrial_ad_id));//modify the ad id from string resources
+        //loading  an ad
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
+
 
         progressBar=view.findViewById(R.id.fullScreenProgressbar);
         saveButton=view.findViewById(R.id.save_button);
@@ -95,6 +110,12 @@ public class FullScreenDialogFragment extends DialogFragment {
 
                 DownloadTask downloadTask=new DownloadTask(getContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
                 downloadTask.DownloadData();
+                if(mInterstitialAd.isLoaded()){
+                    mInterstitialAd.show();
+                }
+                else{
+//                    Log.d("sdfa","asdfa");
+                }
 
             }
         });

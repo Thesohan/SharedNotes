@@ -20,7 +20,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
             app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            app:tabGravity="center"
+            app:tabGravity="fill"
             app:tabMode="scrollable"
             android:scrollbarAlwaysDrawHorizontalTrack="true"
             app:tabIconTint="@color/com_facebook_blue"

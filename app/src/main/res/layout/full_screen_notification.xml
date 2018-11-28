@@ -108,9 +108,9 @@
                 android:id="@+id/senderNameTextView"
                 android:layout_margin="4dp"
                 android:gravity="right"
-                android:textColor="@color/fadedBlack"
-                android:fontFamily="@font/nabila"
-                android:text="Description goes here"
+                android:textColor="@color/red"
+                android:fontFamily="@font/righteous"
+                android:text="-Adarsh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

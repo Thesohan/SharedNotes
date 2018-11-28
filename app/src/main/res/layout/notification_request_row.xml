@@ -3,12 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
+
     <include
         layout="@layout/all_notification_row">
 
     </include>
+    <TextView
+        android:layout_margin="4dp"
+    android:id="@+id/allNoticedescriptionTextView"
+    android:layout_width="wrap_content"
+    android:textColor="@color/black"
+    android:text="food Description will be here . This food is one of the best food in the market Here your are getting the facility of not only eating"
+    android:layout_height="wrap_content"/>
+    <TextView
+        android:layout_margin="4dp"
+        android:id="@+id/requestLinkTextView"
+        android:layout_width="wrap_content"
+        android:textColor="@color/com_facebook_blue"
+        android:text="www.google.com"
+        android:layout_height="wrap_content"/>
 
-        <LinearLayout
+
+    <LinearLayout
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">

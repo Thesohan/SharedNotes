@@ -38,7 +38,7 @@
         <TextView
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:text="Title :"
+            android:text="Title* :"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -54,7 +54,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:text="Description :"
+            android:text="Description* :"
             android:textStyle="bold"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

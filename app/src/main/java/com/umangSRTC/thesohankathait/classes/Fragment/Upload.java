@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -21,7 +20,6 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
@@ -209,8 +207,7 @@ public class Upload extends Fragment {
     }
 
     private void uploadintoFirebase() {
-        progressDialog.dismiss();
-        Notices notices=new Notices(descriptionEditText.getText().toString(),titleEditText.getText().toString(),FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),imageURl);
+        final Notices notices=new Notices(descriptionEditText.getText().toString(),titleEditText.getText().toString(),FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),imageURl);
 
         //if user enter any link than set that link into notice
         if(!linkEditText.getText().toString().trim().equals("")){
@@ -222,6 +219,7 @@ public class Upload extends Fragment {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getContext(), "notice send", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
 
                     //IF we call this method outside than it can be executed before the data got uploaded.
                     goToFirstPage();
@@ -233,6 +231,8 @@ public class Upload extends Fragment {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getContext(), "Your NoticeRequest is send to admin, thankyou!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+
                     goToFirstPage();
                 }
             });
