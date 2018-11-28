@@ -41,13 +41,15 @@ public class RequestArrayAdapter extends ArrayAdapter{
         private ArrayList<NoticeRequest> noticeRequestsArrayList=new ArrayList<>();
         private Context context;
         private ImageView noticeImageView;
-        private TextView senderNameTextView,titleTextView,descriptionTextView,schoolNameTextView;
+        private TextView senderNameTextView,titleTextView,descriptionTextView,schoolNameTextView,linkTextView;
         private Button editButton,allowButton,denyButton;
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             LayoutInflater layoutInflater= (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
             View view=layoutInflater.inflate(R.layout.notification_request_row,parent,false);
 
+
+            linkTextView=view.findViewById(R.id.requestLinkTextView);
             senderNameTextView=view.findViewById(R.id.senderTextView);
             titleTextView=view.findViewById(R.id.allNoiceTitleTextView);
             descriptionTextView=view.findViewById(R.id.allNoticedescriptionTextView);
@@ -58,6 +60,12 @@ public class RequestArrayAdapter extends ArrayAdapter{
             noticeImageView=view.findViewById(R.id.allNoticeImageView);
             final Notices notices=noticeRequestsArrayList.get(position).getNotices();
 
+            if(notices.getLink()==null){
+                linkTextView.setVisibility(View.GONE);
+            }
+            else{
+                linkTextView.setText(notices.getLink());
+            }
             senderNameTextView.setText(notices.getSender());
             titleTextView.setText(notices.getTitle());
             descriptionTextView.setText(notices.getDescription());
@@ -104,23 +112,23 @@ public class RequestArrayAdapter extends ArrayAdapter{
     @SuppressLint("CheckResult")
     private void showFullImage(final String schoolName, final Notices notices) {
 
-        View view = LayoutInflater.from(context).inflate(R.layout.full_screen_notification, null, false);
-        ImageView imageView = view.findViewById(R.id.allNoticeImageView);
+            View view = LayoutInflater.from(context).inflate(R.layout.full_image, null, false);
+            ImageView imageView = view.findViewById(R.id.allNoticeImageView);
+            Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
 
-        Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
-        imageDownloadButton.setOnClickListener(new View.OnClickListener() {
+            Glide.with(context).load(notices.getImageUrl()).into(imageView);
+
+            android.app.AlertDialog.Builder alertDialog = new android.app.AlertDialog.Builder(context)
+                    .setView(view);
+            alertDialog.show();
+
+            imageDownloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 DownloadTask downloadTask=new DownloadTask(getContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
                 downloadTask.DownloadData();
             }
         });
-
-        Glide.with(context).load(notices.getImageUrl());
-
-        android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(context)
-                .setView(view)
-                .show();
     }
 //*********************** for edit a notice************************
 
