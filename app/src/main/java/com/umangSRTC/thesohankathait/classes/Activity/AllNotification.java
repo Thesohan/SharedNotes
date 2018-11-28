@@ -45,7 +45,7 @@ public class AllNotification extends AppCompatActivity {
     private  RecyclerView recyclerView;
     private FirebaseRecyclerAdapter<Notices,NoticesViewHolder> firebaseRecyclerAdapter;
     private ProgressBar allNotificationProgressbar;
-    private InterstitialAd mInterstitialAd;  //ads
+   // private InterstitialAd mInterstitialAd;  //ads
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +71,11 @@ public class AllNotification extends AppCompatActivity {
 
 
         //initialising
-        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId(getString(R.string.industrial_ad_id));//modify the ad id from string resources
-        //loading  an ad
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+//        MobileAds.initialize(this,"ca-app-pub-3940256099942544~3347511713");
+//        mInterstitialAd = new InterstitialAd(this);
+//        mInterstitialAd.setAdUnitId(getString(R.string.industrial_ad_id));//modify the ad id from string resources
+//        //loading  an ad
+//        mInterstitialAd.loadAd(new AdRequest.Builder().build());
 
 
     }
@@ -96,7 +96,7 @@ public class AllNotification extends AppCompatActivity {
                 noticesViewHolder.allNoticeImageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showFullImage(schoolName,notices);
+                        showFullNotices(schoolName,notices);
                     }
                 });
                 if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
@@ -195,32 +195,32 @@ public class AllNotification extends AppCompatActivity {
     }
 
 
-    private void showFullImage(final String schoolName, final Notices notices) {
-        View view=LayoutInflater.from(this).inflate(R.layout.full_image,null,false);
-        ImageView imageView=view.findViewById(R.id.allNoticeImageView);
-        Glide.with(getApplicationContext()).load(notices.getImageUrl()).into(imageView);
-        Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
-        imageDownloadButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                DownloadTask downloadTask=new DownloadTask(getApplicationContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
-                downloadTask.DownloadData();
+//    private void showFullImage(final String schoolName, final Notices notices) {
+//        View view=LayoutInflater.from(this).inflate(R.layout.full_image,null,false);
+//        ImageView imageView=view.findViewById(R.id.allNoticeImageView);
+//        Glide.with(getApplicationContext()).load(notices.getImageUrl()).into(imageView);
+//        Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
+//        imageDownloadButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                DownloadTask downloadTask=new DownloadTask(getApplicationContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
+//                downloadTask.DownloadData();
+//
+//                //if ad is loaded than show it if user download a pdf
+//                if (mInterstitialAd.isLoaded()) {
+//                    mInterstitialAd.show();
+//                } else {
+//                    // Log.d("TAG", "The interstitial wasn't loaded yet.");
+//                }
+//            }
+//        });
 
-                //if ad is loaded than show it if user download a pdf
-                if (mInterstitialAd.isLoaded()) {
-                    mInterstitialAd.show();
-                } else {
-                    // Log.d("TAG", "The interstitial wasn't loaded yet.");
-                }
-            }
-        });
 
-
-        AlertDialog alertDialog= new AlertDialog.Builder(this)
-                .setView(view)
-                .show();
-
-    }
+//        AlertDialog alertDialog= new AlertDialog.Builder(this)
+//                .setView(view)
+//                .show();
+//
+//    }
 
     @Override
     public void onBackPressed() {

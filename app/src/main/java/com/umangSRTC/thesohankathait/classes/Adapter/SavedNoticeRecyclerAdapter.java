@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.umangSRTC.thesohankathait.classes.Fragment.FullScreenDialogFragment;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.classes.ViewHolders.SavedNoticeViewHolder;
 import com.umangSRTC.thesohankathait.classes.database.DbHelper;
@@ -23,6 +24,9 @@ import com.umangSRTC.thesohankathait.umang.R;
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class SavedNoticeRecyclerAdapter extends RecyclerView.Adapter<SavedNoticeViewHolder> {
@@ -138,4 +142,8 @@ public class SavedNoticeRecyclerAdapter extends RecyclerView.Adapter<SavedNotice
                 .show();
 
     }
+
+
+
+
 }

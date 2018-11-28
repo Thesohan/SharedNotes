@@ -207,7 +207,6 @@ public class Upload extends Fragment {
     }
 
     private void uploadintoFirebase() {
-        progressDialog.dismiss();
         final Notices notices=new Notices(descriptionEditText.getText().toString(),titleEditText.getText().toString(),FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),imageURl);
 
         //if user enter any link than set that link into notice
@@ -220,8 +219,9 @@ public class Upload extends Fragment {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getContext(), "notice send", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
 
-                   //IF we call this method outside than it can be executed before the data got uploaded.
+                    //IF we call this method outside than it can be executed before the data got uploaded.
                     goToFirstPage();
                 }
             });
@@ -231,6 +231,8 @@ public class Upload extends Fragment {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getContext(), "Your NoticeRequest is send to admin, thankyou!", Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+
                     goToFirstPage();
                 }
             });

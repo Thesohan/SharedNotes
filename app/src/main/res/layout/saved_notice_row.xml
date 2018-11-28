@@ -80,10 +80,10 @@
 
     <TextView
         android:layout_margin="4dp"
-        android:textColor="@color/fadedBlack"
+        android:textColor="@color/red"
         android:textStyle="bold"
         android:gravity="right"
-        android:fontFamily="@font/nabila"
+        android:fontFamily="@font/righteous"
         android:text="- Adarsh Bhatt"
         android:id="@+id/senderTextView"
         android:layout_width="match_parent"

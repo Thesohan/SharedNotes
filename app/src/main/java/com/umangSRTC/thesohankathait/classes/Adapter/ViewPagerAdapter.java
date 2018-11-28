@@ -56,7 +56,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 2:
                 return "Upload";
             case 3:
-                return "Saved";
+                return null;//for icon only
 
         }
         return null;

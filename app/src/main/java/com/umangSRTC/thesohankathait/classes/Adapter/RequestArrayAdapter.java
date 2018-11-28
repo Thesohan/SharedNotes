@@ -3,6 +3,8 @@ package com.umangSRTC.thesohankathait.classes.Adapter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +68,22 @@ public class RequestArrayAdapter extends ArrayAdapter{
             else{
                 linkTextView.setText(notices.getLink());
             }
+
+            linkTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    Uri uri = Uri.parse(linkTextView.getText().toString());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                    if (intent.resolveActivityInfo(getContext().getPackageManager(), 0) != null)
+                    {
+                        context.startActivity(intent);
+                    }else{
+                        Toast.makeText(getContext(), "This isn't a valid URL", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
             senderNameTextView.setText(notices.getSender());
             titleTextView.setText(notices.getTitle());
             descriptionTextView.setText(notices.getDescription());

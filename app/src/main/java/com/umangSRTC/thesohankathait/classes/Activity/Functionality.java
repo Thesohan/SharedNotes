@@ -37,6 +37,8 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -167,6 +169,12 @@ public class Functionality extends AppCompatActivity
             TextView tv=(TextView)LayoutInflater.from(this).inflate(R.layout.custom_tab,null);
 //            tv.setTypeface(Typeface);null
             tv.setTextColor(this.getResources().getColor(R.color.white));
+            if(i==3){
+                View view=LayoutInflater.from(this).inflate(R.layout.custom_tab_button,null);
+                ImageButton imageButton=view.findViewById(R.id.imageButton);
+                tabLayout.getTabAt(i).setCustomView(imageButton);
+            continue;
+            }
             tabLayout.getTabAt(i).setCustomView(tv);
 
         }
