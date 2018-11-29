@@ -18,5 +18,7 @@ This is an information portal of SRTC student, And the main aim of this app is t
 
 
 Download this app from playstore via given link-
+
 https://play.google.com/store/apps/details?id=com.umangSRTC.thesohankathait.umang
+
 Suggestions and feedback are most welcome .
