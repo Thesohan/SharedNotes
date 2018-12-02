@@ -20,11 +20,10 @@
             android:layout_height="wrap_content">
 
             <ImageView
-                android:src="@drawable/notice"
-                android:id="@+id/allNoticeImageView"
+                android:id="@+id/aboutNoticeImageView"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
-                />
+                android:src="@drawable/notice" />
             <Button
                 android:id="@+id/imageDownloadButton"
                 android:fontFamily="@font/josefin_bold"

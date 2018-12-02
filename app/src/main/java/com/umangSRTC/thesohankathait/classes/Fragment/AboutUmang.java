@@ -1,6 +1,7 @@
 package com.umangSRTC.thesohankathait.classes.Fragment;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -58,6 +59,7 @@ public class AboutUmang extends Fragment {
     private ProgressDialog progressDialog;
     private AlertDialog builder;
     private ProgressBar aboutUmangProgressbar;
+    private Context context;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -69,6 +71,7 @@ public class AboutUmang extends Fragment {
             addAboutButton.setVisibility(View.GONE);
         }
 
+        context=getContext();
         addAboutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -98,7 +101,7 @@ public class AboutUmang extends Fragment {
             protected void populateViewHolder(AboutUmangViewHolder aboutUmangViewHolder, final AboutUmang_model aboutUmang_model, int i) {
 
                 aboutUmangProgressbar.setVisibility(View.GONE);
-                Glide.with(getContext())
+                Glide.with(context)
                         .load(aboutUmang_model.getImageUrl())
                         .into(aboutUmangViewHolder.aboutUmangImageView);
                // Picasso.get().load(aboutUmang_model.getImageUrl()).into(aboutUmangViewHolder.aboutUmangImageView);
@@ -131,7 +134,7 @@ public class AboutUmang extends Fragment {
 
     private void showDeleteDialog(final AboutUmang_model aboutUmang_model) {
 
-        AlertDialog builder=new AlertDialog.Builder(getContext())
+        AlertDialog builder=new AlertDialog.Builder(context)
                 .setIcon(R.drawable.ic_launcher)
                 .setTitle("Delete Image")
                 .setCancelable(false)
@@ -186,17 +189,17 @@ public class AboutUmang extends Fragment {
 
     private void showFullImage(final AboutUmang_model aboutUmangModel) {
 
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.full_screen_notification, null, false);
-        ImageView imageView = view.findViewById(R.id.allNoticeImageView);
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.full_image, null, false);
+        ImageView imageView = view.findViewById(R.id.aboutNoticeImageView);
         Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
         imageDownloadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                DownloadTask downloadTask=new DownloadTask(getContext(),aboutUmangModel.getImageUrl(),aboutUmangModel.getAbout(),"aboutUmang",aboutUmangModel.getFileExtension());
+                DownloadTask downloadTask=new DownloadTask(context,aboutUmangModel.getImageUrl(),aboutUmangModel.getAbout(),"aboutUmang",aboutUmangModel.getFileExtension());
                 downloadTask.DownloadData();
             }
         });
-        Glide.with(getContext()).load(aboutUmangModel.getImageUrl()).into(imageView);
+        Glide.with(context).load(aboutUmangModel.getImageUrl()).into(imageView);
         android.app.AlertDialog alertDialog = new android.app.AlertDialog.Builder(getContext())
                 .setView(view)
                 .show();
@@ -247,7 +250,7 @@ public class AboutUmang extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode==1&&resultCode==getActivity().RESULT_OK&&data!=null){
             imageUri=data.getData();
-            Glide.with(getContext()).load(imageUri).into(uploadAboutImageView);
+            Glide.with(context).load(imageUri).into(uploadAboutImageView);
         }
     }
 

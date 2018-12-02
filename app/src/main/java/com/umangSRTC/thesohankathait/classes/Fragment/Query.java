@@ -199,7 +199,7 @@ public class Query extends Fragment {
                     Toast.makeText(getContext(), "sent", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(getContext(), ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), ""+task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
