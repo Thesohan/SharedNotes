@@ -50,6 +50,8 @@ public class AllNotification extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_all_notification);
         Intent intent=getIntent();
         String schoolName=intent.getStringExtra("SCHOOL");

@@ -40,6 +40,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -171,16 +172,14 @@ public class Functionality extends AppCompatActivity
         //This below one is used to set the custom textview on tabLayout items.
         for (int i = 0; i < tabLayout.getTabCount(); i++) {
             //noinspection ConstantConditions
-            TextView tv=(TextView)LayoutInflater.from(this).inflate(R.layout.custom_tab,null);
-//            tv.setTypeface(Typeface);null
-            tv.setTextColor(this.getResources().getColor(R.color.white));
+
             if(i==3){
-                View view=LayoutInflater.from(this).inflate(R.layout.custom_tab_button,null);
-                ImageButton imageButton=view.findViewById(R.id.imageButton);
-                tabLayout.getTabAt(i).setCustomView(imageButton);
-            continue;
+                tabLayout.getTabAt(i).setIcon(R.drawable.ic_save_black_24dp);
+
+                continue;
+
             }
-            tabLayout.getTabAt(i).setCustomView(tv);
+
 
         }
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -192,6 +191,12 @@ public class Functionality extends AppCompatActivity
             @Override
             public void onPageSelected(int position) {
 //                  Toast.makeText(Functionality.this, ""+position, Toast.LENGTH_SHORT).show();
+                if(position==3){
+                    tabLayout.getTabAt(3).setIcon(R.drawable.ic_save_black_24dp_whiter);
+                }
+                else{
+                    tabLayout.getTabAt(3).setIcon(R.drawable.ic_save_black_24dp);
+                }
                 switch (position){
                     case 0:
                         navigationView.setCheckedItem(R.id.schools);
@@ -204,6 +209,8 @@ public class Functionality extends AppCompatActivity
                         break;
                     case 3:
                         navigationView.setCheckedItem(R.id.saved);
+
+                        break;
 
                 }
 

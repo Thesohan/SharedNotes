@@ -1,6 +1,7 @@
 package com.umangSRTC.thesohankathait.classes.Fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
@@ -46,11 +47,15 @@ public class Notification extends Fragment {
     private ProgressBar allNotificationProgressbar;
     private FirebaseRecyclerAdapter<Notices,NoticesViewHolder> firebaseRecyclerAdapter;
    // private InterstitialAd mInterstitialAd;  //ads
+    private Context context;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.activity_all_notification,container,false);
+
+        context=getContext();
+
         recyclerView=view.findViewById(R.id.allNotificationRecyclerView);
         allNotificationProgressbar=view.findViewById(R.id.allNotificationProgressbar);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
@@ -84,7 +89,7 @@ public class Notification extends Fragment {
                 allNotificationProgressbar.setVisibility(View.GONE);
                 noticesViewHolder.allNoticeTitleTextView.setText(notices.getTitle());
 //                noticesViewHolder.allNoticeDescriptionTextView.setText(notices.getDescription());
-                Glide.with(getContext()).load(notices.getImageUrl()).into(noticesViewHolder.allNoticeImageView);
+                Glide.with(context).load(notices.getImageUrl()).into(noticesViewHolder.allNoticeImageView);
 
                 String sender="- "+notices.getSender();
                 noticesViewHolder.allNoticeSenderTextview.setText(sender);
@@ -143,7 +148,7 @@ public class Notification extends Fragment {
     private void deleteNotificationWarning(final String schoolName, final Notices notices) {
 
 
-        AlertDialog builder = new AlertDialog.Builder(getContext())
+        AlertDialog builder = new AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setIcon(R.drawable.ic_launcher)
                 .setMessage("Do you really want to delete this notice?")

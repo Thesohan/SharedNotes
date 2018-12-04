@@ -133,7 +133,7 @@ public class SavedNoticeRecyclerAdapter extends RecyclerView.Adapter<SavedNotice
     private void showFullImage(final String schoolName, final Notices notices) {
 
         View view = LayoutInflater.from(context).inflate(R.layout.full_image, null, false);
-        ImageView imageView = view.findViewById(R.id.allNoticeImageView);
+        ImageView imageView = view.findViewById(R.id.aboutNoticeImageView);
         Button imageDownloadButton=view.findViewById(R.id.imageDownloadButton);
         imageDownloadButton.setVisibility(View.GONE);
         Glide.with(context).load(notices.getImageUrl()).into(imageView);

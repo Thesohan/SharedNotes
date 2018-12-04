@@ -19,15 +19,12 @@
 
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tabLayout"
-            app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.Medium"
-            app:tabGravity="fill"
-            app:tabMode="scrollable"
-            android:scrollbarAlwaysDrawHorizontalTrack="true"
-            app:tabIconTint="@color/com_facebook_blue"
-            android:background="@color/com_facebook_blue"
-            android:backgroundTint="@color/com_facebook_blue"
+            app:tabTextAppearance="@style/Base.TextAppearance.AppCompat.Large"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize"/>
+            android:layout_height="?actionBarSize"
+            app:tabSelectedTextColor="@color/white"
+            app:tabTextColor="@color/fadedBlack"
+            app:tabIndicatorHeight="4dp" />
 
     </com.google.android.material.appbar.AppBarLayout>
 

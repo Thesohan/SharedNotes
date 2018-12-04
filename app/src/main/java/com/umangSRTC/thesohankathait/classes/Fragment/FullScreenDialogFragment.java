@@ -1,6 +1,7 @@
 package com.umangSRTC.thesohankathait.classes.Fragment;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -38,16 +39,18 @@ public class FullScreenDialogFragment extends DialogFragment {
     private ImageView noticeImageView;
     private ImageButton closeButton;
     private ProgressBar progressBar;
+    private Context context;
 
     private InterstitialAd mInterstitialAd;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.full_screen_notification, container, false);
+        context=getContext();
 
 //        initialising
         MobileAds.initialize(getContext(),"ca-app-pub-3940256099942544~3347511713");
-        mInterstitialAd = new InterstitialAd(getContext());
+        mInterstitialAd = new InterstitialAd(context);
         mInterstitialAd.setAdUnitId(getString(R.string.industrial_ad_id));//modify the ad id from string resources
         //loading  an ad
         mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -87,7 +90,7 @@ public class FullScreenDialogFragment extends DialogFragment {
             public void onClick(View v) {
                 //save the notice into local database;
 
-                DbHelper dbHelper=new DbHelper(getContext());
+                DbHelper dbHelper=new DbHelper(context);
                 NoticeRequest noticeRequest=new NoticeRequest(schoolName,notices);
                 dbHelper.saveNotice(noticeRequest);
                 dbHelper.close();
@@ -108,7 +111,7 @@ public class FullScreenDialogFragment extends DialogFragment {
             public void onClick(View v) {
                 //DOWNLOAD THIS IMAGE
 
-                DownloadTask downloadTask=new DownloadTask(getContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
+                DownloadTask downloadTask=new DownloadTask(context,notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
                 downloadTask.DownloadData();
                 if(mInterstitialAd.isLoaded()){
                     mInterstitialAd.show();
@@ -129,11 +132,11 @@ public class FullScreenDialogFragment extends DialogFragment {
 
                 Uri uri = Uri.parse(linkTextView.getText().toString());
                 Intent intent = new Intent(Intent.ACTION_VIEW, uri);
-                if (intent.resolveActivityInfo(getContext().getPackageManager(), 0) != null)
+                if (intent.resolveActivityInfo(context.getPackageManager(), 0) != null)
                 {
                     startActivity(intent);
                 }else{
-                    Toast.makeText(getContext(), "This isn't a valid URL", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "This isn't a valid URL", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -151,7 +154,7 @@ public class FullScreenDialogFragment extends DialogFragment {
             progressBar.setVisibility(View.GONE);
         }
 
-        Glide.with(getContext()).load(notices.getImageUrl()).into(noticeImageView);
+        Glide.with(context).load(notices.getImageUrl()).into(noticeImageView);
 
         descriptionTextView.setText(notices.getDescription());
 

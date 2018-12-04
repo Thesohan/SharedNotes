@@ -1,6 +1,7 @@
 package com.umangSRTC.thesohankathait.classes.Fragment;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.ProxyInfo;
@@ -92,6 +93,7 @@ public class PdfNotice extends Fragment {
     public static RequestPdfNoticeArrayAdapter requestPdfNoticeArrayAdapter;
 
     private ProgressBar pdfProgressbar,pdfRequestProgressbar;
+    private Context context;
 
     private InterstitialAd mInterstitialAd;  //ads
 
@@ -99,13 +101,16 @@ public class PdfNotice extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_pdf_notice, container, false);
+
+        context=getContext();
+
         pdfProgressbar=view.findViewById(R.id.pdfProgressbar);
 
 
 
       //initialising
             MobileAds.initialize(getContext(),"ca-app-pub-3940256099942544~3347511713");
-            mInterstitialAd = new InterstitialAd(getContext());
+            mInterstitialAd = new InterstitialAd(context);
             mInterstitialAd.setAdUnitId(getString(R.string.industrial_ad_id));//modify the ad id from string resources
             //loading  an ad
            mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -114,7 +119,7 @@ public class PdfNotice extends Fragment {
 
 
         pdfRecyclerView = view.findViewById(R.id.pdfRecyclerView);
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(getContext());
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
         linearLayoutManager.setReverseLayout(true);//it will set the recycler view to show the elements in bottom up manner.
         linearLayoutManager.setStackFromEnd(true);//it will show the last element first.
         pdfRecyclerView.setLayoutManager(linearLayoutManager);
@@ -169,7 +174,7 @@ public class PdfNotice extends Fragment {
                 pdfProgressbar.setVisibility(View.GONE);
                 pdfNoticesViewHolder.pdfNoticeTitleTextView.setText(notices.getTitle());
                 pdfNoticesViewHolder.pdfNoticeDescriptionTextView.setText(notices.getDescription());
-                Glide.with(getContext()).load(R.drawable.pdf).into(pdfNoticesViewHolder.pdfNoticeImageView);
+                Glide.with(context).load(R.drawable.pdf).into(pdfNoticesViewHolder.pdfNoticeImageView);
 
 
                 String sender="- "+notices.getSender();
@@ -191,7 +196,7 @@ public class PdfNotice extends Fragment {
                     @Override
                     public void onClick(View v) {
 
-                        DownloadTask downloadTask =new DownloadTask(getContext(),notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
+                        DownloadTask downloadTask =new DownloadTask(context,notices.getImageUrl(),notices.getTitle(),schoolName,notices.getFileExtension());
                         downloadTask.DownloadData();
 
 
@@ -214,7 +219,7 @@ public class PdfNotice extends Fragment {
 
     private void showDeleteWarning(final String schoolName, final Notices notices) {
 
-        android.app.AlertDialog builder = new android.app.AlertDialog.Builder(getContext())
+        android.app.AlertDialog builder = new android.app.AlertDialog.Builder(context)
                 .setCancelable(false)
                 .setIcon(R.drawable.ic_launcher)
                 .setMessage("Do you really want to delete this notice?")
@@ -241,7 +246,7 @@ public class PdfNotice extends Fragment {
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (Equals.BothEquals(notices, dataSnapshot.getValue(Notices.class))) {
                     dataSnapshot.getRef().removeValue();
-                    DeleteFromFirebaseStorage.deleteByDownloadUrl(getContext(),notices.getImageUrl());
+                    DeleteFromFirebaseStorage.deleteByDownloadUrl(context,notices.getImageUrl());
                 }
             }
 
@@ -343,13 +348,13 @@ public class PdfNotice extends Fragment {
 
         // Collections.sort(Initialisation.schools.subList(1,Initialisation.schools.size()));
          spinnerArrayAdapter = new ArrayAdapter<String>
-                (getContext(), android.R.layout.simple_spinner_item,
+                (context, android.R.layout.simple_spinner_item,
                         Initialisation.schools); //selected item will look like a spinner set from XML
         ((ArrayAdapter) spinnerArrayAdapter).setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(spinnerArrayAdapter);
 
 
-        uploadDialogBuilder=new AlertDialog.Builder(getContext())
+        uploadDialogBuilder=new AlertDialog.Builder(context)
                 .setView(view).show();
 
         imageView.setOnClickListener(new View.OnClickListener() {
@@ -368,7 +373,7 @@ public class PdfNotice extends Fragment {
                     uploadPdf(pdfUri);
 
                 } else {
-                    Toast.makeText(getContext(), "Please fill all fields first!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, "Please fill all fields first!", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -392,21 +397,21 @@ public class PdfNotice extends Fragment {
                         @Override
                         public void onComplete(@NonNull Task<Uri> task) {
                             if(task.isSuccessful()) {
-                                Toast.makeText(getContext(), "file uploaded", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "file uploaded", Toast.LENGTH_SHORT).show();
                                 pdfUrl =task.getResult().toString();
                                 uploadintoFirebase();
 
                             }
                             else{
                                 progressDialog.dismiss();
-                                Toast.makeText(getContext(), ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 }
                 else{
                     progressDialog.dismiss();
-                    Toast.makeText(getContext(), ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -421,7 +426,7 @@ public class PdfNotice extends Fragment {
             FirebaseDatabase.getInstance().getReference("PdfCategory").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(getContext(), "notice send", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "notice send", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -429,7 +434,7 @@ public class PdfNotice extends Fragment {
             FirebaseDatabase.getInstance().getReference("PdfRequests").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(getContext(), "Your NoticeRequest is send to admin, thankyou!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Your NoticeRequest is send to admin, thankyou!", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -448,7 +453,7 @@ public class PdfNotice extends Fragment {
 
     }
     private void showProgressDialog() {
-        progressDialog =new ProgressDialog(getContext());
+        progressDialog =new ProgressDialog(context);
         progressDialog.setMessage("Please wait...");
         progressDialog.setProgressStyle(R.style.Animation_Design_BottomSheetDialog);
         progressDialog.setProgress(0);
@@ -492,7 +497,7 @@ public class PdfNotice extends Fragment {
                 pdfUri=data.getData();
                 fileExtension=FileExtension.getMimeType(getContext(),pdfUri);
             } else {
-                Toast.makeText(getContext(), "No file chosen", Toast.LENGTH_SHORT).show();
+                Toast.makeText(context, "No file chosen", Toast.LENGTH_SHORT).show();
             }
         }
     }

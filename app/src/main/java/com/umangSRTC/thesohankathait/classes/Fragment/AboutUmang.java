@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -60,6 +63,9 @@ public class AboutUmang extends Fragment {
     private AlertDialog builder;
     private ProgressBar aboutUmangProgressbar;
     private Context context;
+
+    private InterstitialAd mInterstitialAd;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -87,6 +93,17 @@ public class AboutUmang extends Fragment {
         aboutUmnagRecyclerView.setHasFixedSize(true);
 
         fetchAboutFromFirebase();
+
+
+
+
+//        initialising
+        MobileAds.initialize(getContext(),"ca-app-pub-3940256099942544~3347511713");
+        mInterstitialAd = new InterstitialAd(getContext());
+        mInterstitialAd.setAdUnitId(getString(R.string.industrial_ad_id));//modify the ad id from string resources
+        //loading  an ad
+        mInterstitialAd.loadAd(new AdRequest.Builder().build());
+
 
         return view;
     }
@@ -197,6 +214,12 @@ public class AboutUmang extends Fragment {
             public void onClick(View v) {
                 DownloadTask downloadTask=new DownloadTask(context,aboutUmangModel.getImageUrl(),aboutUmangModel.getAbout(),"aboutUmang",aboutUmangModel.getFileExtension());
                 downloadTask.DownloadData();
+
+                if(mInterstitialAd.isLoaded()){
+                    mInterstitialAd.show();
+                }
+
+
             }
         });
         Glide.with(context).load(aboutUmangModel.getImageUrl()).into(imageView);
