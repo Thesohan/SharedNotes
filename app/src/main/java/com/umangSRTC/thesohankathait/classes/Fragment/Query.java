@@ -1,5 +1,6 @@
 package com.umangSRTC.thesohankathait.classes.Fragment;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -40,10 +41,13 @@ public class Query extends Fragment {
     private ProgressBar queryProgressbar;
     private FirebaseRecyclerAdapter<Query_model,QueryViewHolder> firebaseRecyclerAdapter;
     private FloatingActionButton askQueryFloatingActionButton;
+    private Context context;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_query,container,false);
+
+        context=getContext();
         queryRecyclerView=view.findViewById(R.id.queryRecyclerView);
         askQueryFloatingActionButton=view.findViewById(R.id.askQueryFloatingActionButton);
 
@@ -115,7 +119,7 @@ public class Query extends Fragment {
 
     private void showDeleteQueryDialog(final Query_model query_model) {
 
-        AlertDialog builder=new AlertDialog.Builder(getContext())
+        AlertDialog builder=new AlertDialog.Builder(context)
                 .setIcon(R.drawable.ic_launcher)
                 .setTitle("Delete Query")
                 .setCancelable(false)
@@ -170,7 +174,7 @@ public class Query extends Fragment {
 
         View view=LayoutInflater.from(getContext()).inflate(R.layout.question_layout,null,false);
         final EditText questionEditText=view.findViewById(R.id.questionEditText);
-        AlertDialog builder=new AlertDialog.Builder(getContext())
+        AlertDialog builder=new AlertDialog.Builder(context)
                 .setIcon(R.drawable.ic_launcher)
                 .setTitle("Ask Question")
                 .setCancelable(false)
@@ -196,10 +200,10 @@ public class Query extends Fragment {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(getContext(), "sent", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "sent", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(getContext(), ""+task.getException(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, ""+task.getException(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -208,12 +212,12 @@ public class Query extends Fragment {
 
     private void showReplyDialog(final Query_model query_model) {
 
-        View view=LayoutInflater.from(getContext()).inflate(R.layout.question_reply_layout,null,false);
+        View view=LayoutInflater.from(context).inflate(R.layout.question_reply_layout,null,false);
         final TextView questionTextView=view.findViewById(R.id.questionTextView);
         final EditText ansEditText=view.findViewById(R.id.ansEditText);
         questionTextView.setText(query_model.getQuestion());
         ansEditText.setText(query_model.getAnswer());
-        AlertDialog builder=new AlertDialog.Builder(getContext())
+        AlertDialog builder=new AlertDialog.Builder(context)
                 .setIcon(R.drawable.ic_launcher)
                 .setTitle("Reply")
                 .setCancelable(false)

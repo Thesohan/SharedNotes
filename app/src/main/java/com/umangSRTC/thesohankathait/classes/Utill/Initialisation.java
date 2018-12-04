@@ -154,7 +154,7 @@ public class Initialisation extends Application {
                         schoolArrayList.add(dataSnapshot.getValue().toString());
                         Collections.sort(schoolArrayList);
                         Collections.sort(schools.subList(1, schools.size()));
-
+                        updateSchoolListInSharedPreferance();
 
                         // Refresh list on addition for instant effect
                         if(Schools.schoolsFragmentInstance!=null){
@@ -208,18 +208,7 @@ public class Initialisation extends Application {
             }
         });
 
-        FirebaseDatabase.getInstance().getReference("Schools").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                updateSchoolListInSharedPreferance();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
 
     }
 

@@ -154,7 +154,7 @@ public class Upload extends Fragment {
 
     }
     private void showProgressDialog() {
-        progressDialog =new ProgressDialog(getContext());
+        progressDialog =new ProgressDialog(context);
         progressDialog.setMessage("Please wait...");
         progressDialog.setProgressStyle(R.style.Animation_Design_BottomSheetDialog);
         progressDialog.setProgress(0);
@@ -182,14 +182,14 @@ public class Upload extends Fragment {
                             @Override
                             public void onComplete(@NonNull Task<Uri> task) {
                                 if(task.isSuccessful()) {
-                                    Toast.makeText(getContext(), "file uploaded", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "file uploaded", Toast.LENGTH_SHORT).show();
                                     imageURl =task.getResult().toString();
                                     uploadintoFirebase();
 
                                 }
                                 else{
                                     progressDialog.dismiss();
-                                    Toast.makeText(getContext(), ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         });
@@ -200,7 +200,7 @@ public class Upload extends Fragment {
                 }
             });
         } catch (IOException e) {
-            Toast.makeText(getContext(), ""+e.toString(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, ""+e.toString(), Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
 
@@ -218,7 +218,7 @@ public class Upload extends Fragment {
             FirebaseDatabase.getInstance().getReference("Category").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(getContext(), "notice send", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "notice send", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
 
                     //IF we call this method outside than it can be executed before the data got uploaded.
@@ -230,7 +230,7 @@ public class Upload extends Fragment {
             FirebaseDatabase.getInstance().getReference("Requests").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
-                    Toast.makeText(getContext(), "Your NoticeRequest is send to admin, thankyou!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Your NoticeRequest is send to admin, thankyou!", Toast.LENGTH_SHORT).show();
                     progressDialog.dismiss();
 
                     goToFirstPage();

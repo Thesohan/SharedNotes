@@ -1,6 +1,7 @@
 package com.umangSRTC.thesohankathait.classes.Fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,12 +44,14 @@ public class Schools extends Fragment {
     public static ProgressBar schoolProgressbar;
 
     public static Schools schoolsFragmentInstance;
+    private Context context;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.schools_fragment,container,false);
 
+        context=getContext();
         schoolProgressbar=view.findViewById(R.id.schoolProgressbar);
         // requied for refreshing school list from outside
         schoolsFragmentInstance = this;
@@ -70,7 +73,7 @@ public class Schools extends Fragment {
 //            schoolArrayList.add(Initialisation.schools.get(i));
 //        }
 
-        schoolsArrayAdapter=new SchoolsArrayAdapter(getContext(),Initialisation.schoolArrayList);
+        schoolsArrayAdapter=new SchoolsArrayAdapter(context,Initialisation.schoolArrayList);
         schoolsListView.setAdapter(schoolsArrayAdapter);
         schoolsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -78,7 +81,7 @@ public class Schools extends Fragment {
 
                 //Toast.makeText(getContext(), "itemClicked", Toast.LENGTH_SHORT).show();
 
-                Intent allNotificationActivityIntent=new Intent(getContext(),AllNotification.class);
+                Intent allNotificationActivityIntent=new Intent(context,AllNotification.class);
                 allNotificationActivityIntent.putExtra("SCHOOL",Initialisation.schoolArrayList.get(position));
                 startActivity(allNotificationActivityIntent);
             }
@@ -107,7 +110,7 @@ public class Schools extends Fragment {
 
     private void deleteWarning(final String school, final int position) {
 
-        AlertDialog.Builder builder=new AlertDialog.Builder(getContext());
+        AlertDialog.Builder builder=new AlertDialog.Builder(context);
         builder.setMessage("Do you really want to delete "+school+"?\n All data present in this school will be deleted and you can't restore them back.")
                 .setIcon(R.drawable.ic_warning_black_24dp)
                 .setTitle("Delete")
@@ -164,7 +167,7 @@ public class Schools extends Fragment {
 
         final EditText addSchoolEditText=view.findViewById(R.id.newSchoolEditText);
 
-         AlertDialog builder=new AlertDialog.Builder(getContext())
+         AlertDialog builder=new AlertDialog.Builder(context)
                 .setCancelable(false)
                  .setView(view)
                 .setIcon(R.drawable.ic_launcher_background)
@@ -178,7 +181,7 @@ public class Schools extends Fragment {
                             dialog.dismiss();
                         }
                         else{
-                            Toast.makeText(getContext(), "Try again!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(context, "Try again!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 })
