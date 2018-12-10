@@ -3,8 +3,8 @@ package com.umangSRTC.thesohankathait.classes.model;
 import java.io.Serializable;
 
 public class NoticeRequest implements Serializable {
-    private String schoolName;
-    private Notices notices;
+    public String schoolName;
+    public Notices notices;
 
     public String getSchoolName() {
         return schoolName;

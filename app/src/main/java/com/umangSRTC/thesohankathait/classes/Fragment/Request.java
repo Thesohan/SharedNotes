@@ -16,6 +16,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.umangSRTC.thesohankathait.classes.Adapter.RequestArrayAdapter;
+import com.umangSRTC.thesohankathait.classes.Utill.Equals;
 import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
 import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.umang.R;

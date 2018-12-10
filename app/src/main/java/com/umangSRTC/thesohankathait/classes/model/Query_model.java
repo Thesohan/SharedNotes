@@ -1,7 +1,7 @@
 package com.umangSRTC.thesohankathait.classes.model;
 
 public class Query_model {
-    String question,answer;
+   public String question,answer;
 
     public String getQuestion() {
         return question;

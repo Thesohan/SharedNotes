@@ -1,6 +1,7 @@
 package com.umangSRTC.thesohankathait.classes.Utill;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.View;
@@ -21,6 +22,7 @@ import java.util.Set;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.multidex.MultiDex;
 
 public class Initialisation extends Application {
     public static ArrayList<String> schools;//this list is for spinner since we have to add first element as "select schools
@@ -55,6 +57,11 @@ public class Initialisation extends Application {
         getSchools();
 
 
+    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 
     private void getSavedAdminFromSharedPreferences() {

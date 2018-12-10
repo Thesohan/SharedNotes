@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Notices implements Serializable {
     //for pdf imageUrl==pdfUri or downloadURL
-    private String description,title,sender,imageUrl,fileExtension,link;
+  public String description,title,sender,imageUrl,fileExtension,link;
 
     public Notices() {
     }

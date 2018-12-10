@@ -7,7 +7,10 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
-        android:name="com.umangSRTC.thesohankathait.classes.Utill.Initialisation"
+        android:hardwareAccelerated="false"
+        android:largeHeap="true"
+
+    android:name="com.umangSRTC.thesohankathait.classes.Utill.Initialisation"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -88,6 +91,8 @@
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/app_admob_id" />
+
+
 
 
     </application>

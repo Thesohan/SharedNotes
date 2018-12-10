@@ -1,7 +1,7 @@
 package com.umangSRTC.thesohankathait.classes.model;
 
 public class AboutUmang_model {
-    String about,imageUrl,fileExtension;
+    public String about,imageUrl,fileExtension;
 
     public AboutUmang_model() {
     }
