@@ -223,7 +223,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
 
     private void alloWNotice(String schoolName, Notices notices) {
 
-            FirebaseDatabase.getInstance().getReference("Category").child(schoolName).push().setValue(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
+            FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Category").child(schoolName).push().setValue(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
@@ -276,7 +276,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
 
     private void deleteNoticeFromFireBase(String schoolName, final Notices notices, final String action) {
 
-        FirebaseDatabase.getInstance().getReference("Requests").child(schoolName).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Requests").child(schoolName).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot finalDataSnapshot:dataSnapshot.getChildren()){

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:orientation="vertical"
+<LinearLayout
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -32,7 +33,6 @@
 
             <TextView
                 android:textColor="@color/black"
-                android:fontFamily="@font/josefin_bold"
                 android:text="School :"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -56,7 +56,6 @@
                 android:layout_margin="8dp"
                 android:id="@+id/AlowButton"
                 android:textColor="@color/white"
-                android:fontFamily="@font/josefin_bold"
                 android:text="Allow"
                 android:focusable="false"
                 android:layout_weight="1"

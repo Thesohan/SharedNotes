@@ -19,14 +19,18 @@ import android.view.LayoutInflater;
 
 import com.facebook.login.LoginManager;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.umangSRTC.thesohankathait.classes.Utill.Initialisation;
 import com.umangSRTC.thesohankathait.umang.R;
 import com.umangSRTC.thesohankathait.classes.Adapter.ViewPagerAdapter;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
@@ -107,9 +111,11 @@ public class Functionality extends AppCompatActivity
         MobileAds.initialize(this,getString(R.string.app_admob_id));
 
         //subscribing to tokens
-        FirebaseMessaging.getInstance().subscribeToTopic("Tokens");
+        String finalToken=Initialisation.selectedCollege+"Tokens";
+        FirebaseMessaging.getInstance().subscribeToTopic(finalToken);
         if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
-            FirebaseMessaging.getInstance().subscribeToTopic("AdminToken");
+            String finalAdminToken=Initialisation.selectedCollege+"AdminToken";
+            FirebaseMessaging.getInstance().subscribeToTopic(finalAdminToken);
         }
         //starting services for admin
 
@@ -415,6 +421,12 @@ public class Functionality extends AppCompatActivity
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
 
+                        Login.googleSignInClient.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                           //code later
+                            }
+                        });
                         FirebaseAuth.getInstance().signOut();
                         SharedPreferences sharedPreferences = getSharedPreferences("User", MODE_PRIVATE);
                         SharedPreferences.Editor   editor = sharedPreferences.edit();

@@ -68,7 +68,6 @@
                     android:textColor="@color/white"
                     android:text="Requests"
                     android:textSize="24sp"
-                    android:fontFamily="@font/righteous"
                     android:id="@+id/pdfRequestButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
@@ -92,7 +91,6 @@
                     android:textColor="@color/white"
                     android:text="Upload"
                     android:textSize="24sp"
-                    android:fontFamily="@font/righteous"
                     android:id="@+id/pdfuploadButton"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"/>

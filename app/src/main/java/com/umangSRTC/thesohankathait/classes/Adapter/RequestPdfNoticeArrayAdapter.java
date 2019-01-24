@@ -175,7 +175,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
 
     private void alloWNotice(String schoolName, Notices notices) {
 
-            FirebaseDatabase.getInstance().getReference("PdfCategory").child(schoolName).push().setValue(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
+            FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfCategory").child(schoolName).push().setValue(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
@@ -227,7 +227,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
 
     private void deleteNoticeFromFireBase(String schoolName, final Notices notices, final String action) {
 
-        FirebaseDatabase.getInstance().getReference("PdfRequests").child(schoolName).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfRequests").child(schoolName).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot finalDataSnapshot:dataSnapshot.getChildren()){

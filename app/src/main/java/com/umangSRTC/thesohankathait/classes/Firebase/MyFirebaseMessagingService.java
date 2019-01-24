@@ -21,6 +21,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.umangSRTC.thesohankathait.classes.Activity.Login;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
+import com.umangSRTC.thesohankathait.classes.Utill.Initialisation;
 import com.umangSRTC.thesohankathait.umang.R;
 
 import java.util.Random;
@@ -64,7 +65,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void sendRegistrationToServer(String token) {
 
 
-        FirebaseDatabase.getInstance().getReference("Tokens").push().setValue(token);
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Tokens").push().setValue(token);
         Log.d("tokenupdated",token);
 
     }

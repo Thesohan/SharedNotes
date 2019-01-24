@@ -40,7 +40,6 @@
             android:id="@+id/aboutUmangTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:fontFamily="@font/josefin_bold"
             android:gravity="center"
             android:text="asdfasdf"
             android:textSize="20sp" />

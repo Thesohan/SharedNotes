@@ -35,6 +35,7 @@ import com.umangSRTC.thesohankathait.classes.Fragment.FullScreenDialogFragment;
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.classes.Utill.Equals;
+import com.umangSRTC.thesohankathait.classes.Utill.Initialisation;
 import com.umangSRTC.thesohankathait.umang.R;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.classes.ViewHolders.NoticesViewHolder;
@@ -65,7 +66,6 @@ public class AllNotification extends AppCompatActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
         fetchDataFromFirebase(schoolName);
-
         //for displaying ads
         AdView mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
@@ -83,7 +83,7 @@ public class AllNotification extends AppCompatActivity {
     }
 
     private void fetchDataFromFirebase(final String schoolName) {
-        firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Notices, NoticesViewHolder>(Notices.class,R.layout.all_notification_row,NoticesViewHolder.class,FirebaseDatabase.getInstance().getReference("Category").child(schoolName)) {
+        firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Notices, NoticesViewHolder>(Notices.class,R.layout.all_notification_row,NoticesViewHolder.class,FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Category").child(schoolName)) {
             @Override
             protected void populateViewHolder(final NoticesViewHolder noticesViewHolder, final Notices notices, final int postion) {
 
@@ -165,7 +165,7 @@ public class AllNotification extends AppCompatActivity {
 
     private void deleteNotificaitonFromFirebase(String schoolName, final Notices notices) {
 
-        FirebaseDatabase.getInstance().getReference("Category").child(schoolName).addChildEventListener(new ChildEventListener() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Category").child(schoolName).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     if(Equals.BothEquals(notices,dataSnapshot.getValue(Notices.class))){

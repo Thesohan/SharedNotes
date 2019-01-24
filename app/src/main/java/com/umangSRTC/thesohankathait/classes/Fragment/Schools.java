@@ -130,7 +130,7 @@ public class Schools extends Fragment {
 
     private void deleteSchoolFromFirebase(final String school) {
 
-        FirebaseDatabase.getInstance().getReference("Schools").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Schools").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot finalDataSnapshot:dataSnapshot.getChildren()){
@@ -156,7 +156,7 @@ public class Schools extends Fragment {
 
     private void deleteFromValue(final String school, String category) {
 
-        FirebaseDatabase.getInstance().getReference(category).child(school).removeValue();
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/"+category).child(school).removeValue();
 
     }
 
@@ -197,7 +197,7 @@ public class Schools extends Fragment {
 
     private boolean addSchoolIntoFirebase(String schoolName) {
         if(Admin.isSchoolCorrect(schoolName)){
-            FirebaseDatabase.getInstance().getReference("Schools").push().setValue(schoolName);
+            FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Schools").push().setValue(schoolName);
             return true;
         }
         else{

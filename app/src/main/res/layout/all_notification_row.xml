@@ -31,7 +31,6 @@
 
         <TextView
             android:padding="8sp"
-            android:fontFamily="@font/josefin_bold"
             android:id="@+id/allNoiceTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -64,7 +63,6 @@
             android:layout_margin="4dp"
             android:textColor="@color/red"
             android:gravity="right"
-            android:fontFamily="@font/righteous"
             android:text="- Adarsh Bhatt"
             android:id="@+id/senderTextView"
             android:layout_width="match_parent"

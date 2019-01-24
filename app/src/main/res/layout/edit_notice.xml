@@ -9,7 +9,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="Title* :"
-        android:fontFamily="@font/josefin_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
@@ -26,7 +25,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="Description* :"
-        android:fontFamily="@font/josefin_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText
@@ -43,7 +41,6 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:text="Link :"
-        android:fontFamily="@font/josefin_bold"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <EditText

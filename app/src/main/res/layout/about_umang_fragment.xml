@@ -33,4 +33,13 @@
         android:layout_width="48dp"
         android:layout_height="48dp" />
 
+    <Button
+        android:id="@+id/CollegeReqeust"
+        android:layout_margin="16dp"
+        android:layout_gravity="bottom"
+        android:background="@drawable/ic_add_circle_black_24dp"
+        android:backgroundTint="@color/com_facebook_blue"
+        android:layout_width="48dp"
+        android:layout_height="48dp" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

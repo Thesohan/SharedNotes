@@ -26,7 +26,6 @@
                 android:src="@drawable/notice" />
             <Button
                 android:id="@+id/imageDownloadButton"
-                android:fontFamily="@font/josefin_bold"
                 android:textColor="@color/white"
                 android:backgroundTint="@color/com_facebook_blue"
                 android:text="Download"

@@ -167,7 +167,7 @@ public class PdfNotice extends Fragment {
 
     private void FetchPdfNoticeFromFirebase(final String schoolName) {
 
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Notices, PdfNoticesViewHolder>(Notices.class, R.layout.pdf_notification_row, PdfNoticesViewHolder.class, FirebaseDatabase.getInstance().getReference("PdfCategory").child(schoolName)) {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Notices, PdfNoticesViewHolder>(Notices.class, R.layout.pdf_notification_row, PdfNoticesViewHolder.class, FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfCategory").child(schoolName)) {
             @Override
             protected void populateViewHolder(PdfNoticesViewHolder pdfNoticesViewHolder, final Notices notices, int i) {
 
@@ -241,7 +241,7 @@ public class PdfNotice extends Fragment {
     }
     private void deleteNotificaitonFromFirebase(String schoolName, final Notices notices) {
 
-        FirebaseDatabase.getInstance().getReference("PdfCategory").child(schoolName).addChildEventListener(new ChildEventListener() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfCategory").child(schoolName).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (Equals.BothEquals(notices, dataSnapshot.getValue(Notices.class))) {
@@ -296,7 +296,7 @@ public class PdfNotice extends Fragment {
     private void fetchAllPdfNoticeRequest() {
 
 
-        FirebaseDatabase.getInstance().getReference("PdfRequests").addChildEventListener(new ChildEventListener() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfRequests").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 //Log.d("cild", dataSnapshot.getValue().toString());
@@ -423,7 +423,7 @@ public class PdfNotice extends Fragment {
         Notices notices=new Notices(descriptionEditText.getText().toString(),titleEditText.getText().toString(),FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),pdfUrl);
         notices.setFileExtension(fileExtension);
         if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-            FirebaseDatabase.getInstance().getReference("PdfCategory").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
+            FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfCategory").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(context, "notice send", Toast.LENGTH_SHORT).show();
@@ -431,7 +431,7 @@ public class PdfNotice extends Fragment {
             });
         }
         else{
-            FirebaseDatabase.getInstance().getReference("PdfRequests").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
+            FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfRequests").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(context, "Your NoticeRequest is send to admin, thankyou!", Toast.LENGTH_SHORT).show();

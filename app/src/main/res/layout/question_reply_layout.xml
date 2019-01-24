@@ -15,7 +15,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
-            android:fontFamily="@font/josefin_bold"
             android:hint="Question :"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -24,7 +23,6 @@
             android:id="@+id/questionTextView"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
-            android:fontFamily="@font/josefin_bold"
             android:text="question"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -32,7 +30,6 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
-            android:fontFamily="@font/josefin_bold"
             android:hint="Answer :"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -43,7 +40,6 @@
             android:id="@+id/ansEditText"
             android:layout_marginRight="8dp"
             android:layout_marginLeft="8dp"
-            android:fontFamily="@font/josefin_bold"
             android:hint="Answer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />

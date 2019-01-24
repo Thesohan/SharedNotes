@@ -1,6 +1,7 @@
 package com.umangSRTC.thesohankathait.classes.Utill;
 
 import com.umangSRTC.thesohankathait.classes.model.AboutUmang_model;
+import com.umangSRTC.thesohankathait.classes.model.College;
 import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.classes.model.Query_model;
 
@@ -33,4 +34,9 @@ public class Equals {
                 currentQuery.getAnswer().equals(old_query_model.getAnswer());
     }
 
+    public static boolean BothEqual(College college,College currentCollege){
+        return college.getAdminEmail().equals(currentCollege.getAdminEmail()) &&
+                college.getCollegeName().equals(currentCollege.getCollegeName())&&
+                college.getPhoneNo().equals(currentCollege.getPhoneNo());
+    }
 }

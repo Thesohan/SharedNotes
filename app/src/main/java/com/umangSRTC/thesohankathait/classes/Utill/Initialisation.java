@@ -28,6 +28,7 @@ public class Initialisation extends Application {
     public static ArrayList<String> schools;//this list is for spinner since we have to add first element as "select schools
     public static ArrayList<String> schoolArrayList;
     public static ArrayList<String> adminList;
+    public static String selectedCollege=null;
 
     
     private SharedPreferences sharedPreferences;
@@ -38,6 +39,8 @@ public class Initialisation extends Application {
         super.onCreate();
 
 
+
+        getCollegeName();
         sharedPreferences=getSharedPreferences("ADMIN",MODE_PRIVATE);
         editor=sharedPreferences.edit();
 
@@ -58,6 +61,13 @@ public class Initialisation extends Application {
 
 
     }
+
+    private void getCollegeName() {
+
+        sharedPreferences=getSharedPreferences("COLLEGE",MODE_PRIVATE);
+        selectedCollege=sharedPreferences.getString("SELECTEDCOLLEGE",null);
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -95,7 +105,7 @@ public class Initialisation extends Application {
 
     private void fetchAdminListFromFirebase() {
 
-        FirebaseDatabase.getInstance().getReference("AdminEmail").addChildEventListener(new ChildEventListener() {
+        FirebaseDatabase.getInstance().getReference(selectedCollege+"/AdminEmail").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (!adminList.contains(dataSnapshot.getValue().toString())) {
@@ -123,7 +133,7 @@ public class Initialisation extends Application {
 
             }
         });
-        FirebaseDatabase.getInstance().getReference("AdminEmail").addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference(selectedCollege+"/AdminEmail").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -153,7 +163,7 @@ public class Initialisation extends Application {
     private void getSchools() {
 
 
-        FirebaseDatabase.getInstance().getReference("Schools").addChildEventListener(new ChildEventListener() {
+        FirebaseDatabase.getInstance().getReference(selectedCollege+"/Schools").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     if(!schoolArrayList.contains(dataSnapshot.getValue().toString())) {

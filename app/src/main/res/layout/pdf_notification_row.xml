@@ -44,7 +44,6 @@
                 android:layout_height="wrap_content"
                 android:text="Title"
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-                android:fontFamily="@font/josefin_bold"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 android:paddingLeft="8sp"
@@ -56,7 +55,6 @@
     <TextView
 
         android:layout_margin="4dp"
-        android:fontFamily="@font/righteous"
         android:layout_width="wrap_content"
         android:textColor="@color/blue"
         android:text="food Description will be here . This food is one of the best food in the market Here your are getting the facility of not only eating"
@@ -70,7 +68,6 @@
 
             <TextView
                 android:textColor="@color/black"
-                android:fontFamily="@font/josefin_bold"
                 android:text="School :"
                 android:layout_weight="1"
                 android:layout_width="0dp"
@@ -100,7 +97,6 @@
                 android:textColor="@color/red"
                 android:textStyle="bold"
                 android:gravity="right"
-                android:fontFamily="@font/righteous"
                 android:text="- Adarsh Bhatt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
