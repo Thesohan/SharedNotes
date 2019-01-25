@@ -1,5 +1,6 @@
 package com.umangSRTC.thesohankathait.classes.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -30,7 +31,7 @@ public class SchoolsArrayAdapter extends ArrayAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         LayoutInflater layoutInflater= (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-        View view=layoutInflater.inflate(R.layout.schools_custom_row_layout,parent,false);
+        @SuppressLint("ViewHolder") View view=layoutInflater.inflate(R.layout.schools_custom_row_layout,parent,false);
 
         Schools.schoolProgressbar.setVisibility(View.GONE);
         schoolNameTextView=view.findViewById(R.id.schoolNamesTextView);

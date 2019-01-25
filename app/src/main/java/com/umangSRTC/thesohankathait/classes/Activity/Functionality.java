@@ -113,6 +113,7 @@ public class Functionality extends AppCompatActivity
         //subscribing to tokens
         String finalToken=Initialisation.selectedCollege+"Tokens";
         FirebaseMessaging.getInstance().subscribeToTopic(finalToken);
+
         if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
             String finalAdminToken=Initialisation.selectedCollege+"AdminToken";
             FirebaseMessaging.getInstance().subscribeToTopic(finalAdminToken);
@@ -362,7 +363,6 @@ public class Functionality extends AppCompatActivity
             sendIntent("Query");
 
         }  else if (id == R.id.request) {
-
             if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
                 sendIntent("Request");
                 }
@@ -375,8 +375,11 @@ public class Functionality extends AppCompatActivity
 
         } else if (id == R.id.logout) {
             showAlertDialog();
-
         }
+        else if(id==R.id.selectCollege){
+            sendIntent("SelectCollege");
+        }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

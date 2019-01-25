@@ -30,6 +30,7 @@ import com.umangSRTC.thesohankathait.umang.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
 public class FullScreenDialogFragment extends DialogFragment {
@@ -191,5 +192,14 @@ public class FullScreenDialogFragment extends DialogFragment {
         fragment.setArguments(args);
         return fragment;
     }
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().hide();
+    }
+    @Override
+    public void onStop() {
+        super.onStop();
+        ((AppCompatActivity)getActivity()).getSupportActionBar().show();
+    }
 }

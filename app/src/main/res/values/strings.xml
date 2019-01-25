@@ -4,7 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_title">UMANG</string>
-    <string name="nav_header_subtitle">SRTC INFORMATION PORTAL</string>
+    <string name="nav_header_subtitle">INFORMATION PORTAL FOR STUDENTS</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="facebook_app_id">2187100611564069</string>
@@ -13,7 +13,7 @@
     <string name="adarsh_bhatt">Adarsh Bhatt</string>
     <string name="notificationChannelId">com.umangSRTC.thesohankathait.umang.notification.channel</string>
     <string name="university_representative">University Representative \n S.R.T.C Tehri \n Contact No. 9997909719</string>
-    <string name="schools_name_must_not_contains">Schools name must not contains:\".\", \"/\", \"#\", \"$\", \"[\", \"]\"</string>
+    <string name="name_must_not_contains">Name must not contain:\".\", \"/\", \"#\", \"$\", \"[\", \"]\" and space"</string>
     <string name="school_name">School Name :</string>
     <string name="enter_school_name">Enter School Name</string>
     <string name="channelName">notification</string>

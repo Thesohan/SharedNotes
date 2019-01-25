@@ -82,11 +82,26 @@ public class SelectCollegeFragment extends Fragment implements View.OnClickListe
 
     private void moveToFunctionality() {
 
+        //since now we have selectedCollege variable so we have to again call application i.e Initialisation class methods
+        Initialisation initialisation = (Initialisation)context.getApplicationContext();
+        initialisation.onCreate();
+
         //first we will move to the previous activity then we will finish that activity after moving to  functionality activity
         Intent intent=new Intent(context,Functionality.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
 
+
+    }
+
+    private void clearOldSharedPreferances() {
+
+
+        sharedPreferences=context.getSharedPreferences("ADMIN",MODE_PRIVATE);
+        sharedPreferences.edit().clear();
+
+        sharedPreferences=context.getSharedPreferences("COLLEGE",MODE_PRIVATE);
+        sharedPreferences.edit().clear();
 
     }
 
@@ -157,6 +172,8 @@ public class SelectCollegeFragment extends Fragment implements View.OnClickListe
 
                 if(selectedCollege!=null){
                     Toast.makeText(context, ""+selectedCollege, Toast.LENGTH_SHORT).show();
+                    clearOldSharedPreferances();//clearing schools and admin list from shared preferances
+
                     sharedPreferences = context.getSharedPreferences("COLLEGE", MODE_PRIVATE);
                     editor = sharedPreferences.edit();
                     editor.putString("SELECTEDCOLLEGE",selectedCollege);

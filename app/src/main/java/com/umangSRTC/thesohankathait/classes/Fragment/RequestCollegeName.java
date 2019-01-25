@@ -4,33 +4,18 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.FirebaseDatabase;
-import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
-import com.umangSRTC.thesohankathait.classes.database.DbHelper;
+import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.classes.model.College;
-import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
-import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.umang.R;
 
 import androidx.annotation.NonNull;
@@ -57,7 +42,7 @@ public class RequestCollegeName extends DialogFragment {
         sendRequestButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "sdf", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, "sdf", Toast.LENGTH_SHORT).show();
                 addCollegeRequest();
             }
         });
@@ -67,6 +52,10 @@ public class RequestCollegeName extends DialogFragment {
 
     private void addCollegeRequest() {
 
+        if(!Admin.isCorrect(collgeNameEditText.getText().toString())){
+            collgeNameEditText.setError("Please enter a valid college name");
+            return;
+        }
         if (checkAllFieldsFilled()) {
             college = new College(collgeNameEditText.getText().toString().trim(), emailEditText.getText().toString().trim(), phoneEditText.getText().toString().trim());
             FirebaseDatabase.getInstance().getReference("CollegeRequests").push().setValue(college);
@@ -90,7 +79,7 @@ public class RequestCollegeName extends DialogFragment {
 
     private boolean checkAllFieldsFilled() {
 
-        if(collgeNameEditText.getText().toString().trim().equals("")){
+        if(collgeNameEditText.getText().toString().trim().equals("")&& Admin.isCorrect(collgeNameEditText.getText().toString())){
             collgeNameEditText.setError("Please enter College name ");
             return false;
         }

@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.AdRequest;
@@ -87,9 +88,12 @@ public class AllNotification extends AppCompatActivity {
             @Override
             protected void populateViewHolder(final NoticesViewHolder noticesViewHolder, final Notices notices, final int postion) {
 
+                ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
+                noticesViewHolder.allNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
+
                 allNotificationProgressbar.setVisibility(View.GONE);
                 noticesViewHolder.allNoticeTitleTextView.setText(notices.getTitle());
-//                noticesViewHolder.allNoticeDescriptionTextView.setText(notices.getDescription());
+//              noticesViewHolder.allNoticeDescriptionTextView.setText(notices.getDescription());
                 Glide.with(getApplicationContext()).load(notices.getImageUrl()).into(noticesViewHolder.allNoticeImageView);
 
                 String sender="- "+notices.getSender();

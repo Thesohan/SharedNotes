@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.AdRequest;
@@ -64,7 +65,7 @@ public class Notification extends Fragment {
         linearLayoutManager.setStackFromEnd(true);//it will show the last element first.
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
-        fetchDataFromFirebase("Notification");
+        fetchDataFromFirebase("Notices");
 
 
         //for displaying ads
@@ -86,6 +87,9 @@ public class Notification extends Fragment {
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Notices, NoticesViewHolder>(Notices.class, R.layout.all_notification_row, NoticesViewHolder.class, FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Category").child(schoolName)) {
             @Override
             protected void populateViewHolder(NoticesViewHolder noticesViewHolder, final Notices notices, final int postion) {
+
+                ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
+                noticesViewHolder.allNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
 
                 allNotificationProgressbar.setVisibility(View.GONE);
                 noticesViewHolder.allNoticeTitleTextView.setText(notices.getTitle());

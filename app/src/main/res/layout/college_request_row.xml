@@ -2,6 +2,7 @@
 
 <androidx.cardview.widget.CardView
 
+    android:layout_margin="8dp"
     android:id="@+id/rootLayoutCardview"
     app:cardElevation="8dp"
     android:layout_width="match_parent"
@@ -32,7 +33,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="College Name:"
-                android:fontFamily="@fonart/josefin_bold"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 />

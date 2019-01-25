@@ -21,6 +21,7 @@
         android:layout_height="match_parent">
 
         <TextView
+
             android:id="@+id/selectApdf"
             android:layout_marginTop="16dp"
             android:textStyle="bold"
@@ -36,6 +37,7 @@
             android:src="@drawable/upload"
             android:layout_height="96dp" />
         <TextView
+
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:text="Title* :"

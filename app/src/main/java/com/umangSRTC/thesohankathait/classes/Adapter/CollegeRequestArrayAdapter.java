@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,7 @@ public class CollegeRequestArrayAdapter extends ArrayAdapter{
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             LayoutInflater layoutInflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            @SuppressLint("ViewHolder") View view=layoutInflater.inflate(R.layout.college_request_row,parent,false);
+           @SuppressLint("ViewHolder") View view=layoutInflater.inflate(R.layout.college_request_row,parent,false);
             collegeNameTextView=view.findViewById(R.id.collegeNameTextView);
             phoneTextView=view.findViewById(R.id.phoneTextView);
             emailTextView=view.findViewById(R.id.emailTextView);
@@ -66,7 +67,9 @@ public class CollegeRequestArrayAdapter extends ArrayAdapter{
             cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showAlertDialog(new College(collegeNameTextView.getText().toString(),emailTextView.getText().toString(),phoneTextView.getText().toString()));
+                    Toast.makeText(context, ""+collegeRequestsArrayList.get(position).getCollegeName(), Toast.LENGTH_SHORT).show();
+
+                     showAlertDialog(collegeRequestsArrayList.get(position));
                 }
             });
 
@@ -82,12 +85,14 @@ public class CollegeRequestArrayAdapter extends ArrayAdapter{
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             adminIsSureforAllow(college);
+                            dialog.dismiss();
                         }
                     })
                     .setNegativeButton("Deny", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             deleteCollegeFromFireBase(college);
+                            dialog.dismiss();
                         }
                     })
                     .show();
@@ -101,10 +106,13 @@ public class CollegeRequestArrayAdapter extends ArrayAdapter{
             FirebaseDatabase.getInstance().getReference("CollegeRequests").addChildEventListener(new ChildEventListener() {
                 @Override
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    if(Equals.BothEqual(college,dataSnapshot.getValue(College.class))){
+                    College currentCollege=dataSnapshot.getValue(College.class);
+                    if(Equals.BothEqual(college,currentCollege)){
                         FirebaseDatabase.getInstance().getReference(college.getCollegeName()).child("AdminEmail").push().setValue(college.getAdminEmail());
                         FirebaseDatabase.getInstance().getReference("Colleges").push().setValue(college.getCollegeName());
+                        FirebaseDatabase.getInstance().getReference(college.getCollegeName()).child("Schools").push().setValue("Notices");//since i have created this app for notice saring so every college must use it for notice sharing
                         deleteCollegeFromFireBase(college);
+
                     }
                 }
 
@@ -138,17 +146,18 @@ public class CollegeRequestArrayAdapter extends ArrayAdapter{
     }
 
     public CollegeRequestArrayAdapter(Context context, ArrayList<College> collegeRequestsArrayList) {
-        super(context,R.layout.notification_request_row,collegeRequestsArrayList);
+        super(context,R.layout.college_request_row,collegeRequestsArrayList);
         this.collegeRequestsArrayList=collegeRequestsArrayList;
         this.context=context;
     }
 
     private void deleteCollegeFromFireBase(final College college) {
 
-        FirebaseDatabase.getInstance().getReference("CollegeRequests").addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference("CollegeRequests").addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    College currentCollege=dataSnapshot.getValue(College.class);
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                College currentCollege=dataSnapshot.getValue(College.class);
                 if (currentCollege != null && Equals.BothEqual(currentCollege, college)) {
                     dataSnapshot.getRef().removeValue();
 
@@ -160,6 +169,21 @@ public class CollegeRequestArrayAdapter extends ArrayAdapter{
                     }
                     AllRequestedColleges.collegeRequestArrayAdapter.notifyDataSetChanged();
                 }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
             }
 
             @Override
