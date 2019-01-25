@@ -59,7 +59,7 @@ public class Login extends AppCompatActivity {
 
 
     //google sign in
-    public GoogleSignInClient googleSignInClient;
+    public static GoogleSignInClient googleSignInClient;
     private Button googleSignInButton;
     private static final int SIGNUP_REQUESTCODE = 1;
     private FirebaseAuth mAuth;
@@ -114,7 +114,6 @@ public class Login extends AppCompatActivity {
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
-
 
         googleSignInClient = GoogleSignIn.getClient(this, gso);
 
@@ -425,9 +424,19 @@ public class Login extends AppCompatActivity {
     private void moveToFunctionalityActivity() {
 
 
-        Intent intent = new Intent(Login.this, Functionality.class);
+        SharedPreferences sharedPreferencesCollege = getSharedPreferences("COLLEGE", MODE_PRIVATE);
+        String college=sharedPreferencesCollege.getString("SELECTEDCOLLEGE",null);
+        Intent intent;
+        if(college!=null) {
+            intent = new Intent(Login.this, Functionality.class);
+             }
+        else{
+            intent=new Intent(Login.this,SelectCollege.class);
+        }
+
         startActivity(intent);
         finish();
+
 //        final ProgressDialog progressDialog=new ProgressDialog(this);
 //        progressDialog.setMessage("Fetching Data");
 //        progressDialog.setProgress(0);

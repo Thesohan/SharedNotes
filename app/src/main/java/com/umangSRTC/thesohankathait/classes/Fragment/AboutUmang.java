@@ -38,6 +38,7 @@ import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.classes.Utill.Equals;
 import com.umangSRTC.thesohankathait.classes.ViewHolders.AboutUmangViewHolder;
 import com.umangSRTC.thesohankathait.classes.model.AboutUmang_model;
+import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.umang.R;
 
 import java.io.IOException;
@@ -47,6 +48,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -54,7 +57,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 public class AboutUmang extends Fragment {
     private RecyclerView aboutUmnagRecyclerView;
     private FirebaseRecyclerAdapter<AboutUmang_model,AboutUmangViewHolder> firebaseRecyclerAdapter;
-    private Button addAboutButton,uploadButton;
+    private Button addAboutButton,uploadButton,collegeReqeuestButton;
     private ImageView uploadAboutImageView;
     private EditText uploadAboutEditText;
     private Uri imageUri;
@@ -73,8 +76,23 @@ public class AboutUmang extends Fragment {
         aboutUmangProgressbar=view.findViewById(R.id.aboutUmangProgressbar);
         aboutUmnagRecyclerView=view.findViewById(R.id.aboutUmangRecyclerView);
         addAboutButton=view.findViewById(R.id.addAboutButton);
+        collegeReqeuestButton=view.findViewById(R.id.CollegeReqeust);
+
+        collegeReqeuestButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                    //show full dialog fragment
+                    FragmentManager fragmentManager = getFragmentManager();
+                    AllRequestedColleges allRequestedColleges=AllRequestedColleges.newInstance();
+                    FragmentTransaction transaction = fragmentManager.beginTransaction();
+                    transaction.add(android.R.id.content,allRequestedColleges).addToBackStack("faf").commit();
+
+            }
+        });
         if(!Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
             addAboutButton.setVisibility(View.GONE);
+            collegeReqeuestButton.setVisibility(View.GONE);
         }
 
         context=getContext();

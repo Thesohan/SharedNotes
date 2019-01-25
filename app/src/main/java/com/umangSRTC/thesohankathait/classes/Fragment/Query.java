@@ -23,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.umangSRTC.thesohankathait.classes.Utill.Initialisation;
 import com.umangSRTC.thesohankathait.umang.R;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.classes.Utill.Equals;
@@ -83,7 +84,7 @@ public class Query extends Fragment {
 
 
     private void fetchQueryFromFirebase() {
-        firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Query_model, QueryViewHolder>(Query_model.class,R.layout.query_row,QueryViewHolder.class,FirebaseDatabase.getInstance().getReference("Query")) {
+        firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Query_model, QueryViewHolder>(Query_model.class,R.layout.query_row,QueryViewHolder.class,FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Query")) {
             @Override
             protected void populateViewHolder(QueryViewHolder queryViewHolder, final Query_model query_model, int i) {
 
@@ -138,7 +139,7 @@ public class Query extends Fragment {
 
     private void deleteQueryFromFirebase(final Query_model query_model) {
 
-        FirebaseDatabase.getInstance().getReference("Query").addChildEventListener(new ChildEventListener() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Query").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     if(Equals.BothEqual(query_model,dataSnapshot.getValue(Query_model.class))){
@@ -196,7 +197,7 @@ public class Query extends Fragment {
     }
 
     private void pushQueryIntoFirebase(Query_model query) {
-        FirebaseDatabase.getInstance().getReference("Query").push().setValue(query).addOnCompleteListener(new OnCompleteListener<Void>() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Query").push().setValue(query).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
@@ -237,7 +238,7 @@ public class Query extends Fragment {
     }
 
     private void updateQueryWithAns(final Query_model old_query_model, final Query_model new_query) {
-    FirebaseDatabase.getInstance().getReference("Query").addValueEventListener(new ValueEventListener() {
+    FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Query").addValueEventListener(new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             for(DataSnapshot finalDataSnapshot:dataSnapshot.getChildren()){

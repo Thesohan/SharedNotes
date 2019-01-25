@@ -1,5 +1,6 @@
 package com.umangSRTC.thesohankathait.classes.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import com.umangSRTC.thesohankathait.classes.Fragment.PdfPostRequest;
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.Utill.Equals;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
@@ -48,7 +50,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             LayoutInflater layoutInflater= (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            View view=layoutInflater.inflate(R.layout.pdf_notification_request_row,parent,false);
+            @SuppressLint("ViewHolder") View view=layoutInflater.inflate(R.layout.pdf_notification_request_row,parent,false);
 
             pdfsenderNameTextView=view.findViewById(R.id.pdfsenderTextView);
             pdftitleTextView=view.findViewById(R.id.pdfNoiceTitleTextView);
@@ -175,7 +177,7 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
 
     private void alloWNotice(String schoolName, Notices notices) {
 
-            FirebaseDatabase.getInstance().getReference("PdfCategory").child(schoolName).push().setValue(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
+            FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfCategory").child(schoolName).push().setValue(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
@@ -227,23 +229,23 @@ public class RequestPdfNoticeArrayAdapter extends ArrayAdapter{
 
     private void deleteNoticeFromFireBase(String schoolName, final Notices notices, final String action) {
 
-        FirebaseDatabase.getInstance().getReference("PdfRequests").child(schoolName).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfRequests").child(schoolName).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot finalDataSnapshot:dataSnapshot.getChildren()){
                     Notices currentNotice=finalDataSnapshot.getValue(Notices.class);
                     if(Equals.BothEquals(currentNotice,notices)){
                         finalDataSnapshot.getRef().removeValue();
-                        for(int i = 0; i<PdfNotice.pdfNoticeRequestList.size(); i++){
-                            if(Equals.BothEquals(PdfNotice.pdfNoticeRequestList.get(i).getNotices(),notices)){
-                                PdfNotice.pdfNoticeRequestList.remove(i);
+                        for(int i = 0; i<PdfPostRequest.pdfNoticeRequestList.size(); i++){
+                            if(Equals.BothEquals(PdfPostRequest.pdfNoticeRequestList.get(i).getNotices(),notices)){
+                                PdfPostRequest.pdfNoticeRequestList.remove(i);
                                 if(action.equals("deny")) {
                                     DeleteFromFirebaseStorage.deleteByDownloadUrl(context, notices.getImageUrl());
                                 }
                                 break;
                             }
                         }
-                        PdfNotice.requestPdfNoticeArrayAdapter.notifyDataSetChanged();
+                        PdfPostRequest.requestPdfNoticeArrayAdapter.notifyDataSetChanged();
                     }
                 }
             }

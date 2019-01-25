@@ -21,6 +21,7 @@
         android:layout_height="match_parent">
 
         <TextView
+
             android:id="@+id/selectApdf"
             android:layout_marginTop="16dp"
             android:textStyle="bold"
@@ -36,6 +37,7 @@
             android:src="@drawable/upload"
             android:layout_height="96dp" />
         <TextView
+
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:text="Title* :"
@@ -46,7 +48,6 @@
             android:maxLines="2"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:fontFamily="@font/righteous"
             android:id="@+id/pdftitleEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -62,7 +63,6 @@
             android:maxLines="4"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:fontFamily="@font/righteous"
             android:id="@+id/pdfdescriptionEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
@@ -103,7 +103,6 @@
                     android:textSize="32dp"
                     android:textColor="@color/black"
                     android:textStyle="bold"
-                    android:fontFamily="@font/righteous"
                     android:layout_gravity="center"
                     android:text="@string/adarsh_bhatt"
                     android:layout_width="match_parent"
@@ -113,7 +112,6 @@
                     android:textSize="24dp"
                     android:textStyle="bold"
                     android:textColor="@color/blue"
-                    android:fontFamily="@font/righteous"
                     android:layout_gravity="center"
                     android:text="@string/university_representative"
                     android:layout_width="match_parent"

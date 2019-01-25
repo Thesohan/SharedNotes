@@ -9,7 +9,6 @@
 
     android:layout_margin="8dp"
     android:text="kamlesh"
-    android:fontFamily="@font/josefin_bold"
     android:textStyle="bold"
     android:gravity="center"
     android:layout_height="wrap_content"

@@ -13,7 +13,7 @@
         <item
         android:id="@+id/srtcNotification"
         android:icon="@drawable/ic_notifications_active_black_24dp"
-        android:title="SRTC Notification" />
+        android:title="Notices" />
         <item
             android:id="@+id/upload"
             android:icon="@drawable/ic_cloud_upload_black_24dp"
@@ -31,6 +31,11 @@
             android:id="@+id/request"
             android:title="Notice Requests (Admin Only)"
             android:icon="@drawable/ic_fiber_new_black_24dp"/>
+        <item
+            android:checkable="false"
+            android:id="@+id/selectCollege"
+            android:icon="@drawable/ic_autorenew_black_24dp"
+            android:title="SelectCollegeName"/>
 
 
     <item android:title="Communicate">

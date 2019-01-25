@@ -5,7 +5,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="4dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="8dp"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -38,7 +39,6 @@
             android:layout_height="wrap_content"
             android:text="Title"
             android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
-            android:fontFamily="@font/josefin_bold"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:paddingLeft="8sp" />
@@ -64,7 +64,6 @@
         android:layout_height="wrap_content">
         <TextView
             android:textColor="@color/black"
-            android:fontFamily="@font/righteous"
             android:text="School :"
             android:layout_margin="4dp"
             android:layout_width="wrap_content"
@@ -83,7 +82,6 @@
         android:textColor="@color/red"
         android:textStyle="bold"
         android:gravity="right"
-        android:fontFamily="@font/righteous"
         android:text="- Adarsh Bhatt"
         android:id="@+id/senderTextView"
         android:layout_width="match_parent"

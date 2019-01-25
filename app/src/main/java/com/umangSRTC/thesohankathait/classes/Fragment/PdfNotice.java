@@ -23,6 +23,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.AdRequest;
@@ -59,6 +60,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -67,30 +70,30 @@ import static android.app.Activity.RESULT_OK;
 public class PdfNotice extends Fragment {
 
     private RecyclerView pdfRecyclerView;
-    private ProgressDialog progressDialog;
+  //  private ProgressDialog progressDialog;
 
     private LinearLayout twoButtonLinearLayout;
     private Button pdfuploadButton,pdfRequestButton;
     private Button addPdfImageButton;
 
-    private String selectedSchool;
-    private Uri pdfUri=null;
-    private String pdfUrl;
-    private int PICK_PDF_CODE = 10000;
-    private  EditText titleEditText,
-            descriptionEditText;
+    //private String selectedSchool;
+   // private Uri pdfUri=null;
+    //private String pdfUrl;
+//    private int PICK_PDF_CODE = 10000;
+//    private  EditText titleEditText,
+//            descriptionEditText;
 
-    private ImageView imageView;
-    private  Button uploadButton;
-    private  Spinner spinner;
-    private SpinnerAdapter spinnerArrayAdapter;
-
-    private String fileExtension="pdf";
-    private AlertDialog uploadDialogBuilder;
-    private  ListView requestPdfListView;
-    public static ArrayList<NoticeRequest> pdfNoticeRequestList;
+//    private ImageView imageView;
+//    private  Button uploadButton;
+//    private  Spinner spinner;
+//    private SpinnerAdapter spinnerArrayAdapter;
+//
+//    private String fileExtension="pdf";
+//    private AlertDialog uploadDialogBuilder;
+//    private  ListView requestPdfListView;
+//    public static ArrayList<NoticeRequest> pdfNoticeRequestList;
     private FirebaseRecyclerAdapter<Notices,PdfNoticesViewHolder> firebaseRecyclerAdapter;
-    public static RequestPdfNoticeArrayAdapter requestPdfNoticeArrayAdapter;
+//    public static RequestPdfNoticeArrayAdapter requestPdfNoticeArrayAdapter;
 
     private ProgressBar pdfProgressbar,pdfRequestProgressbar;
     private Context context;
@@ -165,11 +168,15 @@ public class PdfNotice extends Fragment {
         return view;
     }
 
+
     private void FetchPdfNoticeFromFirebase(final String schoolName) {
 
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Notices, PdfNoticesViewHolder>(Notices.class, R.layout.pdf_notification_row, PdfNoticesViewHolder.class, FirebaseDatabase.getInstance().getReference("PdfCategory").child(schoolName)) {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Notices, PdfNoticesViewHolder>(Notices.class, R.layout.pdf_notification_row, PdfNoticesViewHolder.class, FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfCategory").child(schoolName)) {
             @Override
             protected void populateViewHolder(PdfNoticesViewHolder pdfNoticesViewHolder, final Notices notices, int i) {
+
+                ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
+                pdfNoticesViewHolder.pdfNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
 
                 pdfProgressbar.setVisibility(View.GONE);
                 pdfNoticesViewHolder.pdfNoticeTitleTextView.setText(notices.getTitle());
@@ -241,7 +248,7 @@ public class PdfNotice extends Fragment {
     }
     private void deleteNotificaitonFromFirebase(String schoolName, final Notices notices) {
 
-        FirebaseDatabase.getInstance().getReference("PdfCategory").child(schoolName).addChildEventListener(new ChildEventListener() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfCategory").child(schoolName).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (Equals.BothEquals(notices, dataSnapshot.getValue(Notices.class))) {
@@ -273,7 +280,13 @@ public class PdfNotice extends Fragment {
     }
     private void showPdfPostRequest() {
 
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_pdf_notice_request, null, false);
+        FragmentManager fragmentManager = getFragmentManager();
+        PdfPostRequest pdfPostRequest=PdfPostRequest.newInstance();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(android.R.id.content,pdfPostRequest).addToBackStack("faf").commit();
+
+
+      /*  View view = LayoutInflater.from(getContext()).inflate(R.layout.fragment_pdf_notice_request, null, false);
         ArrayList<NoticeRequest> pdfNoticeRequests=new ArrayList<>();
         requestPdfListView = view.findViewById(R.id.requestPdfListView);
         pdfRequestProgressbar=view.findViewById(R.id.pdfNoticeProgressbar);
@@ -288,15 +301,17 @@ public class PdfNotice extends Fragment {
                 .setView(view).show();
 
         fetchAllPdfNoticeRequest();
-
+*/
 
 
     }
 
+    /*
+
     private void fetchAllPdfNoticeRequest() {
 
 
-        FirebaseDatabase.getInstance().getReference("PdfRequests").addChildEventListener(new ChildEventListener() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfRequests").addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 //Log.d("cild", dataSnapshot.getValue().toString());
@@ -332,9 +347,17 @@ public class PdfNotice extends Fragment {
         });
 
     }
+    */
 
     private void showUploadDialogForPdf() {
 
+        FragmentManager fragmentManager = getFragmentManager();
+        UploadPdf uploadPdf=UploadPdf.newInstance();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.add(android.R.id.content,uploadPdf).addToBackStack("faf").commit();
+
+
+        /*
         View view = LayoutInflater.from(getContext()).inflate(R.layout.pdf_upload_fragment, null, false);
 
         TextView selectAPdf =view.findViewById(R.id.selectApdf);
@@ -376,117 +399,117 @@ public class PdfNotice extends Fragment {
                     Toast.makeText(context, "Please fill all fields first!", Toast.LENGTH_LONG).show();
                 }
             }
-        });
+        });*/
 
     }
 
-    private void uploadPdf(Uri pdfUri) {
+//    private void uploadPdf(Uri pdfUri) {
+//
+//        UUID uuid=UUID.randomUUID();
+//        FirebaseStorage.getInstance().getReference().child(uuid.toString()).putFile(pdfUri).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+//                progressDialog.setMessage("please wait..."+((100*taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount())+"%");
+//
+//            }
+//        }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+//                if(task.isSuccessful()){
+//                    task.getResult().getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Uri> task) {
+//                            if(task.isSuccessful()) {
+//                                Toast.makeText(context, "file uploaded", Toast.LENGTH_SHORT).show();
+//                                pdfUrl =task.getResult().toString();
+//                                uploadintoFirebase();
+//
+//                            }
+//                            else{
+//                                progressDialog.dismiss();
+//                                Toast.makeText(context, ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        }
+//                    });
+//                }
+//                else{
+//                    progressDialog.dismiss();
+//                    Toast.makeText(context, ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//
+//    }
+//
+//    private void uploadintoFirebase() {
+//        progressDialog.dismiss();
+//        Notices notices=new Notices(descriptionEditText.getText().toString(),titleEditText.getText().toString(),FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),pdfUrl);
+//        notices.setFileExtension(fileExtension);
+//        if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
+//            FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfCategory").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                @Override
+//                public void onSuccess(Void aVoid) {
+//                    Toast.makeText(context, "notice send", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
+//        else{
+//            FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/PdfRequests").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
+//                @Override
+//                public void onSuccess(Void aVoid) {
+//                    Toast.makeText(context, "Your NoticeRequest is send to admin, thankyou!", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+//        }
+//
+//        uploadDialogBuilder.dismiss();
+//    }
+//
+//    private boolean allSet() {
+//        if(!spinner.getSelectedItem().toString().equals("Select Schools") &&
+//                !titleEditText.getText().toString().trim().equals("") &&
+//                !descriptionEditText.getText().toString().trim().equals("")&&
+//                pdfUri!=null)
+//            return true;
+//        else
+//            return false;
+//
+//    }
+//    private void showProgressDialog() {
+//        progressDialog =new ProgressDialog(context);
+//        progressDialog.setMessage("Please wait...");
+//        progressDialog.setProgressStyle(R.style.Animation_Design_BottomSheetDialog);
+//        progressDialog.setProgress(0);
+//        progressDialog.setCancelable(false);
+//        progressDialog.show();
+//
+//
+//    }
+//    private void getPdf() {
+//        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+//        intent.setType("*/*");
+//        //need to send mimetypes for some devices (read from stackoverflow not sure
+//
+//        String[] mimetypes = {"application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .doc & .docx
+//                "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", // .ppt & .pptx
+//                "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xls & .xlsx
+//                "text/plain",
+//                "application/pdf",
+//                "application/zip"};
+//        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
+//        try {
+//            startActivityForResult(intent, PICK_PDF_CODE);
+//
+//        } catch (android.content.ActivityNotFoundException ex) {
+//            // Potentially direct the user to the Market with a Dialog
+//
+//            Toast.makeText(getContext(), "Please install a File Manager.",
+//                    Toast.LENGTH_SHORT).show();
+//
+//        }
+//    }
 
-        UUID uuid=UUID.randomUUID();
-        FirebaseStorage.getInstance().getReference().child(uuid.toString()).putFile(pdfUri).addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                progressDialog.setMessage("please wait..."+((100*taskSnapshot.getBytesTransferred())/taskSnapshot.getTotalByteCount())+"%");
-
-            }
-        }).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                if(task.isSuccessful()){
-                    task.getResult().getStorage().getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if(task.isSuccessful()) {
-                                Toast.makeText(context, "file uploaded", Toast.LENGTH_SHORT).show();
-                                pdfUrl =task.getResult().toString();
-                                uploadintoFirebase();
-
-                            }
-                            else{
-                                progressDialog.dismiss();
-                                Toast.makeText(context, ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }
-                else{
-                    progressDialog.dismiss();
-                    Toast.makeText(context, ""+task.getException().toString(), Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-    }
-
-    private void uploadintoFirebase() {
-        progressDialog.dismiss();
-        Notices notices=new Notices(descriptionEditText.getText().toString(),titleEditText.getText().toString(),FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),pdfUrl);
-        notices.setFileExtension(fileExtension);
-        if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-            FirebaseDatabase.getInstance().getReference("PdfCategory").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(context, "notice send", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-        else{
-            FirebaseDatabase.getInstance().getReference("PdfRequests").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    Toast.makeText(context, "Your NoticeRequest is send to admin, thankyou!", Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
-
-        uploadDialogBuilder.dismiss();
-    }
-
-    private boolean allSet() {
-        if(!spinner.getSelectedItem().toString().equals("Select Schools") &&
-                !titleEditText.getText().toString().trim().equals("") &&
-                !descriptionEditText.getText().toString().trim().equals("")&&
-                pdfUri!=null)
-            return true;
-        else
-            return false;
-
-    }
-    private void showProgressDialog() {
-        progressDialog =new ProgressDialog(context);
-        progressDialog.setMessage("Please wait...");
-        progressDialog.setProgressStyle(R.style.Animation_Design_BottomSheetDialog);
-        progressDialog.setProgress(0);
-        progressDialog.setCancelable(false);
-        progressDialog.show();
-
-
-    }
-    private void getPdf() {
-        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
-        intent.setType("*/*");
-        //need to send mimetypes for some devices (read from stackoverflow not sure
-
-        String[] mimetypes = {"application/msword", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", // .doc & .docx
-                "application/vnd.ms-powerpoint", "application/vnd.openxmlformats-officedocument.presentationml.presentation", // .ppt & .pptx
-                "application/vnd.ms-excel", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", // .xls & .xlsx
-                "text/plain",
-                "application/pdf",
-                "application/zip"};
-        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimetypes);
-        try {
-            startActivityForResult(intent, PICK_PDF_CODE);
-
-        } catch (android.content.ActivityNotFoundException ex) {
-            // Potentially direct the user to the Market with a Dialog
-
-            Toast.makeText(getContext(), "Please install a File Manager.",
-                    Toast.LENGTH_SHORT).show();
-
-        }
-    }
-
-    @Override
+ /*   @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         //when the user choses the file
@@ -502,7 +525,7 @@ public class PdfNotice extends Fragment {
         }
     }
 
-
+*/
 
     public static PdfNotice newInstance(String schoolName) {
 

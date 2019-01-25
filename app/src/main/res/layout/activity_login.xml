@@ -1,34 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:background="@android:color/white"
+<LinearLayout android:background="@android:color/white"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/superLoginLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools">
 
 
     <ImageView
-        android:layout_weight="5"
-        android:layout_width="match_parent"
+        android:layout_weight="4"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
         android:background="@drawable/umang"
         android:layout_height="0dp" />
 
-
     <Button
-        android:layout_margin="18dp"
         android:id="@+id/googlesigninbutton"
+        android:drawableLeft="@drawable/icon_google_logo"
+        android:text="\t\t\tSign in using Google"
+        android:fontFamily="sans-serif-light"
+        android:textStyle="bold"
+        android:textColor=" #339966"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:clickable="true"
+        android:focusable="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_gravity="center"
-        android:backgroundTint="@color/blue"
-        android:text="Continue with Google"
-        android:textColor="@color/white"
-        />
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/ripple"
+        android:paddingLeft="4dp"
+        android:layout_margin="8dp"
+        android:textAlignment="textStart"
+        android:gravity="center"
+        tools:ignore="RtlCompat" />
+
+
+    <!--<Button-->
+        <!--android:layout_margin="18dp"-->
+        <!--android:id="@+id/googlesigninbutton"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="30dp"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:backgroundTint="@color/blue"-->
+        <!--android:text="Continue with Google"-->
+        <!--android:textColor="@color/white"-->
+        <!--/>-->
+
     <com.facebook.login.widget.LoginButton
         android:id="@+id/login_button"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -45,7 +67,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:gravity="center"
-        android:fontFamily="@font/josefin_regular"
         android:text="You must login first!"
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
         android:textColor="@color/red"

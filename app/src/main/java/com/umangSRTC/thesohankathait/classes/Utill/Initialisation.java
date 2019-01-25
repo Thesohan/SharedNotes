@@ -28,7 +28,7 @@ public class Initialisation extends Application {
     public static ArrayList<String> schools;//this list is for spinner since we have to add first element as "select schools
     public static ArrayList<String> schoolArrayList;
     public static ArrayList<String> adminList;
-
+    public static String selectedCollege=null;
     
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
@@ -38,6 +38,8 @@ public class Initialisation extends Application {
         super.onCreate();
 
 
+
+        getCollegeName();
         sharedPreferences=getSharedPreferences("ADMIN",MODE_PRIVATE);
         editor=sharedPreferences.edit();
 
@@ -58,6 +60,13 @@ public class Initialisation extends Application {
 
 
     }
+
+    private void getCollegeName() {
+
+        sharedPreferences=getSharedPreferences("COLLEGE",MODE_PRIVATE);
+        selectedCollege=sharedPreferences.getString("SELECTEDCOLLEGE",null);
+    }
+
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
@@ -95,46 +104,48 @@ public class Initialisation extends Application {
 
     private void fetchAdminListFromFirebase() {
 
-        FirebaseDatabase.getInstance().getReference("AdminEmail").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                if (!adminList.contains(dataSnapshot.getValue().toString())) {
-                    adminList.add(dataSnapshot.getValue().toString());
+        if (selectedCollege != null) {
+            FirebaseDatabase.getInstance().getReference(selectedCollege).child("AdminEmail").addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    if (!adminList.contains(dataSnapshot.getValue().toString())) {
+                        adminList.add(dataSnapshot.getValue().toString());
+                    }
                 }
-            }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+                }
 
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-            }
+                }
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
-            }
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
-        FirebaseDatabase.getInstance().getReference("AdminEmail").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                }
+            });
+            FirebaseDatabase.getInstance().getReference(selectedCollege).child("AdminEmail").addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                updateAdminlListInSharedPreferance();
-            }
+                    updateAdminlListInSharedPreferance();
+                }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+        }
     }
 
     private void updateAdminlListInSharedPreferance() {
@@ -153,10 +164,11 @@ public class Initialisation extends Application {
     private void getSchools() {
 
 
-        FirebaseDatabase.getInstance().getReference("Schools").addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-                    if(!schoolArrayList.contains(dataSnapshot.getValue().toString())) {
+        if(selectedCollege!=null) {
+            FirebaseDatabase.getInstance().getReference(selectedCollege).child("Schools").addChildEventListener(new ChildEventListener() {
+                @Override
+                public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    if (!schoolArrayList.contains(dataSnapshot.getValue().toString())) {
                         schools.add(dataSnapshot.getValue().toString());
                         schoolArrayList.add(dataSnapshot.getValue().toString());
                         Collections.sort(schoolArrayList);
@@ -164,57 +176,57 @@ public class Initialisation extends Application {
                         updateSchoolListInSharedPreferance();
 
                         // Refresh list on addition for instant effect
-                        if(Schools.schoolsFragmentInstance!=null){
-                            Log.i("refreshlist", "onChildRemoved: "+"list refereshed");
+                        if (Schools.schoolsFragmentInstance != null) {
+                            Log.i("refreshlist", "onChildRemoved: " + "list refereshed");
                             Schools.schoolsFragmentInstance.schoolsArrayAdapter.notifyDataSetChanged();
                         }
 
-                        if(Schools.schoolProgressbar!=null)
+                        if (Schools.schoolProgressbar != null)
                             Schools.schoolProgressbar.setVisibility(View.GONE);
                     }
                 }
 
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                @Override
+                public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
 
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
-                // get the removed school
-                String removedSchool = dataSnapshot.getValue().toString();
-                Log.i("School removed", "onChildRemoved: "+removedSchool);
-
-                // Remove the school from the local arraylists 'School' and 'schoolArrayList' whenever the child is removed from
-                // firebase , to keep things syncronised
-                schools.remove(removedSchool);
-                schoolArrayList.remove(removedSchool);
-
-                // Notify dataset change in schools list otherwise it could get index out of bounds
-                // due to deletion without notifying deletion
-                if(Schools.schoolsFragmentInstance!=null){
-                    Log.i("refreshlist", "onChildRemoved: "+"list refereshed");
-                    Schools.schoolsFragmentInstance.schoolsArrayAdapter.notifyDataSetChanged();
                 }
 
-                //since we have to update sharedPrefeances
-                updateSchoolListInSharedPreferance();
+                @Override
+                public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
 
-            }
+                    // get the removed school
+                    String removedSchool = dataSnapshot.getValue().toString();
+                    Log.i("School removed", "onChildRemoved: " + removedSchool);
 
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                    // Remove the school from the local arraylists 'School' and 'schoolArrayList' whenever the child is removed from
+                    // firebase , to keep things syncronised
+                    schools.remove(removedSchool);
+                    schoolArrayList.remove(removedSchool);
 
-            }
+                    // Notify dataset change in schools list otherwise it could get index out of bounds
+                    // due to deletion without notifying deletion
+                    if (Schools.schoolsFragmentInstance != null) {
+                        Log.i("refreshlist", "onChildRemoved: " + "list refereshed");
+                        Schools.schoolsFragmentInstance.schoolsArrayAdapter.notifyDataSetChanged();
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    //since we have to update sharedPrefeances
+                    updateSchoolListInSharedPreferance();
 
-            }
-        });
+                }
 
+                @Override
+                public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
 
 
     }

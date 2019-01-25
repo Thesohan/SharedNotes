@@ -215,7 +215,7 @@ public class Upload extends Fragment {
         }
 
         if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-            FirebaseDatabase.getInstance().getReference("Category").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
+            FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Category").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(context, "notice send", Toast.LENGTH_SHORT).show();
@@ -227,7 +227,7 @@ public class Upload extends Fragment {
             });
         }
         else{
-            FirebaseDatabase.getInstance().getReference("Requests").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
+            FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Requests").child(selectedSchool).push().setValue(notices).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(context, "Your NoticeRequest is send to admin, thankyou!", Toast.LENGTH_SHORT).show();

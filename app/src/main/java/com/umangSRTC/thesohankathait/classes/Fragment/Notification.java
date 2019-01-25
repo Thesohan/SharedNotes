@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.AdRequest;
@@ -25,6 +26,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
+import com.umangSRTC.thesohankathait.classes.Utill.Initialisation;
 import com.umangSRTC.thesohankathait.classes.database.DbHelper;
 import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
 import com.umangSRTC.thesohankathait.umang.R;
@@ -63,7 +65,7 @@ public class Notification extends Fragment {
         linearLayoutManager.setStackFromEnd(true);//it will show the last element first.
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);
-        fetchDataFromFirebase("Notification");
+        fetchDataFromFirebase("Notices");
 
 
         //for displaying ads
@@ -82,9 +84,12 @@ public class Notification extends Fragment {
         return view;
     }
     private void fetchDataFromFirebase(final String schoolName) {
-        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Notices, NoticesViewHolder>(Notices.class, R.layout.all_notification_row, NoticesViewHolder.class, FirebaseDatabase.getInstance().getReference("Category").child(schoolName)) {
+        firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<Notices, NoticesViewHolder>(Notices.class, R.layout.all_notification_row, NoticesViewHolder.class, FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Category").child(schoolName)) {
             @Override
             protected void populateViewHolder(NoticesViewHolder noticesViewHolder, final Notices notices, final int postion) {
+
+                ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
+                noticesViewHolder.allNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
 
                 allNotificationProgressbar.setVisibility(View.GONE);
                 noticesViewHolder.allNoticeTitleTextView.setText(notices.getTitle());
@@ -172,7 +177,7 @@ public class Notification extends Fragment {
 
     private void deleteNotificaitonFromFirebase(String schoolName, final Notices notices) {
 
-        FirebaseDatabase.getInstance().getReference("Category").child(schoolName).addChildEventListener(new ChildEventListener() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Category").child(schoolName).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (Equals.BothEquals(notices, dataSnapshot.getValue(Notices.class))) {

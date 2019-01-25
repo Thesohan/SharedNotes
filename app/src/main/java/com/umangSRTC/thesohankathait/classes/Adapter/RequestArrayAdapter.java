@@ -47,8 +47,8 @@ public class RequestArrayAdapter extends ArrayAdapter{
         private Button editButton,allowButton,denyButton;
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            LayoutInflater layoutInflater= (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
-            View view=layoutInflater.inflate(R.layout.notification_request_row,parent,false);
+            LayoutInflater layoutInflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            @SuppressLint("ViewHolder") View view=layoutInflater.inflate(R.layout.notification_request_row,parent,false);
 
 
             linkTextView=view.findViewById(R.id.requestLinkTextView);
@@ -223,7 +223,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
 
     private void alloWNotice(String schoolName, Notices notices) {
 
-            FirebaseDatabase.getInstance().getReference("Category").child(schoolName).push().setValue(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
+            FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Category").child(schoolName).push().setValue(notices).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
@@ -276,7 +276,7 @@ public class RequestArrayAdapter extends ArrayAdapter{
 
     private void deleteNoticeFromFireBase(String schoolName, final Notices notices, final String action) {
 
-        FirebaseDatabase.getInstance().getReference("Requests").child(schoolName).addValueEventListener(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege+"/Requests").child(schoolName).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for(DataSnapshot finalDataSnapshot:dataSnapshot.getChildren()){
