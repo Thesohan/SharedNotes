@@ -34,6 +34,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -41,7 +43,7 @@ public class Query extends Fragment {
     private RecyclerView queryRecyclerView;
     private ProgressBar queryProgressbar;
     private FirebaseRecyclerAdapter<Query_model,QueryViewHolder> firebaseRecyclerAdapter;
-    private FloatingActionButton askQueryFloatingActionButton;
+    private FloatingActionButton chatBotFloatingActionButton,askQueryFloatingActionButton;
     private Context context;
     @Nullable
     @Override
@@ -49,6 +51,7 @@ public class Query extends Fragment {
         View view=inflater.inflate(R.layout.fragment_query,container,false);
 
         context=getContext();
+        chatBotFloatingActionButton=view.findViewById(R.id.charBotFloatingActionButton);
         queryRecyclerView=view.findViewById(R.id.queryRecyclerView);
         askQueryFloatingActionButton=view.findViewById(R.id.askQueryFloatingActionButton);
 
@@ -59,6 +62,23 @@ public class Query extends Fragment {
             public void onClick(View v) {
                 showDialogForQuestion();
 
+            }
+        });
+
+        chatBotFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //OPEN CHATBOT DIALOG
+
+                //since this dialog fragment was having transparency i.e. when this dialog is visible to user, chatBotFloatingActionButton still functioning,
+                //to avoid this i'm checking this
+                if (getFragmentManager().getBackStackEntryCount() == 0) {
+
+                    FragmentManager fragmentManager = getFragmentManager();
+                    ChatBot chatBot = ChatBot.newInstance();
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                    fragmentTransaction.add(android.R.id.content, chatBot).addToBackStack("fafdf").commit();
+                }
             }
         });
 

@@ -6,6 +6,7 @@
     android:fillViewport="true"
     android:layout_height="match_parent"
     android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:fitsSystemWindows="true"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 <androidx.cardview.widget.CardView

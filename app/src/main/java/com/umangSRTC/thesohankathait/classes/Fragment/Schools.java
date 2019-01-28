@@ -32,6 +32,7 @@ import com.umangSRTC.thesohankathait.classes.model.User;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 public class Schools extends Fragment {
@@ -42,6 +43,7 @@ public class Schools extends Fragment {
     private TextView hintTextView;
     public static ProgressBar schoolProgressbar;
 
+    public CardView cardFloatingLayout;
     public static Schools schoolsFragmentInstance;
     private Context context;
 
@@ -56,6 +58,7 @@ public class Schools extends Fragment {
         schoolsFragmentInstance = this;
 
 
+        cardFloatingLayout=view.findViewById(R.id.cardFloatingLayout);
         schoolsListView=view.findViewById(R.id.schoolsListView);
         addSchoolsFloatingActionButton=view.findViewById(R.id.addSchoolsFloatingActionButton);
         hintTextView=view.findViewById(R.id.hintTextview);
@@ -68,6 +71,8 @@ public class Schools extends Fragment {
         //it is null somtimes
         if(User.getCurrentUser()!=null && !Admin.CheckAdmin(User.getCurrentUser().email))
             addSchoolsFloatingActionButton.setVisibility(View.GONE);
+
+        cardFloatingLayout.setVisibility(View.GONE);
 //        for(int i=1;i<Initialisation.schools.size();i++){
 //            schoolArrayList.add(Initialisation.schools.get(i));
 //        }

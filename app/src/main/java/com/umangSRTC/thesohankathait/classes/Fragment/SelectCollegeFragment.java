@@ -1,5 +1,6 @@
 package com.umangSRTC.thesohankathait.classes.Fragment;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -94,14 +95,17 @@ public class SelectCollegeFragment extends Fragment implements View.OnClickListe
 
     }
 
+    @SuppressLint("CommitPrefEdits")
     private void clearOldSharedPreferances() {
 
 
         sharedPreferences=context.getSharedPreferences("ADMIN",MODE_PRIVATE);
-        sharedPreferences.edit().clear();
-
+        sharedPreferences.edit().clear().apply();
         sharedPreferences=context.getSharedPreferences("COLLEGE",MODE_PRIVATE);
-        sharedPreferences.edit().clear();
+        sharedPreferences.edit().clear().apply();
+        sharedPreferences=context.getSharedPreferences("ADMIN",MODE_PRIVATE);
+        sharedPreferences.edit().clear().apply();
+
 
     }
 
@@ -170,21 +174,25 @@ public class SelectCollegeFragment extends Fragment implements View.OnClickListe
 
             case R.id.nextButton:
 
-                if(selectedCollege!=null){
-                    Toast.makeText(context, ""+selectedCollege, Toast.LENGTH_SHORT).show();
-                    clearOldSharedPreferances();//clearing schools and admin list from shared preferances
+                //since this dialog fragment was having transparency i.e. when this dialog is visible to user, next Button still functioning,
+                //to avoid this i'm checking this
+                if(getFragmentManager().getBackStackEntryCount()==0){
+                    if(selectedCollege!=null){
+                        Toast.makeText(context, ""+selectedCollege, Toast.LENGTH_SHORT).show();
+                        clearOldSharedPreferances();//clearing schools and admin list from shared preferances
 
-                    sharedPreferences = context.getSharedPreferences("COLLEGE", MODE_PRIVATE);
-                    editor = sharedPreferences.edit();
-                    editor.putString("SELECTEDCOLLEGE",selectedCollege);
-                    editor.apply();
-                    Initialisation.selectedCollege=selectedCollege;//for the first time when user select the college
-                    moveToFunctionality();
+                        sharedPreferences = context.getSharedPreferences("COLLEGE", MODE_PRIVATE);
+                        editor = sharedPreferences.edit();
+                        editor.putString("SELECTEDCOLLEGE",selectedCollege);
+                        editor.apply();
+                        Initialisation.selectedCollege=selectedCollege;//for the first time when user select the college
+                        moveToFunctionality();
 
-                }
+                    }
 
-                else{
-                    Toast.makeText(context, "Please select a college first!", Toast.LENGTH_SHORT).show();
+                    else{
+                        Toast.makeText(context, "Please select a college first!", Toast.LENGTH_SHORT).show();
+                    }
                 }
                 break;
         }

@@ -20,14 +20,12 @@ import com.umangSRTC.thesohankathait.classes.Fragment.Request;
 
 public class Features extends AppCompatActivity {
 
-    private FrameLayout featureFramlayout;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_features);
 
-        featureFramlayout = findViewById(R.id.featureFrameLayout);
+
         Intent intent = getIntent();
         String fragmentName = intent.getStringExtra("FRAGMENT_NAME");
         switch (fragmentName) {
