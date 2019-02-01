@@ -22,6 +22,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -32,6 +33,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.UploadTask;
@@ -40,6 +42,7 @@ import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.classes.Utill.FileExtension;
 import com.umangSRTC.thesohankathait.classes.Utill.Initialisation;
 import com.umangSRTC.thesohankathait.classes.ViewHolders.PdfNoticesViewHolder;
+import com.umangSRTC.thesohankathait.classes.model.AdminProfile;
 import com.umangSRTC.thesohankathait.classes.model.NoticeRequest;
 import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.umang.R;
@@ -75,6 +78,8 @@ public class UploadPdf extends DialogFragment {
 
     private String fileExtension="pdf";
     private Context context;
+    private ImageView myImage;
+    private TextView myName,myDescription;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -82,6 +87,13 @@ public class UploadPdf extends DialogFragment {
 
         View view =inflater.inflate(R.layout.pdf_upload_fragment, null, false);
         context=getContext();
+
+        myImage=view.findViewById(R.id.myImage);
+        myName=view.findViewById(R.id.myName);
+        myDescription=view.findViewById(R.id.myDescription);
+        imageView=view.findViewById(R.id.uploadImageView);
+        setMyprofile();
+
 
         TextView selectAPdf =view.findViewById(R.id.selectApdf);
         selectAPdf.setText("Select A pdf");
@@ -122,6 +134,25 @@ public class UploadPdf extends DialogFragment {
         });
 
         return view;
+    }
+
+    private void setMyprofile() {
+
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege).child("AdminProfile").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                AdminProfile adminProfile=dataSnapshot.getValue(AdminProfile.class);
+//                Log.d("name",adminProfile.getName());
+                Glide.with(context).load(adminProfile.getImageUrl()).into(myImage);
+                myName.setText(adminProfile.getName());
+                myDescription.setText(adminProfile.getDescription());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     private void uploadPdf(Uri pdfUri) {

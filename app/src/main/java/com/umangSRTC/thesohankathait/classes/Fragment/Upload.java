@@ -1,10 +1,13 @@
 package com.umangSRTC.thesohankathait.classes.Fragment;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,7 +24,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.UploadTask;
@@ -29,6 +35,7 @@ import com.umangSRTC.thesohankathait.classes.Activity.Features;
 import com.umangSRTC.thesohankathait.classes.Activity.Functionality;
 import com.umangSRTC.thesohankathait.classes.Utill.CompressImages;
 import com.umangSRTC.thesohankathait.classes.Utill.Initialisation;
+import com.umangSRTC.thesohankathait.classes.model.AdminProfile;
 import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.umang.R;
@@ -39,10 +46,12 @@ import java.util.UUID;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class Upload extends Fragment {
 
-    private ImageView imageView;
+    private ImageView imageView,myImage;
     private EditText titleEditText,descriptionEditText,linkEditText=null;
     private Button uploadButton;
     private Spinner spinner;
@@ -52,7 +61,7 @@ public class Upload extends Fragment {
     private String imageURl;
     private String selectedSchool=null;
     private ArrayAdapter<String>  spinnerArrayAdapter;
-    private TextView aboutUmangTextview;
+    private TextView aboutUmangTextview,editMyProfile,myName,myDescription;
 //    private ImageButton cameraImageButton;
     @Nullable
     @Override
@@ -61,7 +70,12 @@ public class Upload extends Fragment {
 
         context=getContext();
 //        cameraImageButton=view.findViewById(R.id.cameraImageButton);
+        myImage=view.findViewById(R.id.myImage);
+        myName=view.findViewById(R.id.myName);
+        myDescription=view.findViewById(R.id.myDescription);
         imageView=view.findViewById(R.id.uploadImageView);
+        setMyprofile();
+
         titleEditText=view.findViewById(R.id.titleEditText);
         descriptionEditText=view.findViewById(R.id.descriptionEditText);
         uploadButton=view.findViewById(R.id.uploadButton);
@@ -69,7 +83,13 @@ public class Upload extends Fragment {
         linkEditText=view.findViewById(R.id.linkEditText);
 
         aboutUmangTextview=view.findViewById(R.id.aboutUmangTextView);
+        editMyProfile=view.findViewById(R.id.editMyProfileTextView);
         aboutUmangTextview.setVisibility(View.VISIBLE);
+
+        if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+            editMyProfile.setVisibility(View.VISIBLE);
+            //ONLY admin is allowed to change the profile
+        }
 
         aboutUmangTextview.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -77,6 +97,15 @@ public class Upload extends Fragment {
                 Intent requestIntent = new Intent(getContext(), Features.class);
                 requestIntent.putExtra("FRAGMENT_NAME","AboutUmang");
                 startActivity(requestIntent);
+            }
+        });
+
+        editMyProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //SHOW dialog to edit profile
+
+                showEditProfileDailog();
             }
         });
 
@@ -127,6 +156,34 @@ public class Upload extends Fragment {
 //        });
 
         return view;
+    }
+
+    private void setMyprofile() {
+
+        FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege).child("AdminProfile").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                AdminProfile adminProfile=dataSnapshot.getValue(AdminProfile.class);
+//                Log.d("name",adminProfile.getName());
+                Glide.with(context).load(adminProfile.getImageUrl()).into(myImage);
+                myName.setText(adminProfile.getName());
+                myDescription.setText(adminProfile.getDescription());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void showEditProfileDailog() {
+
+
+        ProfileUpdate profileUpdate=ProfileUpdate.newInstance();
+        FragmentManager fragmentManager=getFragmentManager();
+        FragmentTransaction fragmentTransaction=fragmentManager.beginTransaction();
+        fragmentTransaction.add(android.R.id.content,profileUpdate).addToBackStack("faf").commit();
     }
 
     private void getImage() {

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.AssetManager;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -56,6 +58,7 @@ public class ChatBot extends DialogFragment {
     private EditText mEditTextMessage;
     private ImageView mImageView;
     private ChatMessageAdapter mAdapter;
+    private ProgressBar chatBotProgressbar;
 
     //First let’s include the class Bot from our ALICE bot JAR package in this fragment
     public Bot bot;
@@ -68,12 +71,15 @@ public class ChatBot extends DialogFragment {
         View view = inflater.inflate(R.layout.chatbot, container, false);
         context = getContext();
 
+
+        chatBotProgressbar=view.findViewById(R.id.chatBotProgressbar);
         mListView = view.findViewById(R.id.listView);
         mButtonSend = view.findViewById(R.id.btn_send);
         mEditTextMessage = view.findViewById(R.id.et_message);
         mImageView = view.findViewById(R.id.iv_image);
         mAdapter = new ChatMessageAdapter(context, new ArrayList<ChatMessage>());
         mListView.setAdapter(mAdapter);
+
 
         mEditTextMessage.requestFocus();
 //        //code for sending the message
@@ -164,7 +170,9 @@ public class ChatBot extends DialogFragment {
         //Assign the AIML files to bot for processing
         bot = new Bot("Sohan", MagicStrings.root_path, "chat");
         chat = new Chat(bot);
-      //  String[] args = null;
+        chatBotProgressbar.setVisibility(View.GONE);
+
+        //  String[] args = null;
     //    mainFunction(args);
 
     }

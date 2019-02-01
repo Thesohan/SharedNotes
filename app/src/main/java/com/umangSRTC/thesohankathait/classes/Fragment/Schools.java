@@ -50,18 +50,18 @@ public class Schools extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view=inflater.inflate(R.layout.schools_fragment,container,false);
+        View view = inflater.inflate(R.layout.schools_fragment, container, false);
 
-        context=getContext();
-        schoolProgressbar=view.findViewById(R.id.schoolProgressbar);
+        context = getContext();
+        schoolProgressbar = view.findViewById(R.id.schoolProgressbar);
         // requied for refreshing school list from outside
         schoolsFragmentInstance = this;
 
 
-        cardFloatingLayout=view.findViewById(R.id.cardFloatingLayout);
-        schoolsListView=view.findViewById(R.id.schoolsListView);
-        addSchoolsFloatingActionButton=view.findViewById(R.id.addSchoolsFloatingActionButton);
-        hintTextView=view.findViewById(R.id.hintTextview);
+        cardFloatingLayout = view.findViewById(R.id.cardFloatingLayout);
+        schoolsListView = view.findViewById(R.id.schoolsListView);
+        addSchoolsFloatingActionButton = view.findViewById(R.id.addSchoolsFloatingActionButton);
+        hintTextView = view.findViewById(R.id.hintTextview);
 
         //fon movable textview
         hintTextView.setEllipsize(TextUtils.TruncateAt.MARQUEE);
@@ -69,11 +69,12 @@ public class Schools extends Fragment {
         hintTextView.setSelected(true);
 
         //it is null somtimes
-        if(User.getCurrentUser()!=null && !Admin.CheckAdmin(User.getCurrentUser().email))
+        if (User.getCurrentUser() != null && !Admin.CheckAdmin(User.getCurrentUser().email)){
             addSchoolsFloatingActionButton.setVisibility(View.GONE);
-
         cardFloatingLayout.setVisibility(View.GONE);
-//        for(int i=1;i<Initialisation.schools.size();i++){
+    }
+
+        //        for(int i=1;i<Initialisation.schools.size();i++){
 //            schoolArrayList.add(Initialisation.schools.get(i));
 //        }
 

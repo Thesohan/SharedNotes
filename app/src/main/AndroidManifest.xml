@@ -6,7 +6,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
         tools:ignore="ProtectedPermissions" />
 
     <uses-feature
@@ -98,7 +99,8 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/app_admob_id" />
 
-        <activity android:name="com.umangSRTC.thesohankathait.classes.Activity.SelectCollege"></activity>
+        <activity android:name="com.umangSRTC.thesohankathait.classes.Activity.SelectCollege" />
+        <activity android:name="com.umangSRTC.thesohankathait.classes.Activity.Search"></activity>
     </application>
 
 </manifest>
