@@ -1,0 +1,8 @@
+url:http://djustice-android.tumblr.com
+name:Sohan Kathait
+email:sohan.cse16@nituk.ac.in
+gender:male
+botmaster:The Sohan Kathait
+organization:None
+version:0.0.1
+

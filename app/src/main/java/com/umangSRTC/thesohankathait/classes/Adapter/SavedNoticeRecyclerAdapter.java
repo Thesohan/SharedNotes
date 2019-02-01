@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.amulyakhare.textdrawable.util.ColorGenerator;
 import com.bumptech.glide.Glide;
 import com.umangSRTC.thesohankathait.classes.Fragment.FullScreenDialogFragment;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
@@ -83,10 +84,12 @@ public class SavedNoticeRecyclerAdapter extends RecyclerView.Adapter<SavedNotice
             }
         });
 
-
         String sender="- "+notices.getSender();
         holder.allNoticeSenderTextview.setText(sender);
         holder.allNoticeTitleTextView.setText(notices.getTitle());
+
+        ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
+        holder.allNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
 
         holder.allNoticeImageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -142,8 +145,4 @@ public class SavedNoticeRecyclerAdapter extends RecyclerView.Adapter<SavedNotice
                 .show();
 
     }
-
-
-
-
 }

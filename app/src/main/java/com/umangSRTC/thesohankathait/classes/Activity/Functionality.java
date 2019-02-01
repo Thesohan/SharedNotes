@@ -32,6 +32,7 @@ import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -57,7 +58,6 @@ public class Functionality extends AppCompatActivity
 
    private TabLayout tabLayout;
    private ViewPager viewPager;
-
 
     @Override
     public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
@@ -324,6 +324,11 @@ public class Functionality extends AppCompatActivity
                 // explorer app installed on your device
             }
             return true;
+        }
+
+        else if(id==R.id.search){
+            Intent intent=new Intent(Functionality.this,Search.class);
+            startActivity(intent);
         }
 
         return super.onOptionsItemSelected(item);

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:fillViewport="true"
+    android:layout_height="match_parent"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+<androidx.cardview.widget.CardView
+    app:cardElevation="4dp"
+    app:cardCornerRadius="4dp"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/selectApdf"
+            android:layout_marginTop="16dp"
+            android:textStyle="bold"
+            android:layout_gravity="center"
+            android:text="select an image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+       <LinearLayout
+           android:gravity="center"
+           android:layout_gravity="center"
+           android:orientation="horizontal"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <!--<ImageButton-->
+               <!--android:id="@+id/cameraImageButton"-->
+               <!--android:layout_marginRight="16dp"-->
+               <!--android:layout_gravity="center"-->
+               <!--style="@style/Widget.AppCompat.Button.Borderless"-->
+               <!--android:background="@drawable/ic_close_black_24dp"-->
+               <!--android:layout_width="96dp"-->
+               <!--android:layout_height="96dp" />-->
+           <ImageView
+               android:layout_marginLeft="16dp"
+               android:id="@+id/uploadImageView"
+               android:layout_gravity="center"
+               android:layout_width="96dp"
+               android:src="@drawable/upload"
+               android:layout_height="96dp" />
+
+
+       </LinearLayout><TextView
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Name* :"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:hint="Name"
+            android:maxLines="2"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+             
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:text="Description* :"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:hint="Please enter description here"
+            android:maxLines="4"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+              
+            android:id="@+id/descriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:backgroundTint="@color/blue"
+            android:id="@+id/uploadButton"
+            android:textStyle="bold"
+            android:text="Upload"
+            android:layout_marginBottom="16dp"
+            android:textColor="@color/white"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+
+</ScrollView>

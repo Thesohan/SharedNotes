@@ -7,6 +7,8 @@
     android:minWidth="600dp"
     android:minHeight="600dp"
     android:background="@color/white"
+
+    android:fitsSystemWindows="true"
     android:layout_height="match_parent">
 
     <RelativeLayout
