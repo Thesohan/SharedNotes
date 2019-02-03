@@ -5,6 +5,8 @@ import com.umangSRTC.thesohankathait.classes.model.College;
 import com.umangSRTC.thesohankathait.classes.model.Notices;
 import com.umangSRTC.thesohankathait.classes.model.Query_model;
 
+import java.util.List;
+
 public class Equals {
 
     public static boolean BothEquals(Notices notices, Notices currentNotice) {
@@ -38,5 +40,16 @@ public class Equals {
         return college.getAdminEmail().equals(currentCollege.getAdminEmail()) &&
                 college.getCollegeName().equals(currentCollege.getCollegeName())&&
                 college.getPhoneNo().equals(currentCollege.getPhoneNo());
+    }
+
+    public static boolean contain(List<Notices> searchList, Notices notices) {
+
+        for(Notices nots: searchList){
+            if(nots.getTitle().equals(notices.getTitle())){
+                return true;
+            }
+
+        }
+        return false;
     }
 }
