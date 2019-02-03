@@ -28,6 +28,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.umangSRTC.thesohankathait.classes.Fragment.AllRequestedColleges;
 import com.umangSRTC.thesohankathait.classes.Fragment.Request;
+import com.umangSRTC.thesohankathait.classes.Utill.Admin;
 import com.umangSRTC.thesohankathait.classes.Utill.DeleteFromFirebaseStorage;
 import com.umangSRTC.thesohankathait.classes.Utill.DownloadTask;
 import com.umangSRTC.thesohankathait.classes.Utill.Equals;
@@ -108,9 +109,9 @@ public class CollegeRequestArrayAdapter extends ArrayAdapter{
                 public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                     College currentCollege=dataSnapshot.getValue(College.class);
                     if(Equals.BothEqual(college,currentCollege)){
-                        FirebaseDatabase.getInstance().getReference(college.getCollegeName()).child("AdminEmail").push().setValue(college.getAdminEmail());
-                        FirebaseDatabase.getInstance().getReference("Colleges").push().setValue(college.getCollegeName());
-                        FirebaseDatabase.getInstance().getReference(college.getCollegeName()).child("Schools").push().setValue("Notices");//since i have created this app for notice saring so every college must use it for notice sharing
+                        FirebaseDatabase.getInstance().getReference(Admin.modifyCollege(college.getCollegeName())).child("AdminEmail").push().setValue(college.getAdminEmail());
+                        FirebaseDatabase.getInstance().getReference("Colleges").push().setValue(Admin.modifyCollege(college.getCollegeName()));
+                        FirebaseDatabase.getInstance().getReference(Admin.modifyCollege(college.getCollegeName())).child("Schools").push().setValue("Notices");//since i have created this app for notice saring so every college must use it for notice sharing
                         deleteCollegeFromFireBase(college);
 
                     }

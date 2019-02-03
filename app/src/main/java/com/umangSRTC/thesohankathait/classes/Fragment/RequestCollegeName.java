@@ -52,10 +52,6 @@ public class RequestCollegeName extends DialogFragment {
 
     private void addCollegeRequest() {
 
-        if(!Admin.isCorrect(collgeNameEditText.getText().toString())){
-            collgeNameEditText.setError("Please enter a valid college name");
-            return;
-        }
         if (checkAllFieldsFilled()) {
             college = new College(collgeNameEditText.getText().toString().trim(), emailEditText.getText().toString().trim(), phoneEditText.getText().toString().trim());
             FirebaseDatabase.getInstance().getReference("CollegeRequests").push().setValue(college);

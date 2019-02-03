@@ -171,7 +171,6 @@ public class Schools extends Fragment {
         final View view=inflater.inflate(R.layout.add_school_view,null,false);
 
         final EditText addSchoolEditText=view.findViewById(R.id.newSchoolEditText);
-
          AlertDialog builder=new AlertDialog.Builder(context)
                 .setCancelable(false)
                  .setView(view)
