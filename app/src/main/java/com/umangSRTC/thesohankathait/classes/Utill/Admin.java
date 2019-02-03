@@ -19,7 +19,15 @@ public class Admin {
             }
         }
         return true;
-
     }
+    public static String modifyCollege(String college){
+        String modifiedCollege="";
 
+        for(int j=0;j<college.length();j++){
+            if((college.charAt(j)>=65 && college.charAt(j)<=90)||(college.charAt(j)>=97&&college.charAt(j)<=122)){
+                modifiedCollege+=college.charAt(j);
+            }
+        }
+        return modifiedCollege;
+    }
 }

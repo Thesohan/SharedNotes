@@ -16,9 +16,7 @@ public class SelectCollege extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_college);
-
         addDifferentFragment(SelectCollegeFragment.newInstance());
-
 
     }
     public void addDifferentFragment(Fragment replacableFragment) {

@@ -163,11 +163,15 @@ public class Upload extends Fragment {
         FirebaseDatabase.getInstance().getReference(Initialisation.selectedCollege).child("AdminProfile").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 AdminProfile adminProfile=dataSnapshot.getValue(AdminProfile.class);
 //                Log.d("name",adminProfile.getName());
+                if(adminProfile!=null){
                 Glide.with(context).load(adminProfile.getImageUrl()).into(myImage);
                 myName.setText(adminProfile.getName());
                 myDescription.setText(adminProfile.getDescription());
+
+                }
             }
 
             @Override
