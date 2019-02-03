@@ -109,17 +109,12 @@ public class PdfNotice extends Fragment {
 
         pdfProgressbar=view.findViewById(R.id.pdfProgressbar);
 
-
-
       //initialising
             MobileAds.initialize(getContext(),"ca-app-pub-3940256099942544~3347511713");
             mInterstitialAd = new InterstitialAd(context);
             mInterstitialAd.setAdUnitId(getString(R.string.industrial_ad_id));//modify the ad id from string resources
             //loading  an ad
            mInterstitialAd.loadAd(new AdRequest.Builder().build());
-
-
-
 
         pdfRecyclerView = view.findViewById(R.id.pdfRecyclerView);
         LinearLayoutManager linearLayoutManager=new LinearLayoutManager(context);
@@ -167,7 +162,6 @@ public class PdfNotice extends Fragment {
 
         return view;
     }
-
 
     private void FetchPdfNoticeFromFirebase(final String schoolName) {
 
