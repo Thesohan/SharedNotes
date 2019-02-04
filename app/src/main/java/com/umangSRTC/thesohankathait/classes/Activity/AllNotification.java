@@ -88,8 +88,8 @@ public class AllNotification extends AppCompatActivity {
             @Override
             protected void populateViewHolder(final NoticesViewHolder noticesViewHolder, final Notices notices, final int postion) {
 
-                ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
-                noticesViewHolder.allNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
+//                ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
+//                noticesViewHolder.allNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
 
                 allNotificationProgressbar.setVisibility(View.GONE);
                 noticesViewHolder.allNoticeTitleTextView.setText(notices.getTitle());

@@ -88,8 +88,8 @@ public class Notification extends Fragment {
             @Override
             protected void populateViewHolder(NoticesViewHolder noticesViewHolder, final Notices notices, final int postion) {
 
-                ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
-                noticesViewHolder.allNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
+//                ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
+//                noticesViewHolder.allNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
 
                 allNotificationProgressbar.setVisibility(View.GONE);
                 noticesViewHolder.allNoticeTitleTextView.setText(notices.getTitle());

@@ -169,8 +169,8 @@ public class PdfNotice extends Fragment {
             @Override
             protected void populateViewHolder(PdfNoticesViewHolder pdfNoticesViewHolder, final Notices notices, int i) {
 
-                ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
-                pdfNoticesViewHolder.pdfNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
+//                ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
+//                pdfNoticesViewHolder.pdfNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
 
                 pdfProgressbar.setVisibility(View.GONE);
                 pdfNoticesViewHolder.pdfNoticeTitleTextView.setText(notices.getTitle());
