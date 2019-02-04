@@ -1,4 +1,4 @@
-package com.umangSRTC.thesohankathait.umang.javas.Fragment;
+package com.noticol.thesohankathait.notices.javas.Fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,12 +19,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.umangSRTC.thesohankathait.umang.R;
-import com.umangSRTC.thesohankathait.umang.javas.Activity.AllNotification;
-import com.umangSRTC.thesohankathait.umang.javas.Utill.Initialisation;
-import com.umangSRTC.thesohankathait.umang.javas.Adapter.SchoolsArrayAdapter;
-import com.umangSRTC.thesohankathait.umang.javas.Utill.Admin;
-import com.umangSRTC.thesohankathait.umang.javas.model.User;
+import com.noticol.thesohankathait.notices.R;
+import com.noticol.thesohankathait.notices.javas.Activity.AllNotification;
+import com.noticol.thesohankathait.notices.javas.Utill.Initialisation;
+import com.noticol.thesohankathait.notices.javas.Adapter.SchoolsArrayAdapter;
+import com.noticol.thesohankathait.notices.javas.Utill.Admin;
+import com.noticol.thesohankathait.notices.javas.model.User;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

@@ -68,7 +68,6 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_gravity="center"
-                android:src="@drawable/adarsh"
                 android:layout_width="160dp"
                 android:layout_height="160dp" />
             <LinearLayout
@@ -84,7 +83,6 @@
                     android:textStyle="bold"
                    
                     android:layout_gravity="center"
-                    android:text="@string/adarsh_bhatt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
                 <TextView
@@ -94,7 +92,6 @@
                     android:textColor="@color/blue"
                    
                     android:layout_gravity="center"
-                    android:text="@string/university_representative"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

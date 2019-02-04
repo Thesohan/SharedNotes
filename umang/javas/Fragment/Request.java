@@ -1,4 +1,4 @@
-package com.umangSRTC.thesohankathait.umang.javas.Fragment;
+package com.noticol.thesohankathait.notices.javas.Fragment;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -14,10 +14,10 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.umangSRTC.thesohankathait.umang.R;
-import com.umangSRTC.thesohankathait.umang.javas.Adapter.RequestArrayAdapter;
-import com.umangSRTC.thesohankathait.umang.javas.model.NoticeRequest;
-import com.umangSRTC.thesohankathait.umang.javas.model.Notices;
+import com.noticol.thesohankathait.notices.R;
+import com.noticol.thesohankathait.notices.javas.Adapter.RequestArrayAdapter;
+import com.noticol.thesohankathait.notices.javas.model.NoticeRequest;
+import com.noticol.thesohankathait.notices.javas.model.Notices;
 
 import java.util.ArrayList;
 

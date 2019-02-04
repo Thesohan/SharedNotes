@@ -1,4 +1,4 @@
-package com.umangSRTC.thesohankathait.umang.javas.Utill;
+package com.noticol.thesohankathait.notices.javas.Utill;
 
 public class Admin {
     private final static String EMAIL="adarshbhatt91@gmail.com";

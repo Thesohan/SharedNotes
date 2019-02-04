@@ -1,4 +1,4 @@
-package com.umangSRTC.thesohankathait.umang.javas.Adapter;
+package com.noticol.thesohankathait.notices.javas.Adapter;
 
 import android.content.Context;
 import android.content.DialogInterface;
@@ -21,11 +21,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-import com.umangSRTC.thesohankathait.umang.R;
-import com.umangSRTC.thesohankathait.umang.javas.Fragment.Request;
-import com.umangSRTC.thesohankathait.umang.javas.Utill.Initialisation;
-import com.umangSRTC.thesohankathait.umang.javas.model.NoticeRequest;
-import com.umangSRTC.thesohankathait.umang.javas.model.Notices;
+import com.noticol.thesohankathait.notices.R;
+import com.noticol.thesohankathait.notices.javas.Fragment.Request;
+import com.noticol.thesohankathait.notices.javas.Utill.Initialisation;
+import com.noticol.thesohankathait.notices.javas.model.NoticeRequest;
+import com.noticol.thesohankathait.notices.javas.model.Notices;
 
 import java.util.ArrayList;
 

@@ -18,7 +18,6 @@
             android:id="@+id/schoolsImages"
             android:layout_margin="4dp"
             android:layout_gravity="center"
-            android:src="@drawable/adarsh"
             android:layout_width="48dp"
             android:layout_height="48dp" />
         <TextView

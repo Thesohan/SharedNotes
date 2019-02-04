@@ -1,4 +1,4 @@
-package com.umangSRTC.thesohankathait.umang.javas.model;
+package com.noticol.thesohankathait.notices.javas.model;
 
 public class Query_model {
     String question,answer;

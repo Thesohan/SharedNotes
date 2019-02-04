@@ -1,4 +1,4 @@
-package com.umangSRTC.thesohankathait.umang.javas.Activity;
+package com.noticol.thesohankathait.notices.javas.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -8,11 +8,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.FrameLayout;
 
-import com.umangSRTC.thesohankathait.umang.R;
-import com.umangSRTC.thesohankathait.umang.javas.Fragment.PdfNotice;
-import com.umangSRTC.thesohankathait.umang.javas.Fragment.Policy;
-import com.umangSRTC.thesohankathait.umang.javas.Fragment.Query;
-import com.umangSRTC.thesohankathait.umang.javas.Fragment.Request;
+import com.noticol.thesohankathait.notices.R;
+import com.noticol.thesohankathait.notices.javas.Fragment.PdfNotice;
+import com.noticol.thesohankathait.notices.javas.Fragment.Policy;
+import com.noticol.thesohankathait.notices.javas.Fragment.Query;
+import com.noticol.thesohankathait.notices.javas.Fragment.Request;
 
 public class Features extends AppCompatActivity {
 

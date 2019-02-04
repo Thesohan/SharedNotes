@@ -1,4 +1,4 @@
-package com.umangSRTC.thesohankathait.umang.javas.Fragment;
+package com.noticol.thesohankathait.notices.javas.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -31,14 +31,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-import com.umangSRTC.thesohankathait.umang.R;
-import com.umangSRTC.thesohankathait.umang.javas.Adapter.RequestPdfNoticeArrayAdapter;
-import com.umangSRTC.thesohankathait.umang.javas.Utill.Admin;
-import com.umangSRTC.thesohankathait.umang.javas.Utill.Initialisation;
-import com.umangSRTC.thesohankathait.umang.javas.Utill.PdfDownloadTask;
-import com.umangSRTC.thesohankathait.umang.javas.ViewHolders.PdfNoticesViewHolder;
-import com.umangSRTC.thesohankathait.umang.javas.model.NoticeRequest;
-import com.umangSRTC.thesohankathait.umang.javas.model.Notices;
+import com.noticol.thesohankathait.notices.R;
+import com.noticol.thesohankathait.notices.javas.Adapter.RequestPdfNoticeArrayAdapter;
+import com.noticol.thesohankathait.notices.javas.Utill.Admin;
+import com.noticol.thesohankathait.notices.javas.Utill.Initialisation;
+import com.noticol.thesohankathait.notices.javas.Utill.PdfDownloadTask;
+import com.noticol.thesohankathait.notices.javas.ViewHolders.PdfNoticesViewHolder;
+import com.noticol.thesohankathait.notices.javas.model.NoticeRequest;
+import com.noticol.thesohankathait.notices.javas.model.Notices;
 
 import java.util.ArrayList;
 import java.util.UUID;

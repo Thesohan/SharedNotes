@@ -1,10 +1,10 @@
-package com.umangSRTC.thesohankathait.umang.javas.Adapter;
+package com.noticol.thesohankathait.notices.javas.Adapter;
 
 import android.util.Log;
 
-import com.umangSRTC.thesohankathait.umang.javas.Fragment.Notification;
-import com.umangSRTC.thesohankathait.umang.javas.Fragment.Schools;
-import com.umangSRTC.thesohankathait.umang.javas.Fragment.Upload;
+import com.noticol.thesohankathait.notices.javas.Fragment.Notification;
+import com.noticol.thesohankathait.notices.javas.Fragment.Schools;
+import com.noticol.thesohankathait.notices.javas.Fragment.Upload;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;

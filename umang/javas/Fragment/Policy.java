@@ -1,4 +1,4 @@
-package com.umangSRTC.thesohankathait.umang.javas.Fragment;
+package com.noticol.thesohankathait.notices.javas.Fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.umangSRTC.thesohankathait.umang.R;
+import com.noticol.thesohankathait.notices.R;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

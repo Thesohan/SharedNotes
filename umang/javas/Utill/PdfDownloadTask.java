@@ -1,4 +1,4 @@
-package com.umangSRTC.thesohankathait.umang.javas.Utill;
+package com.noticol.thesohankathait.notices.javas.Utill;
 
 import android.app.DownloadManager;
 import android.content.Context;
