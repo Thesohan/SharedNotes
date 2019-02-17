@@ -8,7 +8,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.noticol.thesohankathait.classes.Activity.Search">
+    tools:context="com.shared.thesohankathait.classes.Activity.Search">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"

@@ -1,4 +1,4 @@
-package com.noticol.thesohankathait.notices.javas.Fragment;
+package com.shared.thesohankathait.notices.javas.Fragment;
 
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -24,11 +24,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-import com.noticol.thesohankathait.notices.R;
-import com.noticol.thesohankathait.notices.javas.Activity.Functionality;
-import com.noticol.thesohankathait.notices.javas.Utill.Initialisation;
-import com.noticol.thesohankathait.notices.javas.Utill.Admin;
-import com.noticol.thesohankathait.notices.javas.model.Notices;
+import com.shared.thesohankathait.notices.R;
+import com.shared.thesohankathait.notices.javas.Activity.Functionality;
+import com.shared.thesohankathait.notices.javas.Utill.Initialisation;
+import com.shared.thesohankathait.notices.javas.Utill.Admin;
+import com.shared.thesohankathait.notices.javas.model.Notices;
 
 import java.util.UUID;
 

@@ -1,4 +1,4 @@
-package com.noticol.thesohankathait.notices.javas.model;
+package com.shared.thesohankathait.notices.javas.model;
 
 public class NoticeRequest {
     private String schoolName;

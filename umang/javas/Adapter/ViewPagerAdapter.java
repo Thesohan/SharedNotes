@@ -1,10 +1,10 @@
-package com.noticol.thesohankathait.notices.javas.Adapter;
+package com.shared.thesohankathait.notices.javas.Adapter;
 
 import android.util.Log;
 
-import com.noticol.thesohankathait.notices.javas.Fragment.Notification;
-import com.noticol.thesohankathait.notices.javas.Fragment.Schools;
-import com.noticol.thesohankathait.notices.javas.Fragment.Upload;
+import com.shared.thesohankathait.notices.javas.Fragment.Notification;
+import com.shared.thesohankathait.notices.javas.Fragment.Schools;
+import com.shared.thesohankathait.notices.javas.Fragment.Upload;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;

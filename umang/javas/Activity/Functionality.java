@@ -1,4 +1,4 @@
-package com.noticol.thesohankathait.notices.javas.Activity;
+package com.shared.thesohankathait.notices.javas.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
@@ -12,9 +12,9 @@ import android.view.LayoutInflater;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
-import com.noticol.thesohankathait.notices.R;
-import com.noticol.thesohankathait.notices.javas.Adapter.ViewPagerAdapter;
-import com.noticol.thesohankathait.notices.javas.Utill.Admin;
+import com.shared.thesohankathait.notices.R;
+import com.shared.thesohankathait.notices.javas.Adapter.ViewPagerAdapter;
+import com.shared.thesohankathait.notices.javas.Utill.Admin;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;

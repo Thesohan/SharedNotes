@@ -1,4 +1,4 @@
-package com.noticol.thesohankathait.notices.javas.Utill;
+package com.shared.thesohankathait.notices.javas.Utill;
 
 import android.app.DownloadManager;
 import android.content.Context;

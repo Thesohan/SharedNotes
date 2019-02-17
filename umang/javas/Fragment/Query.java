@@ -1,4 +1,4 @@
-package com.noticol.thesohankathait.notices.javas.Fragment;
+package com.shared.thesohankathait.notices.javas.Fragment;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -19,10 +19,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.noticol.thesohankathait.notices.R;
-import com.noticol.thesohankathait.notices.javas.Utill.Admin;
-import com.noticol.thesohankathait.notices.javas.ViewHolders.QueryViewHolder;
-import com.noticol.thesohankathait.notices.javas.model.Query_model;
+import com.shared.thesohankathait.notices.R;
+import com.shared.thesohankathait.notices.javas.Utill.Admin;
+import com.shared.thesohankathait.notices.javas.ViewHolders.QueryViewHolder;
+import com.shared.thesohankathait.notices.javas.model.Query_model;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;

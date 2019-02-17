@@ -1,4 +1,4 @@
-package com.noticol.thesohankathait.notices.javas.Activity;
+package com.shared.thesohankathait.notices.javas.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -21,10 +21,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
-import com.noticol.thesohankathait.notices.R;
-import com.noticol.thesohankathait.notices.javas.Utill.Admin;
-import com.noticol.thesohankathait.notices.javas.ViewHolders.NoticesViewHolder;
-import com.noticol.thesohankathait.notices.javas.model.Notices;
+import com.shared.thesohankathait.notices.R;
+import com.shared.thesohankathait.notices.javas.Utill.Admin;
+import com.shared.thesohankathait.notices.javas.ViewHolders.NoticesViewHolder;
+import com.shared.thesohankathait.notices.javas.model.Notices;
 
 public class AllNotification extends AppCompatActivity {
 

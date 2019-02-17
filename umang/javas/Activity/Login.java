@@ -1,4 +1,4 @@
-package com.noticol.thesohankathait.notices.javas.Activity;
+package com.shared.thesohankathait.notices.javas.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,9 +38,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.noticol.thesohankathait.notices.R;
-import com.noticol.thesohankathait.notices.javas.Utill.CheckNetwork;
-import com.noticol.thesohankathait.notices.javas.model.User;
+import com.shared.thesohankathait.notices.R;
+import com.shared.thesohankathait.notices.javas.Utill.CheckNetwork;
+import com.shared.thesohankathait.notices.javas.model.User;
 
 public class Login extends AppCompatActivity {
 

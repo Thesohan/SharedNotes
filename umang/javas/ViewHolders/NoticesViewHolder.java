@@ -1,11 +1,11 @@
-package com.noticol.thesohankathait.notices.javas.ViewHolders;
+package com.shared.thesohankathait.notices.javas.ViewHolders;
 
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.noticol.thesohankathait.notices.R;
+import com.shared.thesohankathait.notices.R;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;

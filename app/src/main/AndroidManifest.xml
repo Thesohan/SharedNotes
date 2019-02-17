@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.noticol.thesohankathait.notices">
+    package="com.shared.thesohankathait.notices">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,7 +15,7 @@
         android:required="false" />
 
     <application
-        android:name="com.noticol.thesohankathait.classes.Utill.Initialisation"
+        android:name="com.shared.thesohankathait.classes.Utill.Initialisation"
         android:allowBackup="true"
         android:hardwareAccelerated="false"
         android:icon="@mipmap/ic_launcher"
@@ -24,9 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.noticol.thesohankathait.classes.Activity.Login">
+        <activity android:name="com.shared.thesohankathait.classes.Activity.Login"
             android:configChanges="orientation"
-            android:screenOrientation="portrait"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.noticol.thesohankathait.classes.Activity.Functionality"
+            android:name="com.shared.thesohankathait.classes.Activity.Functionality"
             android:configChanges="orientation"
             android:label="@string/title_activity_functionality"
             android:screenOrientation="portrait"
@@ -63,15 +63,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.noticol.thesohankathait.classes.Activity.AllNotification"
+            android:name="com.shared.thesohankathait.classes.Activity.AllNotification"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
         <activity
-            android:name="com.noticol.thesohankathait.classes.Activity.Features"
+            android:name="com.shared.thesohankathait.classes.Activity.Features"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
 
-        <service android:name="com.noticol.thesohankathait.classes.Firebase.MyFirebaseMessagingService">
+        <service android:name="com.shared.thesohankathait.classes.Firebase.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
@@ -94,13 +94,13 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/notificationChannelId" />
-        //addmob app id
+        <!--//addmob app id-->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/app_admob_id" />
 
-        <activity android:name="com.noticol.thesohankathait.classes.Activity.SelectCollege" />
-        <activity android:name="com.noticol.thesohankathait.classes.Activity.Search"></activity>
+        <activity android:name="com.shared.thesohankathait.classes.Activity.SelectCollege" />
+        <activity android:name="com.shared.thesohankathait.classes.Activity.Search"></activity>
     </application>
 
 </manifest>

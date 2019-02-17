@@ -1,43 +1,35 @@
 {
   "project_info": {
-    "project_number": "705841696281",
-    "firebase_url": "https://umang-309f5.firebaseio.com",
-    "project_id": "umang-309f5",
-    "storage_bucket": "umang-309f5.appspot.com"
+    "project_number": "93785740149",
+    "firebase_url": "https://sharednotice-47455.firebaseio.com",
+    "project_id": "sharednotice-47455",
+    "storage_bucket": "sharednotice-47455.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:705841696281:android:edd36ed8652c30ca",
+        "mobilesdk_app_id": "1:93785740149:android:fea3bdc16ce00786",
         "android_client_info": {
-          "package_name": "com.umangSRTC.thesohankathait.umang"
+          "package_name": "com.shared.thesohankathait.notices"
         }
       },
       "oauth_client": [
         {
-          "client_id": "705841696281-7gsbnnidhi45u4p7hbv0eh4tdl7gusn7.apps.googleusercontent.com",
+          "client_id": "93785740149-qgr3af3lks601vgfquf45rcajlpp7415.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.umangSRTC.thesohankathait.umang",
-            "certificate_hash": "ec7e3db8a1e7cdcc77d25de1f12a2e44c99c6d1f"
+            "package_name": "com.shared.thesohankathait.notices",
+            "certificate_hash": "2742a6fd230a9828b7827c72360548a2f5fbcef2"
           }
         },
         {
-          "client_id": "705841696281-vpa27c2be229n3h4tt2ca002fnp7cf36.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.umangSRTC.thesohankathait.umang",
-            "certificate_hash": "cb2faf56dca8ccbae4c59f7c468e78f26f55e341"
-          }
-        },
-        {
-          "client_id": "705841696281-g0dgccnqvvlpi6jmou7q3thgtg9f69i0.apps.googleusercontent.com",
+          "client_id": "93785740149-4gl5p99csp79fv30s6a6h7jidpedk8nr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCObfDTAyGrwpv0IFFhV7bgr-zTBz5LCzA"
+          "current_key": "AIzaSyAk-j4Dsi5V3NEq5hEATpgjlqo9bPY4eV8"
         }
       ],
       "services": {
@@ -48,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "705841696281-g0dgccnqvvlpi6jmou7q3thgtg9f69i0.apps.googleusercontent.com",
+              "client_id": "93785740149-4gl5p99csp79fv30s6a6h7jidpedk8nr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

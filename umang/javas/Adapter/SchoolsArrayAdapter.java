@@ -1,4 +1,4 @@
-package com.noticol.thesohankathait.notices.javas.Adapter;
+package com.shared.thesohankathait.notices.javas.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.amulyakhare.textdrawable.util.ColorGenerator;
-import com.noticol.thesohankathait.notices.R;
-import com.noticol.thesohankathait.notices.javas.Activity.Features;
+import com.shared.thesohankathait.notices.R;
+import com.shared.thesohankathait.notices.javas.Activity.Features;
 
 import java.util.ArrayList;
 

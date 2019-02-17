@@ -1,4 +1,4 @@
-package com.noticol.thesohankathait.notices.javas.Fragment;
+package com.shared.thesohankathait.notices.javas.Fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -19,12 +19,12 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.noticol.thesohankathait.notices.R;
-import com.noticol.thesohankathait.notices.javas.Activity.AllNotification;
-import com.noticol.thesohankathait.notices.javas.Utill.Initialisation;
-import com.noticol.thesohankathait.notices.javas.Adapter.SchoolsArrayAdapter;
-import com.noticol.thesohankathait.notices.javas.Utill.Admin;
-import com.noticol.thesohankathait.notices.javas.model.User;
+import com.shared.thesohankathait.notices.R;
+import com.shared.thesohankathait.notices.javas.Activity.AllNotification;
+import com.shared.thesohankathait.notices.javas.Utill.Initialisation;
+import com.shared.thesohankathait.notices.javas.Adapter.SchoolsArrayAdapter;
+import com.shared.thesohankathait.notices.javas.Utill.Admin;
+import com.shared.thesohankathait.notices.javas.model.User;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
