@@ -1,6 +1,6 @@
-# umang
-Umang is an information portal for SRTC students;
-This is an information portal of SRTC student, And the main aim of this app is to update its user related to daily happening in the university. Here are some features that this app provides to its users: 
+# SharedNotices
+SharedNotices is an information portal for SRTC students;
+This is an information portal of student, And the main aim of this app is to update its user related to daily happening in the university. Here are some features that this app provides to its users: 
 
 1- Admin/User- Any user can request his post for sharing, once admin allows him, their post will be available for all the users. Apart from this user can ask any query from the admin, and only admin can reply to his query and can modify his answer. The identity of the user is kept separated from other users and admin as well. 
 
@@ -19,6 +19,6 @@ This is an information portal of SRTC student, And the main aim of this app is t
 
 Download this app from playstore via given link-
 
-https://play.google.com/store/apps/details?id=com.umangSRTC.thesohankathait.umang
+https://play.google.com/store/apps/details?id=com.shared.thesohankathait.notices
 
 Suggestions and feedback are most welcome .
