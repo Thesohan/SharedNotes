@@ -15,12 +15,15 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.shared.thesohankathait.classes.Activity.Functionality;
+import com.shared.thesohankathait.classes.Utill.Admin;
 import com.shared.thesohankathait.classes.Utill.Initialisation;
 import com.shared.thesohankathait.notices.R;
 
@@ -98,6 +101,7 @@ public class SelectCollegeFragment extends Fragment implements View.OnClickListe
         sharedPreferences.edit().clear().apply();
 
 
+
     }
 
     private void fetchCollegesFromFirebase() {
@@ -170,6 +174,16 @@ public class SelectCollegeFragment extends Fragment implements View.OnClickListe
                 if(getFragmentManager().getBackStackEntryCount()==0){
                     if(selectedCollege!=null){
                         Toast.makeText(context, ""+selectedCollege, Toast.LENGTH_SHORT).show();
+
+
+                        String finalToken=Initialisation.selectedCollege+"Tokens";
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic(finalToken);
+
+                        if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                            String finalAdminToken=Initialisation.selectedCollege+"AdminToken";
+                            FirebaseMessaging.getInstance().unsubscribeFromTopic(finalAdminToken);
+                        }
+
                         clearOldSharedPreferances();//clearing schools and admin list from shared preferances
 
                         sharedPreferences = context.getSharedPreferences("COLLEGE", MODE_PRIVATE);
@@ -177,6 +191,14 @@ public class SelectCollegeFragment extends Fragment implements View.OnClickListe
                         editor.putString("SELECTEDCOLLEGE",selectedCollege);
                         editor.apply();
                         Initialisation.selectedCollege=selectedCollege;//for the first time when user select the college
+
+                        String newFinalToken=Initialisation.selectedCollege+"Tokens";
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic(newFinalToken);
+
+                        if(Admin.CheckAdmin(FirebaseAuth.getInstance().getCurrentUser().getEmail())){
+                            String finalAdminToken=Initialisation.selectedCollege+"AdminToken";
+                            FirebaseMessaging.getInstance().unsubscribeFromTopic(finalAdminToken);
+                        }
                         moveToFunctionality();
 
                     }

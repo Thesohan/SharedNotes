@@ -23,7 +23,7 @@
                 android:id="@+id/aboutNoticeImageView"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
-                android:src="@drawable/notice" />
+                android:scaleType="center" />
             <Button
                 android:id="@+id/imageDownloadButton"
                 android:textColor="@color/white"

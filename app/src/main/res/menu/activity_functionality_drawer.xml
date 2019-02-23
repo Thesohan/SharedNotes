@@ -44,7 +44,7 @@
             <item
                 android:id="@+id/aboutUmang"
                 android:icon="@drawable/ic_sentiment_very_satisfied_black_24dp"
-                android:title="About Umang"/>
+                android:title="About Us"/>
             <item
                 android:checkable="false"
                 android:id="@+id/share"

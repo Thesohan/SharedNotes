@@ -55,7 +55,7 @@ public class SavedNoticeRecyclerAdapter extends RecyclerView.Adapter<SavedNotice
             Glide.with(context).load(notices.getImageUrl()).into(holder.allNoticeImageView);
         }
         else {
-            Glide.with(context).load(R.drawable.notice).into(holder.allNoticeImageView);
+            Glide.with(context).load(R.drawable.shared_notices).into(holder.allNoticeImageView);
         }
         if(notices.getLink()!=null) {
             holder.linkTextView.setText(notices.getLink());
@@ -83,8 +83,8 @@ public class SavedNoticeRecyclerAdapter extends RecyclerView.Adapter<SavedNotice
         holder.allNoticeSenderTextview.setText(sender);
         holder.allNoticeTitleTextView.setText(notices.getTitle());
 
-        ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
-        holder.allNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
+//        ColorGenerator colorGenerator = ColorGenerator.MATERIAL;//to generate random colors
+//        holder.allNoticeTitleTextView.setTextColor(colorGenerator.getRandomColor());
 
         holder.allNoticeImageView.setOnClickListener(new View.OnClickListener() {
             @Override

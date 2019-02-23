@@ -258,10 +258,10 @@ public class Functionality extends AppCompatActivity
     private void exitAlert() {
         AlertDialog builder=new AlertDialog.Builder(this)
                 .setIcon(R.drawable.ic_launcher)
-                .setTitle("Exit")
+                .setTitle(getString(R.string.exit))
                 .setCancelable(false)
-                .setMessage("Do you realy want to exit")
-                .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                .setMessage(getString(R.string.do_do_really_want_to_exit))
+                .setPositiveButton(getString(R.string.exit), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finish();
@@ -333,7 +333,7 @@ public class Functionality extends AppCompatActivity
             viewPager.setCurrentItem(3,true);
 
         }  else if (id == R.id.share) {
-            shareMyApp("This is an awesome app for student, download the app now: https://play.google.com/store/apps/details?id=com.noticol.thesohankathait.notices");
+            shareMyApp(getString(R.string.app_link));
 
         } else if (id == R.id.feedback) {
             sendFeedbackViaMail();

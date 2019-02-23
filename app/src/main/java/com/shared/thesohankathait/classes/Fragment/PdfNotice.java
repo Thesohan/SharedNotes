@@ -192,7 +192,7 @@ public class PdfNotice extends Fragment {
 
         android.app.AlertDialog builder = new android.app.AlertDialog.Builder(context)
                 .setCancelable(false)
-                .setIcon(R.drawable.ic_launcher)
+                .setIcon(R.drawable.notification_icon)
                 .setMessage("Do you really want to delete this notice?")
                 .setTitle("Delete Notice")
                 .setPositiveButton("Delete", new DialogInterface.OnClickListener() {

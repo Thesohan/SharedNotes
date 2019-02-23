@@ -26,4 +26,8 @@
     <!--used in all notification-->
     <string name="banner_ad_id">ca-app-pub-3834478485267663/3448934508</string>
     <string name="please_fill_this_form_correctly_and_wait_until_you_found_your_college_name_in_the_list_it_may_take_two_or_more_days">Please fill this form correctly and wait until you found your college name in the list.It may take two or more days!</string>
+    <string name="exit">Exit</string>
+    <string name="do_do_really_want_to_exit">Do you realy want to exit</string>
+    <string name="app_link">This is an awesome app for student, download the app now: https://play.google.com/store/apps/details?id=com.shared.thesohankathait.notices</string>
+    <string name="sharednotices">SharedNotices</string>
 </resources>
